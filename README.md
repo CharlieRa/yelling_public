@@ -1,12 +1,12 @@
 # Yelling
 
-## Idea
+### Idea
 
-## Tegnologias a utilizar
+### Tegnologias a utilizar
 
-## Arquitectura
+### Arquitectura
 
-## Contribuidores
+### Contribuidores
 
 Guillermo Labra - Carlos Ramart
  
