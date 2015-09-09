@@ -1,0 +1,26 @@
+<div ng-controller="homeCtrl">
+  <md-content class="md-padding">
+    <form ng-submit="$event.preventDefault()" name="loginForm">
+      <md-whiteframe class="md-whiteframe-z3" layout="column" layout-align="center center">
+        <span>.md-whiteframe-z4</span>
+        <md-input-container flex>
+          <label>Nombre</label>
+           <!-- <md-icon md-svg-icon="social:ic_cake_24px" style="color: #f00;width:60px;height:60px;" ></md-icon> -->
+          <input ng-model="user.name" type="text" required/>
+        </md-input-container>
+        <md-input-container flex>
+          <!-- <md-icon md-svg-src="img/icons/ic_person_24px.svg" class="name"></md-icon> -->
+          <label>Contraseña</label>
+          <input ng-model="user.password" type="password" required/>
+        </md-input-container>
+        <div layout layout-sm="column">
+          <md-button class="md-raised md-primary">Entrar!</md-button>
+          <md-button class="md-raised md-primary">Limpiar</md-button>
+        </div>
+      </md-whiteframe>
+      <!-- <fb:login-button show-faces="true" max-rows="1" size="large"></fb:login-button> -->
+        <button ng-click="logout()">Logout</button>
+        <button ng-click="fblogin()">FB Login</button>
+    </form>
+  </md-content>
+</div>

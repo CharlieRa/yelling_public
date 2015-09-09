@@ -1,0 +1,39 @@
+<div ng-controller="View1Ctrl as ctrl" layout="column">
+  <md-content class="md-padding">
+    <form ng-submit="$event.preventDefault()" name="searchForm">
+      <!-- <p>The following example demonstrates floating labels being used as a normal form element.</p> -->
+      <div layout="row" layout-margin layout-fill layout-padding>
+        <md-whiteframe class="md-whiteframe-z5" layout layout-align="center center" style="width:100%;">
+          <md-whiteframe class="md-whiteframe-z3" layout layout-align="center center" style="width:80%;">
+            <span>.md-whiteframe-z4</span>
+          </md-whiteframe>
+        </md-whiteframe>
+      </div>
+      <div layout-gt-sm="row">
+        <md-input-container flex>
+          <label>Mensaje</label>
+          <input type="text"/>
+        </md-input-container>
+        <!-- <md-autocomplete flex required
+            md-input-name="autocompleteField"
+            md-input-minlength="2"
+            md-input-maxlength="18"
+            md-no-cache="ctrl.noCache"
+            md-selected-item="ctrl.selectedItem"
+            md-search-text="ctrl.searchText"
+            md-items="item in ctrl.querySearch(ctrl.searchText)"
+            md-item-text="item.display"
+            md-floating-label="Favorite state">
+          <md-item-template>
+            <span md-highlight-text="ctrl.searchText">{{item.display}}</span>
+          </md-item-template>
+          <div ng-messages="searchForm.autocompleteField.$error" ng-if="searchForm.autocompleteField.$touched">
+            <div ng-message="required">You <b>must</b> have a favorite state.</div>
+            <div ng-message="minlength">Your entry is not long enough.</div>
+            <div ng-message="maxlength">Your entry is too long.</div>
+          </div>
+        </md-autocomplete> -->
+      </div>
+    </form>
+  </md-content>
+</div>
