@@ -24,12 +24,23 @@ angular
         FB.login(function (response) {
           if (response.status === 'connected') {
             // You can now do what you want with the data fb gave you.
-            console.info(response);
+            console.info(response.authResponse);
+            FB.api('/me', {fields: 'gender, locale, first_name'}, function(response) {
+              console.log(response);
+            });
+            // console.info(response.email);
+            // console.info(response.user_likes);
+            // console.info(response.authResponse);
+            // console.info(response.scope);
           }
+        }, {
+          scope: 'public_profile,email,user_likes',
+          return_scopes: true
         });
       }
 
       srvAuth.watchLoginChange = function() {
+        // console.log("lala");
         var _self = this;
         FB.Event.subscribe('auth.authResponseChange', function(res)
         {

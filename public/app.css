@@ -28,3 +28,18 @@
   content: "";
   padding: 0;
 }
+
+.form md-whiteframe {
+  background: #fff;
+  margin: 20px;
+  padding: 20px;
+  width: 50%;
+}
+.fbBtn{
+  width: 30%;
+  background-color:rgb(59, 89, 152) !important;
+  /*text-align:left;*/
+}
+#fbText{
+  vertical-align: sub;
+}
