@@ -1,9 +1,7 @@
 'use strict';
   angular
-      .module('yell.home', ['ngMaterial', 'ngMessages', 'ngRoute'])
-      // .config(
-      //   ['$routeProvider', function($routeProvider,$mdIconProvider)
-      .config(function($routeProvider,$mdIconProvider)
+      .module('yelling.home', ['ngMaterial', 'ngMessages', 'ngRoute'])
+      .config(function($routeProvider,$mdIconProvider, $locationProvider)
           {
             $routeProvider.when('/home', {
               templateUrl: 'home/home.html',
@@ -54,58 +52,46 @@
           ref.parentNode.insertBefore(js, ref);
         }(document));
       }]);
-  function homeCtrl ($scope, $timeout, $q,srvAuth)
+  function homeCtrl ($scope, srvAuth, $location)
   {
-    $scope.logout = function() {
+  if (navigator.geolocation)
+  {
+   navigator.geolocation.getCurrentPosition(function(position)
+   {
+     $scope.$apply(function()
+     {
+       $scope.position = position;
+     });
+    });
+  }
+    $scope.logout = function()
+    {
       console.log("lala");
       srvAuth.logout();
     }
-    $scope.fblogin = function() {
+    $scope.fblogin = function()
+    {
       console.log("lala2");
       srvAuth.fblogin();
     }
-    // var self = this;
-    // list of `state` value/display objects
-    // self.states        = loadAll();
-    // self.selectedItem  = null;
-    // self.searchText    = null;
-    // self.querySearch   = querySearch;
-    // ******************************
-    // Internal methods
-    // ******************************
-    /**
-     * Search for states... use $timeout to simulate
-     * remote dataservice call.
-     */
-    // function querySearch (query) {
-    //   var results = query ? self.states.filter( createFilterFor(query) ) : [];
-    //   return results;
-    // }
-    /**
-     * Build `states` list of key/value pairs
-     */
-    // function loadAll() {
-    //   var allStates = 'Alabama, Alaska, Arizona, Arkansas, California, Colorado, Connecticut, Delaware,\
-    //           Florida, Georgia, Hawaii, Idaho, Illinois, Indiana, Iowa, Kansas, Kentucky, Louisiana,\
-    //           Maine, Maryland, Massachusetts, Michigan, Minnesota, Mississippi, Missouri, Montana,\
-    //           Nebraska, Nevada, New Hampshire, New Jersey, New Mexico, New York, North Carolina,\
-    //           North Dakota, Ohio, Oklahoma, Oregon, Pennsylvania, Rhode Island, South Carolina,\
-    //           South Dakota, Tennessee, Texas, Utah, Vermont, Virginia, Washington, West Virginia,\
-    //           Wisconsin, Wyoming';
-    //   return allStates.split(/, +/g).map( function (state) {
-    //     return {
-    //       value: state.toLowerCase(),
-    //       display: state
-    //     };
-    //   });
-    // }
-    /**
-     * Create filter function for a query string
-     */
-    // function createFilterFor(query) {
-    //   var lowercaseQuery = angular.lowercase(query);
-    //   return function filterFn(state) {
-    //     return (state.value.indexOf(lowercaseQuery) === 0);
-    //   };
-    // }
+    $scope.resetForm = function()
+    {
+      var defaultForm = {
+             email : "",
+             password : ""
+         };
+      $scope.loginForm.$setPristine();
+      $scope.user = defaultForm;
+    }
+    $scope.loginAuth = function()
+    {
+      var email = $scope.user.email;
+      var pass = $scope.user.password;
+      console.log("User: "+ email);
+      console.log("Pass: "+ pass);
+      if(email == "charlie")
+        $location.path("/messages");
+      else
+        console.log("No tiene acceso");
+    }
 }

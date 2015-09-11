@@ -2,20 +2,18 @@
 
 // Declare app level module which depends on views, and components
 angular
-.module('yell',
+.module('yelling',
   [
     'ngRoute',
-    'yell.home',
-    'yell.view1',
-    'yell.view2',
-    'yell.version'
+    'yelling.home',
+    'yelling.messages',
+    'yelling.perfil'
+    // 'yelling.version'
   ])
 .config(['$routeProvider', function($routeProvider)
   {
     $routeProvider.otherwise({redirectTo: '/home'});
   }])
-// angular
-// .module('fbAuth')
 .factory("srvAuth", ['$rootScope',
     function($rootScope) {
       var srvAuth = {};

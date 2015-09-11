@@ -43,3 +43,12 @@
 #fbText{
   vertical-align: sub;
 }
+#titleApp{
+  color: #FFA000;
+}
+#titleY{
+  color: #5C6BC0;
+}
+.home md-icon{
+  margin: 0;
+}

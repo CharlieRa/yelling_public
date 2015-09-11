@@ -1,0 +1,30 @@
+<div ng-controller="messagesCtrl as ctrl" layout="column">
+  <md-content class="md-padding">
+    <form ng-submit="$event.preventDefault()" name="formNewMessage">
+      <!-- <p>The following example demonstrates floating labels being used as a normal form element.</p> -->
+      <div layout="row" layout-margin layout-fill layout-padding>
+        <md-whiteframe class="md-whiteframe-z5" layout="column" layout-align="center center" style="width:100%;">
+          <md-toolbar class="md-primary">
+            <div class="md-toolbar-tools">
+              <h2 class="md-flex">Toolbar: md-warn</h2>
+            </div>
+         </md-toolbar>
+         <md-content layout-padding style="height: 300px;padding: 24px;">
+            <div ng-repeat="message in messages">{{message.text}}</div>
+         </md-content>
+          <!-- <md-whiteframe class="md-whiteframe-z3" layout layout-align="center center" style="width:80%;">
+          </md-whiteframe> -->
+        </md-whiteframe>
+      </div>
+      <div layout-gt-sm="row">
+        <md-input-container flex>
+          <label>Mensaje</label>
+          <input ng-model="messages.newMessage" type="text"/>
+        </md-input-container>
+        <md-button ng-click="sendMessage()" class="md-fab md-primary" aria-label="Send">
+           <md-icon md-svg-src="img/icons/send.svg"></md-icon>
+       </md-button>
+      </div>
+    </form>
+  </md-content>
+</div>
