@@ -52,3 +52,70 @@
 .home md-icon{
   margin: 0;
 }
+
+.bubble-container{
+	/*display:block;
+	clear: both;*/
+	/*position:relative;*/
+	margin-bottom:10px;
+	min-height: 53px;
+}
+
+.bubble{
+	padding: 13px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	background: rgba(255, 255, 255, 0.95);
+	color: #575858;
+	box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+  /*position :absolute;*/
+  /*float: left;*/
+}
+#chatBox{
+  width:100%;
+  background: #00ff00 url('img/backgrounds/bg5.gif') repeat;
+  min-height: 200px;
+  max-height: 500px;
+  height: 400px;
+  position:relative;
+  /*overflow: visible;*/
+  overflow: auto;
+}
+#chatInput{
+  padding: 13px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	background: rgba(255, 255, 255, 0.9);
+	color: #575858;
+	box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+  margin-top: 7px;
+  -webkit-order: 0;
+  -ms-flex-order: 0;
+   order: 0; ;
+  line-height: 21px;
+}
+.md-avatar{
+  width: 48px;
+  margin: 16px;
+  border-radius: 48px;
+  /*border: 1px solid #ddd;*/
+}
+/* Positionning of the avatar and the bubble */
+.avatar-left{
+	float: left;
+	width: 50px;
+}
+
+.bubble-left{
+  float: left;
+}
+
+.avatar-right{
+	float: right;
+	width: 50px;
+}
+.bubble-right{
+	float: right;
+}

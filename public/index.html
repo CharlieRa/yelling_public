@@ -2,44 +2,42 @@
 <!--[if lt IE 7]>      <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html lang="en" ng-app="yelling" class="no-js"> <!--<![endif]-->
+<!--[if gt IE 8]><!-->
+<html lang="en" ng-app="yelling" class="no-js"> <!--<![endif]-->
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>My AngularJS App</title>
+  <title>Yelling!</title>
   <meta name="description" content="">
+  <script src="https://code.jquery.com/jquery-1.11.3.min.js" type="application/javascript"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/normalize.css">
   <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/main.css">
   <link rel="stylesheet" href="bower_components/angular-material/angular-material.min.css">
+  <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="app.css">
-  <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
 <body>
-  <md-toolbar layout="row">
+  <md-toolbar layout="row" style="background-color: #4CAF50">
     <div class="md-toolbar-tools">
-      <md-button ng-click="toggleSidenav('left')" hide-gt-sm class="md-icon-button">
-            <md-icon aria-label="Menu" md-svg-icon="https://s3-us-west-2.amazonaws.com/s.cdpn.io/68133/menu.svg"></md-icon>
-          </md-button>
-          <h1>Menu</h1>
-        </div>
-      </md-toolbar>
-      <!-- <md-subheader class="md-primary">Bienvenido Carlos</md-subheader> -->
-      </div>
-  <!-- <ul class="menu">
-    <li><a href="#/view1">view1</a></li>
-    <li><a href="#/view2">view2</a></li>
-  </ul> -->
-
+      <md-button ng-click="toggleSidenav('left')" class="md-icon-button" aria-label="Settings">
+        <md-icon md-svg-src="img/icons/ic_menu_24px.svg"></md-icon>
+      </md-button>
+      <h2>Menu</h2>
+      <span flex></span>
+            <h3>Username</h3>
+      <md-button aria-label="Favorite">
+        <!-- <img ng-src="{{user.avatar}}" alt="{{user.name}}" class="md-avatar"> -->
+        <img src="img/avatar.jpg" class="md-avatar">
+      </md-button>
+    </div>
+  </md-toolbar>
   <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
   <![endif]-->
-
   <div ng-view></div>
-
   <!-- <div>Angular seed app: v<span app-version></span></div> -->
-
   <!-- In production use:
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
   -->
@@ -56,6 +54,6 @@
   <!-- // <script src="components/version/version.js"></script>
   // <script src="components/version/version-directive.js"></script>
   // <script src="components/version/interpolate-filter.js"></script> -->
-  <div id="fb-root"></div>
+  <!-- <div id="fb-root"></div> -->
 </body>
 </html>
