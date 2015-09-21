@@ -1,5 +1,4 @@
 'use strict';
-
 // Declare app level module which depends on views, and components
 angular
 .module('yelling',
@@ -10,10 +9,56 @@ angular
     'yelling.perfil'
     // 'yelling.version'
   ])
-.config(['$routeProvider', function($routeProvider)
+.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider)
   {
     $routeProvider.otherwise({redirectTo: '/home'});
+    // $locationProvider.html5Mode({
+    //   enabled: false,
+    //   requireBase: false
+    // });
   }])
+.controller('mainCtrl', function($scope,  $mdSidenav, $mdDialog, $mdUtil, $timeout, $log)
+{
+  var originatorEv;
+   this.openMenu = function($mdOpenMenu, ev)
+   {
+     originatorEv = ev;
+     $mdOpenMenu(ev);
+   };
+   /* Abre un alert message */
+   this.redial = function()
+   {
+     $mdDialog.show(
+       $mdDialog.alert()
+         .targetEvent(originatorEv)
+         .clickOutsideToClose(true)
+         .parent('body')
+         .title('Suddenly, a redial')
+         .content('You just called a friend; who told you the most amazing story. Have a cookie!')
+         .ok('That was easy')
+     );
+     originatorEv = null;
+   };
+
+  this.togglePerfil = function()
+  {
+      $mdSidenav('left')
+        .toggle()
+        .then(function ()
+        {
+          $log.debug("toggle " + 'left' + " is done");
+        });
+    };
+  this.closeSidenav = function ()
+  {
+    $mdSidenav('left')
+      .toggle()
+      .then(function ()
+      {
+        $log.debug("close LEFT is done");
+      });
+  };
+})
 .factory("srvAuth", ['$rootScope',
     function($rootScope) {
       var srvAuth = {};
@@ -38,7 +83,6 @@ angular
       }
 
       srvAuth.watchLoginChange = function() {
-        // console.log("lala");
         var _self = this;
         FB.Event.subscribe('auth.authResponseChange', function(res)
         {

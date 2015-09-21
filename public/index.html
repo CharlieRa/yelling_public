@@ -18,21 +18,70 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="app.css">
 </head>
-<body>
-  <md-toolbar layout="row" style="background-color: #4CAF50">
+<body ng-controller="mainCtrl as ctrl">
+  <md-toolbar layout="row" class="primaryBgColor">
     <div class="md-toolbar-tools">
-      <md-button ng-click="toggleSidenav('left')" class="md-icon-button" aria-label="Settings">
+      <md-button ng-click="ctrl.togglePerfil()" class="md-icon-button" aria-label="Menu">
         <md-icon md-svg-src="img/icons/ic_menu_24px.svg"></md-icon>
       </md-button>
       <h2>Menu</h2>
       <span flex></span>
-            <h3>Username</h3>
-      <md-button aria-label="Favorite">
+      <md-menu>
+        <md-button aria-label="Perfil Menu" ng-mouseenter="ctrl.openMenu($mdOpenMenu, $event)">
+          <img src="img/avatar.jpg" class="md-avatar" id="menuAvatar">
+        </md-button>
+        <md-menu-content width="4">
+          <md-menu-item>
+            <md-button ng-click="ctrl.redial($event)">
+              <md-icon md-svg-icon="img/icons/ic_person_outline_24px.svg" md-menu-align-target></md-icon>
+              Cerrar Sesión
+            </md-button>
+          </md-menu-item>
+          <!-- <md-menu-divider></md-menu-divider> -->
+        </md-menu-content>
+      </md-menu>
+      <!-- <h3>Username</h3> -->
+      <!-- <md-button aria-label="Favorite"> -->
         <!-- <img ng-src="{{user.avatar}}" alt="{{user.name}}" class="md-avatar"> -->
-        <img src="img/avatar.jpg" class="md-avatar">
-      </md-button>
+        <!-- <img src="img/avatar.jpg" class="md-avatar"> -->
+      <!-- </md-button> -->
     </div>
   </md-toolbar>
+  <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left">
+    <md-toolbar class="primaryBgColor">
+      <h1 class="md-toolbar-tools">Perfil</h1>
+    </md-toolbar>
+    <md-content layout-padding layout="column">
+      <md-button layout-align="center center">
+        <img src="img/avatar.jpg" class="md-avatar" id="avatarSidenav">
+      </md-button>
+      <md-divider felx="100"></md-divider>
+      <md-button ng-click="">
+        <md-icon md-svg-icon="img/icons/ic_person_outline_24px.svg"></md-icon>
+        Configurar Cuenta
+      </md-button>
+      <md-button ng-click="">
+        <md-icon md-svg-icon="img/icons/ic_person_outline_24px.svg"></md-icon>
+        Configurar Cuenta
+      </md-button>
+      <md-button ng-click="">
+        <md-icon md-svg-icon="img/icons/ic_person_outline_24px.svg"></md-icon>
+        Configurar Cuenta
+      </md-button>
+      <!-- <div layout>
+        <div flex="10" layout layout-align="center center">
+          <span class="md-body-1">R</span>
+        </div>
+        <md-slider flex min="0" max="255" ng-model="color.red" aria-label="red" id="red-slider" class></md-slider>
+        <div flex="20" layout layout-align="center center">
+          <input flex type="number" ng-model="color.red" aria-label="red" aria-controls="red-slider">
+        </div>
+      </div> -->
+      <md-button ng-click="ctrl.closeSidenav()" class="md-primary">
+        Cerrar
+      </md-button>
+    </md-content>
+  </md-sidenav>
   <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
   <![endif]-->

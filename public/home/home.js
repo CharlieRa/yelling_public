@@ -1,13 +1,12 @@
 'use strict';
   angular
       .module('yelling.home', ['ngMaterial', 'ngMessages', 'ngRoute'])
-      .config(function($routeProvider,$mdIconProvider, $locationProvider)
+      .config(function($routeProvider, $locationProvider)
           {
             $routeProvider.when('/home', {
               templateUrl: 'home/home.html',
               controller: 'homeCtrl'
             });
-            $mdIconProvider.iconSet('social', 'bower_components/material-design-icons/sprites/svg-sprite/svg-sprite-social.svg');
           }
         )
       .controller('homeCtrl', homeCtrl)
