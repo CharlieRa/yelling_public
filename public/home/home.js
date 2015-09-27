@@ -65,32 +65,30 @@
   }
     $scope.logout = function()
     {
-      console.log("lala");
       srvAuth.logout();
     }
     $scope.fblogin = function()
     {
-      console.log("lala2");
       srvAuth.fblogin();
     }
-    $scope.resetForm = function()
-    {
-      var defaultForm = {
-             email : "",
-             password : ""
-         };
-      $scope.loginForm.$setPristine();
-      $scope.user = defaultForm;
-    }
-    $scope.loginAuth = function()
-    {
-      var email = $scope.user.email;
-      var pass = $scope.user.password;
-      console.log("User: "+ email);
-      console.log("Pass: "+ pass);
-      if(email == "charlie")
-        $location.path("/messages");
-      else
-        console.log("No tiene acceso");
-    }
+    // $scope.resetForm = function()
+    // {
+    //   var defaultForm = {
+    //          email : "",
+    //          password : ""
+    //      };
+    //   $scope.loginForm.$setPristine();
+    //   $scope.user = defaultForm;
+    // }
+    // $scope.loginAuth = function()
+    // {
+    //   var email = $scope.user.email;
+    //   var pass = $scope.user.password;
+    //   console.log("User: "+ email);
+    //   console.log("Pass: "+ pass);
+    //   if(email == "charlie")
+    //     $location.path("/messages");
+    //   else
+    //     console.log("No tiene acceso");
+    // }
 }

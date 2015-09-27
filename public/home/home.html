@@ -1,36 +1,13 @@
-<div class="home"ng-controller="homeCtrl">
-  <md-content class="md-padding">
-    <form ng-submit="$event.preventDefault()" name="loginForm" class="form" layout="column" layout-sm="column" layout-align="center center">
-      <!-- <div layout="" layout-sm="column" class="layout layout-sm layout-sm-column" layout-align="center center"> -->
-        <md-whiteframe class="md-whiteframe-z4" layout="column" layout-sm="column" layout-align="center center" layout-fill>
-          <h1>Bienvenido A <span id="titleApp">Yelling</span></h1>
-           <!-- <span>.md-whiteframe-z4</span> -->
-          <!-- Username input -->
-          <div layout="row" layout-align="center center" layout-fill>
-            <md-icon flex="5" md-svg-src="img/icons/ic_account_box_24px.svg"></md-icon>
-            <md-input-container  flex="80" class="md-default-theme md-input-has-value">
-              <label>Email</label>
-              <input ng-model="user.email" type="text" class="ng-pristine ng-untouched ng-valid md-input" required/>
-            </md-input-container>
-          </div>
-          <!-- Password input  -->
-          <div layout="row" layout-align="center center" layout-fill>
-            <md-icon flex="5" md-svg-src="img/icons/ic_vpn_key_24px.svg"></md-icon>
-            <md-input-container flex="80" class="md-default-theme md-input-has-value">
-              <label>Contraseña</label>
-              <input ng-model="user.password" type="password" class="ng-pristine ng-untouched ng-valid md-input" required/>
-            </md-input-container>
-          </div>
-          <!-- Form buttons  -->
-          <div layout="row" layout-sm="column">
-            <md-button ng-click="loginAuth()" class="md-raised md-primary">Entrar!</md-button>
-            <md-button ng-click="resetForm()" class="md-raised md-primary">Limpiar</md-button>
-          </div>
-        </form>
-          <md-button ng-click="fblogin()" class="md-raised md-primary fbBtn" layout="row" layout-align="center center">
-            <md-icon class="md-12" md-svg-icon="img/icons/fb.svg"></md-icon>
-            <span id="fbText">Facebook Login!</span>
-          </md-button>
-         </md-whiteframe>
-  </md-content>
+<div class="home" ng-controller="homeCtrl" style="height:100%">
+  <div layout="row" layout-align="center center" layout-wrap layout-padding>
+    <md-whiteframe class="md-whiteframe-z5" flex="40" layout="column" layout-sm="column" layout-align="center center" >
+      <h1 flex>Bienvenido A <span id="titleApp">Yelling</span></h1>
+      <div flex><img id="mainLogo" src="../img/logos/mainLogo2.png" alt=""></div>
+      <h4 flex>Web application for public messaging by zone.</h4>
+      <md-button ng-click="fblogin()" class="md-raised md-primary fbBtn" layout="row" layout-align="center center" flex>
+        <md-icon class="md-12" md-svg-icon="img/icons/fb.svg"></md-icon>
+        <span id="fbText">Facebook Login!</span>
+      </md-button>
+    </md-whiteframe>
+  </div>
 </div>

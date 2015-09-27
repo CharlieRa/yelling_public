@@ -1,21 +1,36 @@
-<md-content ng-controller="messagesCtrl as ctrl" layout="column" class="md-padding">
-  <form ng-submit="$event.preventDefault()" name="formNewMessage">
-    <!-- <div layout="row" layout-margin layout-fill layout-padding> -->
-    <md-whiteframe id="chatBox" class="md-whiteframe-z5" layout="column" layout-padding  scroll-bottom="messages">
-      <div class="bubble-container" ng-repeat="message in messages">
-         <div class="avatar avatar-{{message.side}}">
-           <img src="img/avatar.jpg" alt="">
-         </div>
-        <div class="bubble bubble-{{message.side}}">{{message.text}}</div>
-      </div>
-    </md-whiteframe>
-    <div layout="row">
-      <md-input-container flex>
-        <input ng-model="messages.newMessage" type="text" id="chatInput" md-maxlength="200" aria-label="New Message"/>
-      </md-input-container>
-      <md-button ng-click="sendMessage()" class="md-fab md-primary" aria-label="Send">
-        <md-icon md-svg-src="img/icons/send.svg"></md-icon>
-      </md-button>
+<div class="messages" ng-controller="messagesCtrl as ctrl" layout="column" layout-padding layout-align="center center">
+  <md-whiteframe id="chatBox" class="md-whiteframe-z5" scroll-bottom="messages" layout="column" layout-align="start center">
+    <div class="message-container" ng-repeat="message in messages" layout="column" layout-align="start center">
+      <md-whiteframe id="messageBox" class="md-whiteframe-z3" layout="column" layout-padding>
+        <div flex="100" id="messageHead" layout="row">
+          <span id="username" class="md-caption">Carlos_ramart</span>
+        </div>
+        <!-- <md-divider ></md-divider> -->
+        <div flex="100" id="messageBody" layout="row" layout-align="start center">
+          <div class="avatar avatar-{{message.side}}">
+            <img src="img/avatar.jpg" alt="">
+          </div>
+          <div>
+            {{message.text}}
+          </div>
+        </div>
+        <!-- <md-divider ></md-divider> -->
+        <div flex="100" id="messageFooter" layout="row" layout-align="space-around center">
+          <span class="md-caption">Location -33.4044073,-70.6276278</span>
+          <span class="md-caption">Radio 1.000 metros</span>
+          <span class="md-caption">Santiago</span>
+        </div>
+      </md-whiteframe>
+    </div>
+  </md-whiteframe>
+    <form ng-submit="$event.preventDefault()" name="formNewMessage">
+      <div layout="row">
+        <md-input-container flex>
+          <input ng-model="messages.newMessage" type="text" id="chatInput" md-maxlength="200" aria-label="New Message"/>
+        </md-input-container>
+        <md-button ng-click="sendMessage()" class="md-fab md-primary" aria-label="Send">
+          <md-icon md-svg-src="img/icons/send.svg"></md-icon>
+        </md-button>
     </div>
   </form>
-</md-content>
+</div>

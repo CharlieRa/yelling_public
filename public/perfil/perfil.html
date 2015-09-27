@@ -1,5 +1,11 @@
-<p>This is the partial for view 2.</p>
-<p>
-  Showing of 'interpolate' filter:
-  {{ 'Current version is v%VERSION%.' | interpolate }}
-</p>
+<div class="perfil" ng-controller="perfilCtrl" style="height:100%">
+  <md-whiteframe class="md-whiteframe-z5" layout="column" layout-sm="column" layout-align="center center" >
+    <h1 flex>Bienvenido A <span id="titleApp">Yelling</span></h1>
+    <div flex><img id="mainLogo" src="../img/logos/mainLogo2.png" alt=""></div>
+    <h4 flex>Web application for public messaging by zone.</h4>
+    <md-button ng-click="fblogin()" class="md-raised md-primary fbBtn" layout="row" layout-align="center center" flex>
+      <md-icon class="md-12" md-svg-icon="img/icons/fb.svg"></md-icon>
+      <span id="fbText">Facebook Login!</span>
+    </md-button>
+  </md-whiteframe>
+</div>

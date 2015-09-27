@@ -179,8 +179,8 @@
 }
 
 .avatar,.avatar img{
-	width: 40px;
-	height: 40px;
+	width: 45px;
+	height: 45px;
 	-webkit-border-radius: 30px; /* Saf3+, Chrome */
 	border-radius: 30px; /* Opera 10.5, IE 9 */
 }
@@ -212,4 +212,34 @@
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
+}
+img#mainLogo{
+	border-radius: 20%;
+}
+.home md-whiteframe{
+  margin: 30px;
+  background-color: white;
+}
+.messages md-whiteframe{
+  background-color: white;
+  word-wrap: break-word;
+}
+.messages md-whiteframe #messageFooter{
+  padding: 0px;
+  color: rgba(0,0,0,0.54);
+}
+.messages md-whiteframe #messageHead{
+  padding: 0px;
+  /*color: rgba(0,0,0,0.54);*/
+}
+.messages md-whiteframe #messageBox{
+  margin: 3px;
+  width: 50%;
+  word-wrap: break-word;
+}
+.messages md-whiteframe #messageBody{
+  margin: 3px;
+}
+.messages .message-container{
+  width: 100%;
 }
