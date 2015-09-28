@@ -1,14 +1,22 @@
 <div class="perfil" ng-controller="perfilCtrl">
   <md-whiteframe class="md-whiteframe-z5" layout="column" layout-sm="column" layout-align="center center" layout-wrap>
     <h1 flex>Configuración de Perfil</h1>
-    <img src="img/avatar.jpg" alt="" style="border-radius:50%;">
+    <div ng-click="changeAvatar()" class="image-container">
+      <img src="img/avatar.jpg" alt="" style="border-radius:50%;">
+      <div class="after" layout="row" layout-align="center center">
+        <md-icon  ng-style="{'font-size': '48px', height:'48px'}" flex id="searchAvatar" md-svg-icon="../img/icons/ic_search_white_48px.svg"></md-icon>
+      </div>
+    </div>
     <md-card style="width:25%;">
       <md-card-content style="padding:10px;">
         <h2 class="md-caption">Username</h2>
         <md-divider></md-divider>
         <div layout="row" layout-wrap layout-align="center center">
-          <span flex>Carlos</span>
-          <md-button class="md-icon-button md-primary" aria-label="Edit">
+          <md-input-container ng-hide="toggle.username" md-no-float flex>
+            <input ng-model="user.username" type="text" placeholder="Nickname">
+          </md-input-container>
+          <span ng-show="toggle.username" flex>{{user.username}}</span>
+          <md-button ng-click="toggle.username=!toggle.username" class="md-icon-button md-primary" aria-label="Edit">
             <md-icon md-svg-icon="../img/icons/ic_mode_edit_24px.svg"></md-icon>
           </md-button>
         </div>
@@ -16,31 +24,74 @@
     </md-card>
     <div layout="row" layout-align="space-around center">
       <div layout="column">
-        <h3 class="md-subhead">Radio de escucha de mensajes</h3>
-        <div layout>
-          <md-slider flex min="5" max="1000" ng-model="color.red" aria-label="radio"></md-slider>
-          <div flex="20" layout layout-align="center center">
-            <input flex type="number" ng-model="color.red" aria-label="red" aria-controls="red-slider">
-            <div flex="10" layout layout-align="center center">
-              <span class="md-body-1">R</span>
+        <md-card>
+          <md-card-content style="padding:10px;">
+            <h2 class="md-caption">Email</h2>
+            <md-divider></md-divider>
+            <div layout="row" layout-wrap layout-align="center center">
+              <md-input-container ng-hide="toggle.email" md-no-float flex>
+                <input ng-model="user.email" type="text" placeholder="Email">
+              </md-input-container>
+              <span ng-show="toggle.email" flex>{{user.email}}</span>
+              <md-button ng-click="toggle.email=!toggle.email" class="md-icon-button md-primary" aria-label="Edit">
+                <md-icon md-svg-icon="../img/icons/ic_mode_edit_24px.svg"></md-icon>
+              </md-button>
             </div>
-          </div>
-        </div>
-        <md-input-container md-no-float>
-          <input ng-model="user.username" placeholder="placeholder">
-        </md-input-container>
+          </md-card-content>
+        </md-card>
+        <md-card>
+          <md-card-content style="padding:10px;">
+            <h2 class="md-caption">Radio de visaulización</h2>
+            <md-divider></md-divider>
+            <div layout="row" layout-wrap layout-align="center center">
+              <div layout ng-hide="toggle.range">
+                <md-slider class="md-primary" flex min="5" max="1000" ng-model="user.range" aria-label="radius"></md-slider>
+                <div flex="30" layout layout-align="center center">
+                  <input flex type="number" ng-model="user.range" aria-label="radius" aria-controls="radius">
+                </div>
+              </div>
+              <span ng-show="toggle.range" flex>{{user.range}} metros</span>
+              <md-button ng-click="toggle.range=!toggle.range" class="md-icon-button md-primary" aria-label="Edit">
+                <md-icon md-svg-icon="../img/icons/ic_mode_edit_24px.svg"></md-icon>
+              </md-button>
+            </div>
+          </md-card-content>
+        </md-card>
       </div>
       <div layout="column">
-        <md-input-container md-no-float>
-          <input ng-model="user.username" placeholder="placeholder">
-        </md-input-container>
-        <md-input-container md-no-float>
-          <input ng-model="user.username"placeholder="placeholder">
-        </md-input-container>
+        <md-card>
+          <md-card-content style="padding:10px;">
+            <h2 class="md-caption">Sexo</h2>
+            <md-divider></md-divider>
+            <div layout="row" layout-wrap layout-align="center center">
+              <md-input-container ng-hide="toggle.gender" md-no-float flex>
+                <input ng-model="user.gender" type="text" placeholder="Sexo">
+              </md-input-container>
+              <span ng-show="toggle.gender" flex>{{user.gender}}</span>
+              <md-button ng-click="toggle.gender=!toggle.gender" class="md-icon-button md-primary" aria-label="Edit">
+                <md-icon md-svg-icon="../img/icons/ic_mode_edit_24px.svg"></md-icon>
+              </md-button>
+            </div>
+          </md-card-content>
+        </md-card>
+        <md-card>
+          <md-card-content style="padding:10px;">
+            <h2 class="md-caption">Edad</h2>
+            <md-divider></md-divider>
+            <div layout="row" layout-wrap layout-align="center center">
+              <md-input-container ng-hide="toggle.age" md-no-float flex>
+                <input ng-model="user.age" type="number" placeholder="Edad">
+              </md-input-container>
+              <span ng-show="toggle.age" flex>{{user.age}}</span>
+              <md-button ng-click="toggle.age=!toggle.age" class="md-icon-button md-primary" aria-label="Edit">
+                <md-icon md-svg-icon="../img/icons/ic_mode_edit_24px.svg"></md-icon>
+              </md-button>
+            </div>
+          </md-card-content>
+        </md-card>
       </div>
     </div>
-    <md-input-container md-no-float>
-      <!-- <md-icon md-svg-src="img/icons/ic_email_24px.svg" class="email"></md-icon> -->
-      <input ng-model="user.email" type="email" placeholder="Email (requerido)" ng-required="true">
-    </md-input-container>
+    <div layout="row" layout-wrap>
+      <md-button class="md-raised md-primary">Guardar Cambios</md-button>
+    </div>
   </md-whiteframe>
