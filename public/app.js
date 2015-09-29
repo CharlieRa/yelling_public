@@ -6,7 +6,8 @@ angular
     'ngRoute',
     'yelling.home',
     'yelling.messages',
-    'yelling.perfil'
+    'yelling.perfil',
+    'btford.socket-io',
     // 'yelling.version'
   ])
 .config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider)
@@ -109,4 +110,9 @@ angular
       }
       return srvAuth;
     }
-  ]);
+  ]).
+factory('mySocket', function (socketFactory) {
+  var mySocket = socketFactory();
+  mySocket.forward('error');
+  return mySocket;
+});
