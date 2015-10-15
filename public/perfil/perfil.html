@@ -2,9 +2,9 @@
   <md-whiteframe class="md-whiteframe-z5" layout="column" layout-sm="column" layout-align="center center" layout-wrap>
     <h1 flex>Configuración de Perfil</h1>
     <div ng-click="changeAvatar()" class="image-container">
-      <img src="img/avatar.jpg" alt="" style="border-radius:50%;">
+      <img src="dist/img/avatar.jpg" alt="" style="border-radius:50%;">
       <div class="after" layout="row" layout-align="center center">
-        <md-icon  ng-style="{'font-size': '48px', height:'48px'}" flex id="searchAvatar" md-svg-icon="../img/icons/ic_search_white_48px.svg"></md-icon>
+        <md-icon  ng-style="{'font-size': '48px', height:'48px'}" flex id="searchAvatar" md-svg-icon="dist/icons/ic_search_white_48px.svg"></md-icon>
       </div>
     </div>
     <md-card style="width:25%;">
@@ -17,7 +17,7 @@
           </md-input-container>
           <span ng-show="toggle.username" flex>{{user.username}}</span>
           <md-button ng-click="toggle.username=!toggle.username" class="md-icon-button md-primary" aria-label="Edit">
-            <md-icon md-svg-icon="../img/icons/ic_mode_edit_24px.svg"></md-icon>
+            <md-icon md-svg-icon="dist/icons/ic_mode_edit_24px.svg"></md-icon>
           </md-button>
         </div>
       </md-card-content>
@@ -34,7 +34,7 @@
               </md-input-container>
               <span ng-show="toggle.email" flex>{{user.email}}</span>
               <md-button ng-click="toggle.email=!toggle.email" class="md-icon-button md-primary" aria-label="Edit">
-                <md-icon md-svg-icon="../img/icons/ic_mode_edit_24px.svg"></md-icon>
+                <md-icon md-svg-icon="dist/icons/ic_mode_edit_24px.svg"></md-icon>
               </md-button>
             </div>
           </md-card-content>
@@ -52,7 +52,7 @@
               </div>
               <span ng-show="toggle.range" flex>{{user.range}} metros</span>
               <md-button ng-click="toggle.range=!toggle.range" class="md-icon-button md-primary" aria-label="Edit">
-                <md-icon md-svg-icon="../img/icons/ic_mode_edit_24px.svg"></md-icon>
+                <md-icon md-svg-icon="dist/icons/ic_mode_edit_24px.svg"></md-icon>
               </md-button>
             </div>
           </md-card-content>
@@ -69,7 +69,7 @@
               </md-input-container>
               <span ng-show="toggle.gender" flex>{{user.gender}}</span>
               <md-button ng-click="toggle.gender=!toggle.gender" class="md-icon-button md-primary" aria-label="Edit">
-                <md-icon md-svg-icon="../img/icons/ic_mode_edit_24px.svg"></md-icon>
+                <md-icon md-svg-icon="dist/icons/ic_mode_edit_24px.svg"></md-icon>
               </md-button>
             </div>
           </md-card-content>
@@ -84,7 +84,7 @@
               </md-input-container>
               <span ng-show="toggle.age" flex>{{user.age}}</span>
               <md-button ng-click="toggle.age=!toggle.age" class="md-icon-button md-primary" aria-label="Edit">
-                <md-icon md-svg-icon="../img/icons/ic_mode_edit_24px.svg"></md-icon>
+                <md-icon md-svg-icon="dist/icons/ic_mode_edit_24px.svg"></md-icon>
               </md-button>
             </div>
           </md-card-content>

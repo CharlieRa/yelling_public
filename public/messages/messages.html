@@ -9,7 +9,7 @@
           <!-- <md-divider ></md-divider> -->
           <div flex="100" id="messageBody" layout="row" layout-align="start center" layout-wrap>
             <div class="avatar avatar-{{message.side}}">
-              <img src="img/avatar.jpg" alt="">
+              <img src="dist/img/avatar.jpg" alt="">
             </div>
             <div id="messageText">
               {{message.text}}
@@ -51,7 +51,7 @@
           <input ng-model="messages.newMessage" type="text" id="chatInput" md-maxlength="200" aria-label="New Message"/>
         </md-input-container>
         <md-button ng-click="sendMessage()" class="md-fab md-primary" aria-label="Send">
-          <md-icon md-svg-src="img/icons/send.svg"></md-icon>
+          <md-icon md-svg-src="dist/icons/send.svg"></md-icon>
         </md-button>
     </div>
   </form>
