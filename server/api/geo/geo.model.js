@@ -5,8 +5,10 @@ var mongoose = require('mongoose'),
 
 var GeoSchema = new Schema({
   name: String,
-  info: String,
-  active: Boolean
-});
+  loc: {
+    type: [Number],  // [<longitude>, <latitude>]
+    index: '2d'      // create the geospatial index
+  }
+})
 
 module.exports = mongoose.model('Geo', GeoSchema);

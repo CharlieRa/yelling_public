@@ -19,7 +19,7 @@ function onConnect(socket) {
 
   // Insert sockets below
   require('../api/geo/geo.socket').register(socket);
-  require('../api/thing/thing.socket').register(socket);
+  require('../api/post/post.socket').register(socket);
 }
 
 module.exports = function (socketio) {
