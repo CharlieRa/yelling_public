@@ -22,23 +22,23 @@ var type = thinky.type;
 // });
 
 var User = thinky.createModel("User", {
-    id: type.string(),
-    facebookid: type.virtual().default(function(){
-        return  {
-            this.facebook.id
-        }
-    })
+    facebookid: type.string().default(function(){
+        return this.facebook.id
+    }),
     email: type.string(),
     role:  type.string().default('user'),
     facebook: type.object(),
     provider: type.string(),
     profile: type.virtual().default(function(){
       return {
-        'name': this.name,
+        'name': this.facebook.first_name,
+        'lastname': this.facebook.first_name,
         'email': this.email,
         'role': this.role
       }
     })
+},{
+    pk: "facebookid"
 });
 
 

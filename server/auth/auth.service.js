@@ -30,8 +30,7 @@ function isAuthenticated() {
     .use(function(req, res, next) {
       console.log('[Auth.isAuthenticated] agregando usuario a la consulta con req =', req.user);
 
-      User.get(req.user.id).then(function(err, user) {
-        if (err) return next(err);
+      User.get(req.user._id).then(function(user) {
         res.json(user.profile);
       }).catch(Errors.DocumentNotFound, function(err){
         console.log('[Auth.isAuthenticated] No encontre ese user id, envio 401');
@@ -39,6 +38,24 @@ function isAuthenticated() {
       });
 
     }) 
+}
+/**
+ * Consulta si la request esta hecha por alguien logeado al sistema
+ * En caso de no retorna 403 returns 403
+ */
+function isLoggedin() {
+  console.log('[AUTH] isLoggedin');
+  return compose()
+    // Validate jwt
+    .use(function(req, res, next) {
+      // allow access_token to be passed through query parameter as well
+      console.log('[AUTH] isLoggedin req.user', req);
+      if(req.user){
+        next();
+      }else{
+        // return res.status(401).send('Unauthorized');
+      }
+    });
 }
 
 /**
@@ -63,6 +80,7 @@ function hasRole(roleRequired) {
  * Returns a jwt token signed by the app secret
  */
 function signToken(id) {
+  console.log('[AUTH] signToken with', id);
   return jwt.sign({ _id: id }, config.secrets.session, { expiresInMinutes: 60*5 });
 }
 
@@ -72,12 +90,13 @@ function signToken(id) {
 function setTokenCookie(req, res) {
   console.log('[AUTH] entrando setTokenCookie ', req.user);
   if (!req.user) return res.status(404).json({ message: 'Something went wrong, please try again.'});
-  var token = signToken(req.user.id, req.user.role);
+  var token = signToken(req.user.facebookid, req.user.role);
   res.cookie('token', JSON.stringify(token));
   res.redirect('/');
 }
 
 exports.isAuthenticated = isAuthenticated;
+exports.isLoggedin = isLoggedin;
 exports.hasRole = hasRole;
 exports.signToken = signToken;
 exports.setTokenCookie = setTokenCookie;

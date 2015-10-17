@@ -9,6 +9,7 @@ module.exports = function(config) {
     // testing framework to use (jasmine/mocha/qunit/...)
     frameworks: ['jasmine'],
 
+    hostname: ['127.0.0.2'],
     // list of files / patterns to load in the browser
     files: [
       'client/bower_components/jquery/dist/jquery.js',

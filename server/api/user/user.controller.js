@@ -39,8 +39,8 @@ exports.index = function(req, res) {
  * Get a single user
  */
 exports.show = function (req, res, next) {
-  var userId = req.params.id;
-  User.get(userId).then(function(err, user) {
+  var userId = req.params.facebookid;
+  User.get(userId).then(function(user) {
     if (err) return next(err);
     res.json(user.profile);
   }).catch(Errors.DocumentNotFound, function(err){
@@ -90,9 +90,8 @@ exports.destroy = function(req, res) {
  * Get my info
  */
 exports.me = function(req, res, next) {
-  var userId = req.user._id;
-  User.get(userId).then(function(err, user) {
-    if (err) return next(err);
+  var userId = req.user.facebookid;
+  User.get(userId).then(function(user) {
     console.log('[User.controller.me] Encontre ese user id, envio usuario', user);
     res.json(user);
   }).catch(Errors.DocumentNotFound, function(err){
