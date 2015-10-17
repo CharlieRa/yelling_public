@@ -19,7 +19,7 @@ var all = {
   root: path.normalize(__dirname + '/../../..'),
 
   // Server port
-  port: process.env.PORT || 3500,
+  port: process.env.PORT || 9000,
 
   // Server IP
   ip: process.env.IP || '0.0.0.0',
@@ -29,20 +29,11 @@ var all = {
 
   // Secret for session, you will want to change this and make it an environment variable
   secrets: {
-    session: 'test-secret'
+    session: 'mean-server-secret'
   },
 
   // List of user roles
   userRoles: ['guest', 'user', 'admin'],
-
-  //RethinkDB connection options
-  rethink: {
-    options: {
-      host: 'localhost',
-      port: '28015',
-      db: 'yellingdb'
-    }
-  },
 
   // MongoDB connection options
   mongo: {
@@ -54,8 +45,8 @@ var all = {
   },
 
   facebook: {
-    clientID:     process.env.FACEBOOK_ID || '1676193472610816',
-    clientSecret: process.env.FACEBOOK_SECRET || 'd18a3c68fbea3b90cd5fae2db3f342b5',
+    clientID:     process.env.FACEBOOK_ID || 'id',
+    clientSecret: process.env.FACEBOOK_SECRET || 'secret',
     callbackURL:  (process.env.DOMAIN || '') + '/auth/facebook/callback'
   },
 

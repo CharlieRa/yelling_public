@@ -5,12 +5,8 @@
 module.exports = {
   // MongoDB connection options
   mongo: {
-    uri: 'mongodb://localhost/test-dev'
+    uri: 'mongodb://localhost/yelling-dev'
   },
 
-  rethink: {
-    uri: 'localhost'
-  },
-
-  seedDB: false
+  seedDB: true
 };

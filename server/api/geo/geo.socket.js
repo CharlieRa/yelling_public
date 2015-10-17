@@ -4,21 +4,21 @@
 
 'use strict';
 
-var post = require('./post.model');
+var Geo = require('./geo.model');
 
 exports.register = function(socket) {
-  post.schema.post('save', function (doc) {
+  Geo.schema.post('save', function (doc) {
     onSave(socket, doc);
   });
-  post.schema.post('remove', function (doc) {
+  Geo.schema.post('remove', function (doc) {
     onRemove(socket, doc);
   });
 }
 
 function onSave(socket, doc, cb) {
-  socket.emit('post:save', doc);
+  socket.emit('geo:save', doc);
 }
 
 function onRemove(socket, doc, cb) {
-  socket.emit('post:remove', doc);
+  socket.emit('geo:remove', doc);
 }

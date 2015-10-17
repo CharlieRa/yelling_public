@@ -1,22 +1,12 @@
 'use strict';
 
-var thinky = require('../thinky.js');
-var type = thinky.type;
+var mongoose = require('mongoose'),
+    Schema = mongoose.Schema;
 
-
-/* 	Tabla 'geo'
-*		Descripcion:
-*		Geo pertenece a Post
-* 	Post pertenece a User
-*/ 
-var Geo = thinky.createModel("Geo", {
-    id: type.string(),
-    location: type.point(), // Objeto punto de R -> r.point(longitude, latitude)
-    postId: type.string()
+var GeoSchema = new Schema({
+  name: String,
+  info: String,
+  active: Boolean
 });
 
-module.exports = Geo;
-
-var Post = require('../post/post.model');
-Geo.belongsTo(Post, "post", "postId", "id");
-
+module.exports = mongoose.model('Geo', GeoSchema);
