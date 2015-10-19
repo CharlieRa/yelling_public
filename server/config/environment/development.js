@@ -8,5 +8,5 @@ module.exports = {
     uri: 'mongodb://localhost/yelling-dev'
   },
 
-  seedDB: true
+  seedDB: false
 };

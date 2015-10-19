@@ -38,8 +38,8 @@ UserSchema
   .virtual('profile')
   .get(function() {
     return {
-      'name': this.name,
-      'role': this.role
+      'name': this.facebook.first_name,
+      'role': this.role 
     };
   });
 

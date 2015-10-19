@@ -13,13 +13,14 @@ var PostSchema = new Schema({
     }
   },
   location: {
-    id: {
-      type: Schema.Types.ObjectId,
-      ref: 'Geo',
-      required: true
-    }
+    type: [Number],  // [<longitude>, <latitude>]
+    index: '2dsphere',      // create the geospatial index
+    required: true
   },
-  votes: Number,
+  votes: {
+  	type: Number, 
+  	default: 0
+  },
   dateTime: { 
   	type: Date, 
   	default: Date.now 

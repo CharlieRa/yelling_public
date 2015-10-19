@@ -4,7 +4,10 @@ angular.module('testApp')
   .controller('MainCtrl', function ($scope, $http, socket) {
     $scope.awesomeThings = [];
 
-    $http.get('/api/posts').success(function(awesomeThings) {
+    $http.post('/api/posts/nearest',{
+      longitude : -70.5807622,
+      latitude : -33.5065764
+    }).success(function(awesomeThings) {
 
       $scope.awesomeThings = awesomeThings;
       socket.syncUpdates('post', $scope.awesomeThings);
@@ -17,7 +20,13 @@ angular.module('testApp')
         return;
       }
 
-      $http.post('/api/posts', { name: $scope.newThing });
+      $http.post('/api/posts', { 
+        content: $scope.newThing,
+        author: {
+          id: '5623195c1d5696d514eab562'
+        },
+        location: [-70.5807622,-33.5065764],
+      });
       $scope.newThing = '';
 
     };

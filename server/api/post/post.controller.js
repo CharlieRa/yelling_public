@@ -20,6 +20,35 @@ exports.index = function(req, res) {
   });
 };
 
+// busca post cercanos a la ubicacion del usuario solicitante
+// radio = 1 km
+exports.nearest = function (req, res){
+  // Limite de resultados 
+  var limit = 10;
+  // Distancia de puntos cercanos ~default 1 km
+  var distanciaRadio = 2;
+  // se calcula el radian con el ansssho de la tierra (radio)
+  distanciaRadio /=6371;
+  console.log('Distancia radio', distanciaRadio);
+  // Saco localizacion ~ primero longitud (!)
+  var coords = [];
+  coords[0] = req.body.longitude;
+  coords[1] = req.body.latitude;
+
+
+  console.log('Buscando Post cercanos segun localizacion');
+  Post.geoNear({
+    type: "Point",
+    coordinates : coords
+    },{
+      spherical: true, 
+      maxDistance: 800
+    }
+  ).then(function(posts) {
+    return res.status(200).json(posts);
+  })
+};
+
 // Get a single post
 exports.show = function(req, res) {
   Post.findById(req.params.id, function (err, post) {
