@@ -18,7 +18,7 @@ $black_54: rgba(0,0,0,0.54);
 $black_60: rgba(0, 0, 0, .6);
 
 //urls
-$url_0: url('/dist/img/backgrounds/bg5.gif', false,false);
+$url_0: url('/dist/img/backgrounds/bg4.png');
 
 //@extend-elements
 //original selectors
@@ -110,22 +110,7 @@ $url_0: url('/dist/img/backgrounds/bg5.gif', false,false);
 		background-color: $white;
 	}
 }
-.bubble-container {
-	position: relative;
-	margin-bottom: 10px;
-}
-.bubble {
-	padding: 13px;
-	//Instead of the line below you could use @include border-radius($radius, $vertical-radius)
-	border-radius: 3px;
-	background: $white_95;
-	color: $color_chicago_approx;
-	//Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
-	box-shadow: 0 1px 3px $black_45;
-	max-width: 80%;
-	height: auto;
-	word-wrap: break-word;
-}
+
 #chatBox {
 	width: 100%;
 	background: $green $url_0 repeat;
@@ -152,46 +137,6 @@ $url_0: url('/dist/img/backgrounds/bg5.gif', false,false);
 	margin: 16px;
 	//Instead of the line below you could use @include border-radius($radius, $vertical-radius)
 	border-radius: 48px;
-}
-.avatar-left {
-	float: left;
-	width: 50px;
-	&:before {
-		content: '';
-		position: absolute;
-		border-style: solid;
-		border-width: 10px 14px 10px 0;
-		border-color: transparent $white;
-		display: block;
-		width: 0;
-		z-index: 1;
-		left: 50px;
-		top: 13px;
-	}
-}
-.bubble-left {
-	float: left;
-	margin-left: 18px;
-}
-.avatar-right {
-	float: right;
-	width: 50px;
-	&:before {
-		content: '';
-		position: absolute;
-		border-style: solid;
-		border-width: 10px 0 10px 14px;
-		border-color: transparent $white;
-		display: block;
-		width: 0;
-		z-index: 1;
-		right: 50px;
-		top: 13px;
-	}
-}
-.bubble-right {
-	float: right;
-	margin-right: 18px;
 }
 #menuAvatar {
 	margin: 0;

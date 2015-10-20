@@ -22,12 +22,6 @@ gulp.task('webserver', function() {
 gulp.task('sass', function() {
    return gulp.src('public/src/sass/*.scss')
     .pipe(sass().on('error', sass.logError))
-    .pipe(gulp.dest('public/src/css'));
-});
-
-/* Task para minnificar css */
-gulp.task('mincss', function() {
-   return gulp.src('public/src/css/*.css')
     .pipe(mincss({compatibility: 'ie8'}))
     .pipe(gulp.dest('public/dist/css'));
 });
@@ -49,4 +43,4 @@ gulp.task('imgmin', function () {
 //     .pipe(gulp.dest('public/dist/js'));
 // });
 
-gulp.task('default',['sass', 'mincss', 'imgmin', 'webserver']);
+gulp.task('default',['sass', 'imgmin', 'webserver']);
