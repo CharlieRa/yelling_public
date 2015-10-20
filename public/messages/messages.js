@@ -40,7 +40,7 @@
         $scope.messages.push(
           {
             text: $scope.messages.newMessage,
-            side
+            side: 'left'
           });
         $scope.formNewMessage.$setPristine();
         $scope.messages.newMessage = "";
