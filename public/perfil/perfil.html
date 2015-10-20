@@ -12,10 +12,9 @@
         <h2 class="md-caption">Username</h2>
         <md-divider></md-divider>
         <div layout="row" layout-wrap layout-align="center center">
-          <md-input-container ng-hide="toggle.username" md-no-float flex>
+          <md-input-container ng-readonly="toggle.username" md-no-float flex>
             <input ng-model="user.username" type="text" placeholder="Nickname">
           </md-input-container>
-          <span ng-show="toggle.username" flex>{{user.username}}</span>
           <md-button ng-click="toggle.username=!toggle.username" class="md-icon-button md-primary" aria-label="Edit">
             <md-icon md-svg-icon="dist/icons/ic_mode_edit_24px.svg"></md-icon>
           </md-button>
@@ -29,10 +28,9 @@
             <h2 class="md-caption">Email</h2>
             <md-divider></md-divider>
             <div layout="row" layout-wrap layout-align="center center">
-              <md-input-container ng-hide="toggle.email" md-no-float flex>
+              <md-input-container ng-readonly="toggle.email" md-no-float flex>
                 <input ng-model="user.email" type="text" placeholder="Email">
               </md-input-container>
-              <span ng-show="toggle.email" flex>{{user.email}}</span>
               <md-button ng-click="toggle.email=!toggle.email" class="md-icon-button md-primary" aria-label="Edit">
                 <md-icon md-svg-icon="dist/icons/ic_mode_edit_24px.svg"></md-icon>
               </md-button>
@@ -41,16 +39,18 @@
         </md-card>
         <md-card>
           <md-card-content style="padding:10px;">
-            <h2 class="md-caption">Radio de visaulización</h2>
+            <h2 class="md-caption">Radio de visualización</h2>
             <md-divider></md-divider>
             <div layout="row" layout-wrap layout-align="center center">
-              <div layout ng-hide="toggle.range">
-                <md-slider class="md-primary" flex min="5" max="1000" ng-model="user.range" aria-label="radius"></md-slider>
+              <div layout="row" flex>
+                <!-- <md-slider flex class="md-primary" md-discrete ng-model="user.range" step="1" min="1" max="1000" aria-label="radius">
+                </md-slider> -->
+                <md-slider ng-readonly="true" class="md-primary" flex min="5" max="1000" ng-model="user.range" aria-label="radius">
+                </md-slider>
                 <div flex="30" layout layout-align="center center">
-                  <input flex type="number" ng-model="user.range" aria-label="radius" aria-controls="radius">
+                  <input ng-readonly="true" flex type="number" ng-model="user.range" aria-label="radius" aria-controls="radius">
                 </div>
               </div>
-              <span ng-show="toggle.range" flex>{{user.range}} metros</span>
               <md-button ng-click="toggle.range=!toggle.range" class="md-icon-button md-primary" aria-label="Edit">
                 <md-icon md-svg-icon="dist/icons/ic_mode_edit_24px.svg"></md-icon>
               </md-button>
@@ -58,16 +58,15 @@
           </md-card-content>
         </md-card>
       </div>
-      <div layout="column">
+      <div layout="column" flex>
         <md-card>
           <md-card-content style="padding:10px;">
             <h2 class="md-caption">Sexo</h2>
             <md-divider></md-divider>
             <div layout="row" layout-wrap layout-align="center center">
-              <md-input-container ng-hide="toggle.gender" md-no-float flex>
+              <md-input-container ng-readonly="toggle.gender" md-no-float flex>
                 <input ng-model="user.gender" type="text" placeholder="Sexo">
               </md-input-container>
-              <span ng-show="toggle.gender" flex>{{user.gender}}</span>
               <md-button ng-click="toggle.gender=!toggle.gender" class="md-icon-button md-primary" aria-label="Edit">
                 <md-icon md-svg-icon="dist/icons/ic_mode_edit_24px.svg"></md-icon>
               </md-button>
@@ -79,10 +78,9 @@
             <h2 class="md-caption">Edad</h2>
             <md-divider></md-divider>
             <div layout="row" layout-wrap layout-align="center center">
-              <md-input-container ng-hide="toggle.age" md-no-float flex>
-                <input ng-model="user.age" type="number" placeholder="Edad">
+              <md-input-container md-no-float flex>
+                <input ng-readonly="toggle.age" ng-model="user.age" type="number" placeholder="Edad">
               </md-input-container>
-              <span ng-show="toggle.age" flex>{{user.age}}</span>
               <md-button ng-click="toggle.age=!toggle.age" class="md-icon-button md-primary" aria-label="Edit">
                 <md-icon md-svg-icon="dist/icons/ic_mode_edit_24px.svg"></md-icon>
               </md-button>

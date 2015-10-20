@@ -12,7 +12,9 @@ angular
   ])
 .config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider)
   {
-    $routeProvider.otherwise({redirectTo: '/home'});
+    $routeProvider
+    // .when('/home', {templateUrl: 'index.html'})
+    .otherwise({redirectTo: '/home'});
     // $locationProvider.html5Mode({
     //   enabled: false,
     //   requireBase: false

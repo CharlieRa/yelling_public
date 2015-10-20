@@ -86,7 +86,7 @@
 
 #chatBox {
   width: 100%;
-  background: #00ff00 url("/dist/img/backgrounds/bg5.gif", false, false) repeat;
+  background: #00ff00 url("/dist/img/backgrounds/bg4.png") repeat;
   min-height: 200px;
   max-height: 500px;
   height: 400px;

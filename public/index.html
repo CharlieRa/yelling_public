@@ -45,12 +45,13 @@
     <md-toolbar class="primaryBgColor">
       <h1 class="md-toolbar-tools">Perfil</h1>
     </md-toolbar>
-    <md-content layout-padding layout="column">
-      <md-button layout-align="center center">
-        <img src="dist/img/avatar.jpg" class="md-avatar" id="avatarSidenav">
-      </md-button>
-      <md-divider felx="100"></md-divider>
-      <md-button href="/perfil">
+    <md-content layout="column" layout-align="center center">
+      <h3 class="md-headline" flex>Username</h3>
+      <img src="dist/img/avatar.jpg" flex class="md-avatar" id="avatarSidenav" flex>
+    </md-content>
+      <md-divider></md-divider>
+    <md-content layout="column" layout-align="center">
+      <md-button href="#perfil">
         <md-icon md-svg-icon="dist/icons/ic_person_outline_24px.svg"></md-icon>
         Perfil
       </md-button>
