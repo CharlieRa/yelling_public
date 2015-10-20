@@ -12,11 +12,11 @@ var UserSchema = new Schema({
     type: String,
     default: 'user'
   },
+  radio : Number,
   hashedPassword: String,
   provider: String,
   salt: String,
   facebook: {},
-  github: {}
 });
 
 /**
@@ -39,7 +39,9 @@ UserSchema
   .get(function() {
     return {
       'name': this.facebook.first_name,
-      'role': this.role 
+      'role': this.role,
+      'radio': this.radio,
+      'gender': this.facebook.gender
     };
   });
 
