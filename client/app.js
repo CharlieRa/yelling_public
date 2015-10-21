@@ -7,13 +7,17 @@ angular
     'yelling.home',
     'yelling.messages',
     'yelling.perfil',
-    'btford.socket-io',
+    'apiMock'
+    // 'btford.socket-io',
     // 'yelling.version'
   ])
 .config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider)
   {
     $routeProvider
-    // .when('/home', {templateUrl: 'index.html'})
+    // .when('/messages', {
+    //   templateUrl: 'pages/home.html',
+    //   controller: MyController
+    // })
     .otherwise({redirectTo: '/home'});
     // $locationProvider.html5Mode({
     //   enabled: false,

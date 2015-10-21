@@ -1,10 +1,17 @@
-<div class="messages" ng-controller="messagesCtrl as ctrl" layout="column" layout-padding layout-align="center center">
+<div class="messages" layout="column" layout-padding layout-align="start center">
   <md-whiteframe id="chatBox" class="md-whiteframe-z5" scroll-bottom="messages" layout="column" layout-align="start center">
-    <div class="message-container" ng-repeat="message in messages" layout="column" layout-align="start center">
+    <md-content class="" id="personalPoints" layout="row" layout-align="start center">
+      <md-list>
+        
+      </md-list>
+    </md-content>
+    <div class="message-container" ng-repeat="message in messages" layout="column" layout-align="start center" flex="50">
       <md-card id="messageBox" layout="column" layout-padding style="width:50%;">
         <md-card-content>
-          <div flex="100" id="messageHead" layout="row">
-            <span id="username" class="md-caption">Carlos_ramart</span>
+          <div flex="100" id="messageHead" layout="row" layout-align="space-around center">
+            <span id="username" class="md-caption">Carlos_ramart </span>
+            <span id="datetime" class="md-caption">Fecha: {{message.dateTime}}</span>
+            <span id="datetime" class="md-caption">Distancia: {{message.dis}} metros</span>
           </div>
           <!-- <md-divider ></md-divider> -->
           <div flex="100" id="messageBody" layout="row" layout-align="start center" layout-wrap>
@@ -17,32 +24,12 @@
           </div>
           <!-- <md-divider ></md-divider> -->
           <div flex="100" id="messageFooter" layout="row" layout-align="space-around center">
-            <span class="md-caption">Location -33.4044073,-70.6276278</span>
+            <span class="md-caption">Location: {{message.location}}</span>
             <span class="md-caption">Radio 1.000 metros</span>
             <span class="md-caption">Santiago</span>
           </div>
         </md-card-content>
       </md-card>
-      <!-- <md-whiteframe id="messageBox" class="md-whiteframe-z3" layout="column" layout-padding>
-        <div flex="100" id="messageHead" layout="row">
-          <span id="username" class="md-caption">Carlos_ramart</span>
-        </div>
-        <md-divider ></md-divider>
-        <div flex="100" id="messageBody" layout="row" layout-align="start center">
-          <div class="avatar avatar-{{message.side}}">
-            <img src="img/avatar.jpg" alt="">
-          </div>
-          <div>
-            {{message.text}}
-          </div>
-        </div>
-        <md-divider ></md-divider>
-        <div flex="100" id="messageFooter" layout="row" layout-align="space-around center">
-          <span class="md-caption">Location -33.4044073,-70.6276278</span>
-          <span class="md-caption">Radio 1.000 metros</span>
-          <span class="md-caption">Santiago</span>
-        </div>
-      </md-whiteframe> -->
     </div>
   </md-whiteframe>
     <form ng-submit="$event.preventDefault()" name="formNewMessage">
@@ -55,4 +42,7 @@
         </md-button>
     </div>
   </form>
+  <md-button ng-click="getMessages()" class="md-fab md-primary" aria-label="Send">
+    <md-icon md-svg-src="dist/icons/send.svg"></md-icon>
+  </md-button>
 </div>

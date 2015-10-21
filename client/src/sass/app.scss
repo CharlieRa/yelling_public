@@ -113,7 +113,7 @@ $url_0: url('/dist/img/backgrounds/bg4.png');
 
 #chatBox {
 	width: 100%;
-	background: $green $url_0 repeat;
+	// background: $green $url_0 repeat;
 	min-height: 200px;
 	max-height: 500px;
 	height: 400px;
@@ -169,7 +169,14 @@ $url_0: url('/dist/img/backgrounds/bg4.png');
 	//Instead of the line below you could use @include box-sizing($bs)
 	box-sizing: border-box;
 }
+.ng-view{
+	height: inherit;
+}
 .messages {
+	background: $url_0 repeat;
+	width: 100%;
+	height: inherit;
+
 	md-whiteframe {
 		background-color: $white;
 		word-wrap: break-word;
