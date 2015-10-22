@@ -45,12 +45,12 @@
     <md-toolbar class="primaryBgColor">
       <h1 class="md-toolbar-tools">Perfil</h1>
     </md-toolbar>
-    <md-content layout="column" layout-align="center center">
+    <div layout="column" layout-align="center center">
       <h3 class="md-headline" flex>Username</h3>
       <img src="dist/img/avatar.jpg" flex class="md-avatar" id="avatarSidenav" flex>
-    </md-content>
+    </div>
       <md-divider></md-divider>
-    <md-content layout="column" layout-align="center">
+    <div layout="column" layout-align="center">
       <md-button href="#perfil">
         <md-icon md-svg-icon="dist/icons/ic_person_outline_24px.svg"></md-icon>
         Perfil
@@ -66,7 +66,7 @@
       <md-button ng-click="ctrl.closeSidenav()" class="md-primary">
         Cerrar
       </md-button>
-    </md-content>
+    </div>
   </md-sidenav>
   <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>

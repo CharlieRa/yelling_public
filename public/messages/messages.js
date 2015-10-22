@@ -37,8 +37,60 @@
 
   function messageCtrl ($scope, $http)
   {
-    // var side = 'right';
+
     $scope.messages = [];
+
+    /* solo por ejemplo */
+      $scope.todos = [
+      {
+        what: 'Brunch this weekend?',
+        who: 'Min Li Chan',
+        when: '3:08PM',
+        notes: " I'll be in your neighborhood doing errands"
+      },
+      {
+        what: 'Brunch this weekend?',
+        who: 'Min Li Chan',
+        when: '3:08PM',
+        notes: " I'll be in your neighborhood doing errands"
+      },
+      {
+        what: 'Brunch this weekend?',
+        who: 'Min Li Chan',
+        when: '3:08PM',
+        notes: " I'll be in your neighborhood doing errands"
+      },
+      {
+        what: 'Brunch this weekend?',
+        who: 'Min Li Chan',
+        when: '3:08PM',
+        notes: " I'll be in your neighborhood doing errands"
+      },
+      {
+        what: 'Brunch this weekend?',
+        who: 'Min Li Chan',
+        when: '3:08PM',
+        notes: " I'll be in your neighborhood doing errands"
+      },
+      {
+        what: 'Brunch this weekend?',
+        who: 'Min Li Chan',
+        when: '3:08PM',
+        notes: " I'll be in your neighborhood doing errands"
+      },
+      {
+        what: 'Brunch this weekend?',
+        who: 'Min Li Chan',
+        when: '3:08PM',
+        notes: " I'll be in your neighborhood doing errands"
+      },
+      {
+        what: 'Brunch this weekend?',
+        who: 'Min Li Chan',
+        when: '3:08PM',
+        notes: " I'll be in your neighborhood doing errands"
+      }];
+    /*      */
     $http.get('/api/post/nearest') // http://localhost:8000/#/messages?apimock=true
     .success(function(data, status, headers, config)
     {
@@ -60,15 +112,28 @@
     {
       console.log("error");
     });
+
+    /* Dinamyc background */
+    $http.get('/dist/img/backgrounds/bgsDin/backgrounds.json')
+    .success(function(data) {
+      var rndBg = Math.floor(Math.random() * data.length) + 1;
+      var bg = data[rndBg]['bgUrl'];
+      var path = '/dist/img/backgrounds/bgsDin/'
+      var url = path+bg;
+      if(angular.isDefined(bg)){
+        $scope.bgUrl = url;
+      }else{
+        $scope.bgUrl = path+'bg1.png';
+      }
+    });
+
     $scope.sendMessage = function()
     {
-      // side = side == 'left' ? 'right' : 'left';
       if(!$scope.messages.newMessage == "")
       {
         $scope.messages.push(
           {
             text: $scope.messages.newMessage
-            // side: 'lal'
           });
         $scope.formNewMessage.$setPristine();
         $scope.messages.newMessage = "";
@@ -77,15 +142,5 @@
     $scope.user = {
       username : 'Carlos',
       avatar   : 'img/avatar.jpg'
-    }
-    $scope.getMessages = function()
-    {
-      console.log("lala");
-      $http.get('/api/post/nearest').success(function(data)
-      {
-        // $scope.name = data[0].dis;
-        console.log(data);
-      });
-
     }
   }
