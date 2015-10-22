@@ -9,7 +9,7 @@ var PostSchema = new Schema({
     id: {
       type: Schema.Types.ObjectId,
       ref: 'User',
-      required: true
+      // required: true -> se relaja condicion de modelo post
     }
   },
   location: {
