@@ -24,11 +24,11 @@
     }
   },
   "generator-ng-component": {
-    "routeDirectory": "client/app/",
-    "directiveDirectory": "client/app/",
-    "filterDirectory": "client/app/",
-    "serviceDirectory": "client/app/",
-    "basePath": "client",
+    "routeDirectory": "public/app/",
+    "directiveDirectory": "public/app/",
+    "filterDirectory": "public/app/",
+    "serviceDirectory": "public/app/",
+    "basePath": "public",
     "moduleName": "",
     "filters": [
       "uirouter"

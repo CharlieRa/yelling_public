@@ -2,11 +2,11 @@ tmp
 !.gitkeep=
 .DS_Store
 node_modules
-public
 .tmp
 .idea
-client/bower_components
-dist
+public/bower_components
 /server/config/local.env.js
 npm-debug.log
 logs/*
+gulpfile.js
+public/src

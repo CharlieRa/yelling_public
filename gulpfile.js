@@ -8,7 +8,7 @@ var pngquant = require('imagemin-pngquant');
 
 /* Webserver for development */
 gulp.task('webserver', function() {
-  gulp.src('client')
+  gulp.src('public')
     .pipe(webserver({
       livereload: true,
       // directoryListing: true,
@@ -20,27 +20,27 @@ gulp.task('webserver', function() {
 
 /* Task para compilar .sass o .scss a .css*/
 gulp.task('sass', function() {
-   return gulp.src('client/src/sass/*.scss')
+   return gulp.src('public/src/sass/*.scss')
     .pipe(sass().on('error', sass.logError))
     .pipe(mincss({compatibility: 'ie8'}))
-    .pipe(gulp.dest('client/dist/css'));
+    .pipe(gulp.dest('public/dist/css'));
 });
 
 gulp.task('imgmin', function () {
-    return gulp.src('client/src/img/**/*')
+    return gulp.src('public/src/img/**/*')
         .pipe(imagemin({
             progressive: true,
             svgoPlugins: [{removeViewBox: false}],
             use: [pngquant()]
         }))
-        .pipe(gulp.dest('client/dist/img'));
+        .pipe(gulp.dest('public/dist/img'));
 });
 
 /* Task para minificar js */
 // gulp.task('uglifyjs', function() {
 //   return gulp.src('/*.js')
 //     .pipe(uglify())
-//     .pipe(gulp.dest('client/dist/js'));
+//     .pipe(gulp.dest('public/dist/js'));
 // });
 
 gulp.task('default',['sass', 'imgmin', 'webserver']);
