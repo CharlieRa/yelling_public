@@ -8,7 +8,7 @@ var PostSchema = new Schema({
 	author: {
     id: {
       type: Schema.Types.ObjectId,
-      ref: 'User',
+      ref: 'User'
       // required: true -> se relaja condicion de modelo post
     }
   },
