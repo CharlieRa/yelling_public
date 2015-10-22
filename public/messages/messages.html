@@ -1,6 +1,6 @@
 <div class="messages" layout="column" layout-padding layout-align="start center" ng-style="{'background': 'url(' + bgUrl + ')'}">
   <md-whiteframe id="messagesBox" class="md-whiteframe-z5" layout="row" layout-align="start center" style="width:80%;" >
-    <md-content class="places" layout="row" flex="auto">
+    <md-content ng-hide="true" class="places" layout="row" flex="auto">
       <md-list flex>
         <md-subheader>Tus Lugares</md-subheader>
            <md-list-item class="md-3-line" ng-repeat="place in places">
@@ -14,7 +14,7 @@
            </md-list-item>
       </md-list>
     </md-content>
-    <md-content flex="80" scroll-bottom="messages" class="chatBox">
+    <md-content flex scroll-bottom="messages" class="chatBox">
       <md-subheader>Mensajes</md-subheader>
       <div class="message-container" ng-repeat="message in messages" layout="column" layout-margin layout-align="start center" flex>
         <md-card id="messageBox" layout="column" layout-padding style="width:98%;">
