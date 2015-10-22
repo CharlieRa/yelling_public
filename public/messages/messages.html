@@ -3,12 +3,12 @@
     <md-content class="places" layout="row" flex="auto">
       <md-list flex>
         <md-subheader>Tus Lugares</md-subheader>
-           <md-list-item class="md-3-line" ng-repeat="item in todos">
+           <md-list-item class="md-3-line" ng-repeat="place in places">
              <md-icon md-svg-src="../dist/icons/ic_place_black_36px.svg"class="placeIcon" aria-label="location"></md-icon>
              <div class="md-list-item-text" layout="column">
-               <h3>aaa</h3>
-               <h4>asda</h4>
-               <p>asdsad</p>
+               <h3>{{place.name}}</h3>
+               <h4>{{place.location.lat}} {{place.location.lng}}</h4>
+               <p>{{place.distance}}</p>
                <md-divider></md-divider>
              </div>
            </md-list-item>
@@ -32,11 +32,6 @@
                 {{message.text}}
               </div>
             </div>
-            <!-- <div flex="100" id="messageFooter" layout="row" layout-align="space-around center">
-              <span class="md-caption">Location: {{message.location}}</span>
-              <span class="md-caption">Radio 1.000 metros</span>
-              <span class="md-caption">Santiago</span>
-            </div> -->
           </md-card-content>
           <md-card-footer>
             Distancia mensaje: {{message.dis}} metros <span class="md-body-1">Ubicacion mensaje: {{message.location[0]}} {{message.location[1]}}</span>
@@ -45,7 +40,7 @@
       </div>
     </md-content>
   </md-whiteframe>
-  <form ng-submit="$event.preventDefault()" name="formNewMessage" layout="row" style="width:80%">
+  <form ng-submit="$event.preventDefault()" name="formNewMessage" layout="row" style="width:80%" id="inputMessageBox">
     <md-input-container flex>
       <input ng-model="messages.newMessage" type="text" id="chatInput" md-maxlength="200" aria-label="New Message"/>
     </md-input-container>

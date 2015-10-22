@@ -53,16 +53,6 @@
       // }]);
   function homeCtrl ($scope, srvAuth, $location)
   {
-  if (navigator.geolocation)
-  {
-   navigator.geolocation.getCurrentPosition(function(position)
-   {
-     $scope.$apply(function()
-     {
-       $scope.position = position;
-     });
-    });
-  }
     $scope.logout = function()
     {
       srvAuth.logout();
@@ -71,24 +61,4 @@
     {
       srvAuth.fblogin();
     }
-    // $scope.resetForm = function()
-    // {
-    //   var defaultForm = {
-    //          email : "",
-    //          password : ""
-    //      };
-    //   $scope.loginForm.$setPristine();
-    //   $scope.user = defaultForm;
-    // }
-    // $scope.loginAuth = function()
-    // {
-    //   var email = $scope.user.email;
-    //   var pass = $scope.user.password;
-    //   console.log("User: "+ email);
-    //   console.log("Pass: "+ pass);
-    //   if(email == "charlie")
-    //     $location.path("/messages");
-    //   else
-    //     console.log("No tiene acceso");
-    // }
 }

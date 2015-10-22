@@ -1,23 +1,10 @@
 'use strict';
 // Declare app level module which depends on views, and components
 angular
-.module('yelling',
-  [
-    'ngRoute',
-    'yelling.home',
-    'yelling.messages',
-    'yelling.perfil',
-    'apiMock'
-    // 'btford.socket-io',
-    // 'yelling.version'
-  ])
+.module('yelling',['ngRoute','yelling.home','yelling.messages','yelling.perfil','apiMock'])
 .config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider)
   {
     $routeProvider
-    // .when('/messages', {
-    //   templateUrl: 'pages/home.html',
-    //   controller: MyController
-    // })
     .otherwise({redirectTo: '/home'});
     // $locationProvider.html5Mode({
     //   enabled: false,
