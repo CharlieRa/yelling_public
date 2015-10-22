@@ -103,9 +103,9 @@ angular
       }
       return srvAuth;
     }
-  ]).
-factory('mySocket', function (socketFactory) {
+  ]);
+/*factory('mySocket', function (socketFactory) {
   var mySocket = socketFactory();
   mySocket.forward('error');
   return mySocket;
-});
+});*/
