@@ -8,5 +8,7 @@ public/bower_components
 /server/config/local.env.js
 npm-debug.log
 logs/*
+client/
+dist/
 gulpfile.js
 public/src
