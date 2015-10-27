@@ -22,10 +22,13 @@ angular.module('testApp')
 
       $http.post('/api/posts', { 
         content: $scope.newThing,
-        author: {
-          id: '5623195c1d5696d514eab562'
-        },
-        location: [-70.5807622,-33.5065764],
+        // author: {
+        //   id: '5623195c1d5696d514eab562'
+        // },
+        location: {
+          longitude: -70.5807622,
+          latitude : -33.5065764
+        }
       });
       $scope.newThing = '';
 

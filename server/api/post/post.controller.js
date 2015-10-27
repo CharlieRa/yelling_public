@@ -60,7 +60,15 @@ exports.show = function(req, res) {
 
 // Creates a new post in the DB.
 exports.create = function(req, res) {
-  Post.create(req.body, function(err, post) {
+
+  var post = {};
+  post.content = req.body.content;
+  var location = [];
+  location[0] = req.body.location.longitude;
+  location[1] = req.body.location.latitude;
+  post.location = location;
+  console.log('[POST] Creando post', post);
+  Post.create(post, function(err, post) {
     if(err) { return handleError(res, err); }
     return res.status(201).json(post);
   });
