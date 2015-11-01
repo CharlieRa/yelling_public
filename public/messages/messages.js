@@ -130,7 +130,7 @@
       $http.get('/dist/img/backgrounds/bgsDin/backgrounds.json')
       .success(function(data)
       {
-        var rndBg = Math.floor(Math.random() * data.length) + 1;
+        var rndBg = Math.floor(Math.random() * data.length-1) + 1;
         var bg = data[rndBg]['bgUrl'];
         var path = '/dist/img/backgrounds/bgsDin/'
         var url = path+bg;
@@ -144,6 +144,27 @@
       /**
       * Funcion encargada en enviar nuevos mensajes escritos por el usuario al servidor
       */
+      $scope.sendMessage2 = function()
+      {
+        /* Se comprueba que el mensaje no este vacío*/
+        if(!$scope.messages.newMessage == "")
+        {
+           var currentDatetime = new Date();
+           var loc = [];
+           loc[0] = positionActual.longitude;
+           loc[1] = positionActual.latitude;
+           $scope.messages.push(
+           {
+             text: $scope.messages.newMessage,
+             location: loc,
+             dateTime: currentDatetime
+            //  votes: value.obj.votes,
+            //  dis: Math.floor(value.dis)
+           });
+           $scope.formNewMessage.$setPristine();
+           $scope.messages.newMessage = "";
+        }
+      }
       $scope.sendMessage = function()
       {
         /* Se comprueba que el mensaje no este vacío*/
@@ -172,7 +193,7 @@
             /*ToDo Manejo de la data que llega para agregarla como  mensaje*/
             console.log(data);
           })
-          /*ToDo Manejo de errores que se pueden producir */
+            /*ToDo Manejo de errores que se pueden producir */
           .error(function(data, status, headers, config)
           {
             console.log(data);

@@ -2,10 +2,11 @@
   <md-whiteframe id="messagesBox" class="md-whiteframe-z5" layout="row" layout-align="start center" style="width:80%;" >
     <md-content flex scroll-bottom="messages" class="chatBox">
       <md-subheader>Mensajes</md-subheader>
-      <!-- Mensaje de Error si la aplicación no pudo obtener ubicación del usuario -->
+      <!-- Progress circular mientras se cargan datos -->
       <div ng-hide="toggle.progress" layout="column" layout-sm="column" layout-align="center center">
         <md-progress-circular md-mode="indeterminate"></md-progress-circular>
       </div>
+      <!-- Mensaje de Error si la aplicación no pudo obtener ubicación del usuario -->
       <div ng-show="toggle.error" layout="row" layout-margin layout-align="center center" flex>
         <md-card id="geoMessageError" flex="50">
           <md-card-content layout="column" layout-align="center center" >
@@ -13,31 +14,28 @@
             <h3>Algo salio mal</h3>
             <p>{{error.message}}</p>
           </md-card-content>
-          <!-- <div class="md-actions" layout="row" layout-align="end center">
-            <md-button>Action 1</md-button>
-            <md-button>Action 2</md-button>
-          </div> -->
         </md-card>
       </div>
-      <div class="message-container" ng-repeat="message in messages" layout="column" layout-margin layout-align="start center">
-        <md-card ng-show="toggle.yelling" id="messageBox" layout="row" layout-padding flex style="width:95%;">
-          <img class="messageAvatar" src="dist/img/avatar.jpg" alt="user avatar" flex="15">
-          <md-card-content flex layout="column" layout-align="space-between start" layout-wrap>
-            <div flex id="messageHead" layout="row" layout-align="start center">
-              <span id="username" class="md-caption">Username </span>
-              <span id="datetime" class="md-caption">Fecha: {{message.dateTime}}</span>
-              <span id="datetime" class="md-caption">Distancia: {{message.dis}} metros</span>
-            </div>
-            <div flex id="messageBody" layout="row" layout-align="start center" layout-wrap flex>
-              <div id="messageText">
-                {{message.text}}
+      <!-- <div class="message-container" ng-repeat="message in messages" layout="column" layout-margin layout-align="start center"> -->
+      <div layout="column">
+        <div flex="auto" ng-repeat="message in messages">
+          <md-card ng-show="toggle.yelling" id="messageBox" layout="row" layout-padding style="width:95%;">
+            <img src="dist/img/avatar.jpg" alt="user avatar" style="width:auto;border-radius:5%;"></img>
+            <md-card-content flex layout="column" layout-align="start start" layout-wrap layout-fill>
+              <div id="messageHead" layout="row" layout-align="start start" flex="5">
+                <span id="username" class="md-caption">Username </span>
+                <span id="datetime" class="md-caption">Fecha: {{message.dateTime}}</span>
+                <span id="datetime" class="md-caption">Distancia: {{message.dis}} metros</span>
               </div>
-            </div>
-            <div id="messageFooter" flex>
-                Distancia mensaje: {{message.dis}} metros <span class="md-body-1">Ubicacion mensaje: {{message.location[0]}} {{message.location[1]}}</span>
-            </div>
-          </md-card-content>
-        </md-card>
+              <div flex="100" id="messageBody" layout="row" layout-align="start center" layout-wrap>
+                  {{message.text}}
+              </div>
+              <div id="messageFooter" flex="5" layout-align="end center">
+                  Distancia mensaje: {{message.dis}} metros <span class="md-body-1">Ubicacion mensaje: {{message.location[0]}} {{message.location[1]}}</span>
+              </div>
+            </md-card-content>
+          </md-card>
+        </div>
       </div>
     </md-content>
   </md-whiteframe>
@@ -45,7 +43,7 @@
     <md-input-container flex>
       <input ng-model="messages.newMessage" type="text" id="chatInput" md-maxlength="200" aria-label="New Message"/>
     </md-input-container>
-    <md-button ng-click="sendMessage()" class="md-fab md-primary" aria-label="Send">
+    <md-button ng-click="sendMessage2()" class="md-fab md-primary" aria-label="Send">
       <md-icon md-svg-src="dist/icons/send.svg" aria-label="send"></md-icon>
     </md-button>
   </form>
