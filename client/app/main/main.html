@@ -13,7 +13,7 @@
     <div class="col-lg-12">
       <h1 class="page-header">Mensajes:</h1>
       <ul class="nav nav-tabs nav-stacked col-md-4 col-lg-4 col-sm-6" ng-repeat="post in awesomeThings">
-        <li><a href="#" tooltip="{{post.title}}" ng-click="votePost(post)">{{post.obj.content}}, Likes :{{post.votes}}<button type="button" class="close" ng-click="deletePost(post)">&times;</button>
+        <li><a href="#" tooltip="{{post.title}}" ui-sref="post({id:post.obj._id})">{{post.obj.content}}, Likes :{{post.obj.votes}} , Comentarios:{{post.obj.comments.length}} <button type="button" class="close" ng-click="deletePost(post)">&times;</button>
         </a></li>
       </ul>
     </div>

@@ -10,9 +10,12 @@ var PostSchema = new Schema({
       type: Schema.Types.ObjectId,
       ref: 'User',
       // required: true se relaja la condicion
-
     }
   },
+  comments: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Comment'
+  }],
   location: {
     type: [Number],  // [<longitude>, <latitude>]
     index: '2dsphere',      // create the geospatial index

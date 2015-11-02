@@ -8,7 +8,7 @@ angular.module('testApp')
       longitude : -70.5807622,
       latitude : -33.5065764
     }).success(function(awesomeThings) {
-
+      console.log('[POST/Nearest] Result:', awesomeThings);
       $scope.awesomeThings = awesomeThings;
       socket.syncUpdates('post', $scope.awesomeThings);
 

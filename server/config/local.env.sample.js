@@ -1,4 +1,4 @@
-'use strict';
+	'use strict';
 
 // Use local.env.js for environment variables that grunt will set when the server starts locally.
 // Use for your api keys, secrets, etc. This file should not be tracked by git.
