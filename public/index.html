@@ -18,17 +18,17 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="dist/css/app.css">
 </head>
-<body ng-controller="mainCtrl as ctrl">
+<body ng-controller="mainCtrl" ng-cloak>
   <md-toolbar layout="row" class="primaryBgColor">
     <div class="md-toolbar-tools">
-      <md-button ng-click="ctrl.togglePerfil()" class="md-icon-button" aria-label="Menu">
+      <md-button ng-click="mainCtrl.togglePerfil()" class="md-icon-button" aria-label="Menu">
         <md-icon md-svg-src="dist/icons/ic_menu_24px.svg"></md-icon>
       </md-button>
       <h2>Menu</h2>
       <span flex></span>
       <md-menu>
-        <md-button aria-label="Perfil Menu" ng-mouseenter="ctrl.openMenu($mdOpenMenu, $event)">
-          <img src="dist/img/avatar.jpg" class="md-avatar" id="menuAvatar">
+        <md-button aria-label="Perfil Menu" ng-mouseenter="mainCtrl.openMenu($mdOpenMenu, $event)">
+          <!-- <img src="dist/img/avatar.jpg" class="md-avatar" id="menuAvatar"> -->
         </md-button>
         <md-menu-content width="4">
           <md-menu-item>
@@ -63,7 +63,7 @@
         <md-icon md-svg-icon="dist/icons/ic_person_outline_24px.svg"></md-icon>
         Cerrar Sesión
       </md-button>
-      <md-button ng-click="ctrl.closeSidenav()" class="md-primary">
+      <md-button ng-click="mainCtrl.closeSidenav()" class="md-primary">
         Cerrar
       </md-button>
     </div>

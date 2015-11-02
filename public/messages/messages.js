@@ -15,13 +15,15 @@
           apiPath: '/api'
         });
       })
+
     .config(function(uiGmapGoogleMapApiProvider) {
       uiGmapGoogleMapApiProvider.configure({
           key: 'AIzaSyASPPeOiF-w1w--6G4ZjS3jIO5l2jbydQ0',
-          v: '3.20', //defaults to latest 3.X anyhow
+          v: '3.20',
           libraries: 'weather,geometry,visualization'
       });
     })
+
     .directive('scrollBottom', function ()
     {
       return {
@@ -43,10 +45,9 @@
     /**
     * Funcion controller de Messages
     **/
-    function messageCtrl($scope, $http, uiGmapGoogleMapApi)
+    function messageCtrl($scope, $http, uiGmapGoogleMapApi, $timeout)
     {
       $scope.mapOptions = { center: { latitude: -33.447487 , longitude: -70.673676  }, zoom: 8 };
-      $scope.mapControl = {};
       var positionActual = {};
       $scope.messages = [];
       $scope.toggle = [{
@@ -54,14 +55,24 @@
         error: 'false',
         progress: 'false'
       }];
-      $scope.error=[];
+      // $scope.error=[];
+
+      $scope.clock = "loading clock..."; // initialise the time variable
+      $scope.tickInterval = 1000 //ms
+
+      var tick = function () {
+          $scope.clock = Date.now() // get the current time
+          $timeout(tick, $scope.tickInterval); // reset the timer
+      }
+
+      // Start the timer
+      $timeout(tick, $scope.tickInterval);
 
       uiGmapGoogleMapApi.then(function(maps) {
         $scope.map = maps;
-        // $scope.mapControl.refresh({latitude: positionActual.latitude, longitude: positionActual.longitude});
       });
       /**
-      * Obtener Posicion por navegador cuando aplicación inicia
+      * Obtener Posicion de usuario por navegador cuando aplicación inicia
       */
       if (navigator.geolocation)
       {
@@ -69,6 +80,35 @@
         {
           positionActual.longitude = position.coords.longitude;
           positionActual.latitude = position.coords.latitude;
+
+          $scope.mapOptions.center = {
+              latitude: position.coords.latitude,
+              longitude: position.coords.longitude
+          };
+
+          $scope.mapOptions.zoom = 14;
+          $scope.marker = {
+            id: 0,
+            coords: {
+              latitude: position.coords.latitude,
+              longitude: position.coords.longitude
+            }
+          };
+          $scope.circle = {
+            id: 1,
+            center: $scope.mapOptions.center,
+            radius: 1000, /* Radio definido en ... */
+            stroke: {
+                color: '#08B21F',
+                weight: 2,
+                opacity: 1
+            },
+            fill: {
+                color: '#08B21F',
+                opacity: 0.5
+            }
+          };
+          $scope.$apply();
           /**
           * Si te obtiene ubicacion se traen los mensajes cercanos del servidor
           */
@@ -80,8 +120,9 @@
           .success(function(data, status, headers, config)
           {
             /**
-            * Se desactiva progress y activa input para enviar mensajes
+            * Se desactiva progress y activa aplicación para enviar mensajes
             */
+            console.log(data);
             $scope.toggle.yelling = 'true';
             $scope.toggle.progress = 'true';
             /**
@@ -105,7 +146,7 @@
                 location: value.obj.location,
                 dateTime: value.obj.dateTime,
                 votes: value.obj.votes,
-                dis: Math.floor(value.dis)
+                distance: Math.floor(value.dis)
               });
             });
           })
