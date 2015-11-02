@@ -51,7 +51,11 @@ exports.nearest = function (req, res){
 
 // Get a single post
 exports.show = function(req, res) {
-  Post.findById(req.params.id, function (err, post) {
+  console.log('[POST/Show] Buscando con:', req.params.id);
+  Post
+    .findById(req.params.id)
+    .populate('comments', '-post')
+    .exec(function (err, post) {
     if(err) { return handleError(res, err); }
     if(!post) { return res.status(404).send('Not Found'); }
     return res.json(post);

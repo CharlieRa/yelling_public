@@ -8,10 +8,14 @@ var PostSchema = new Schema({
 	author: {
     id: {
       type: Schema.Types.ObjectId,
-      ref: 'User'
-      // required: true -> se relaja condicion de modelo post
+      ref: 'User',
+      // required: true se relaja la condicion
     }
   },
+  comments: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Comment'
+  }],
   location: {
     type: [Number],  // [<longitude>, <latitude>]
     index: '2dsphere',      // create the geospatial index
