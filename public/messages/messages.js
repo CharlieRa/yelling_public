@@ -1,6 +1,6 @@
   'use strict';
 
-  angular.module('yelling.messages', ['ngMaterial', 'ngMessages', 'ngRoute', 'apiMock'])
+  angular.module('yelling.messages', ['ngMaterial', 'ngMessages', 'ngRoute', 'apiMock', 'uiGmapgoogle-maps'])
     .config(function($routeProvider)
     {
       $routeProvider.when('/messages', {
@@ -15,7 +15,13 @@
           apiPath: '/api'
         });
       })
-
+    .config(function(uiGmapGoogleMapApiProvider) {
+      uiGmapGoogleMapApiProvider.configure({
+          key: 'AIzaSyASPPeOiF-w1w--6G4ZjS3jIO5l2jbydQ0',
+          v: '3.20', //defaults to latest 3.X anyhow
+          libraries: 'weather,geometry,visualization'
+      });
+    })
     .directive('scrollBottom', function ()
     {
       return {
@@ -37,8 +43,10 @@
     /**
     * Funcion controller de Messages
     **/
-    function messageCtrl($scope, $http)
+    function messageCtrl($scope, $http, uiGmapGoogleMapApi)
     {
+      $scope.mapOptions = { center: { latitude: -33.447487 , longitude: -70.673676  }, zoom: 8 };
+      $scope.mapControl = {};
       var positionActual = {};
       $scope.messages = [];
       $scope.toggle = [{
@@ -48,6 +56,10 @@
       }];
       $scope.error=[];
 
+      uiGmapGoogleMapApi.then(function(maps) {
+        $scope.map = maps;
+        // $scope.mapControl.refresh({latitude: positionActual.latitude, longitude: positionActual.longitude});
+      });
       /**
       * Obtener Posicion por navegador cuando aplicación inicia
       */
@@ -57,7 +69,6 @@
         {
           positionActual.longitude = position.coords.longitude;
           positionActual.latitude = position.coords.latitude;
-
           /**
           * Si te obtiene ubicacion se traen los mensajes cercanos del servidor
           */

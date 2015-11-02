@@ -1,44 +1,37 @@
 <div class="messages" layout="column" layout-padding layout-align="start center" ng-style="{'background': 'url(' + bgUrl + ')'}">
-  <md-whiteframe id="messagesBox" class="md-whiteframe-z5" layout="row" layout-align="start center" style="width:80%;" >
-    <md-content flex scroll-bottom="messages" class="chatBox">
-      <md-subheader>Mensajes</md-subheader>
-      <!-- Progress circular mientras se cargan datos -->
-      <div ng-hide="toggle.progress" layout="column" layout-sm="column" layout-align="center center">
-        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+  <!-- <md-card ng-show="toggle.yelling" id="messageBox" layout="row" layout-padding style="width:95%;"> -->
+  <md-card ng-show="toggle.yelling" id="messageBox" layout="row" layout-padding style="width:95%;">
+    <img src="dist/img/avatar.jpg" alt="user avatar" style="width:auto;border-radius:5%;"></img>
+    <md-card-content flex layout="column" layout-align="start start" layout-wrap layout-fill>
+      <div id="messageHead" layout="row" layout-align="start start" flex="5">
+        <span id="username" class="md-caption">Username </span>
+        <span id="datetime" class="md-caption">Fecha: {{message.dateTime}}</span>
+        <span id="datetime" class="md-caption">Distancia: {{message.dis}} metros</span>
       </div>
-      <!-- Mensaje de Error si la aplicación no pudo obtener ubicación del usuario -->
-      <div ng-show="toggle.error" layout="row" layout-margin layout-align="center center" flex>
-        <md-card id="geoMessageError" flex="50">
-          <md-card-content layout="column" layout-align="center center" >
-            <md-icon md-svg-src="dist/icons/ic_mood_bad_black_48px.svg" aria-label="mood bad" id="moodBadIcon"></md-icon>
-            <h3>Algo salio mal</h3>
-            <p>{{error.message}}</p>
-          </md-card-content>
-        </md-card>
+      <div flex="100" id="messageBody" layout="row" layout-align="start center" layout-wrap>
+          {{message.text}}
       </div>
-      <!-- <div class="message-container" ng-repeat="message in messages" layout="column" layout-margin layout-align="start center"> -->
-      <div layout="column">
-        <div flex="auto" ng-repeat="message in messages">
-          <md-card ng-show="toggle.yelling" id="messageBox" layout="row" layout-padding style="width:95%;">
-            <img src="dist/img/avatar.jpg" alt="user avatar" style="width:auto;border-radius:5%;"></img>
-            <md-card-content flex layout="column" layout-align="start start" layout-wrap layout-fill>
-              <div id="messageHead" layout="row" layout-align="start start" flex="5">
-                <span id="username" class="md-caption">Username </span>
-                <span id="datetime" class="md-caption">Fecha: {{message.dateTime}}</span>
-                <span id="datetime" class="md-caption">Distancia: {{message.dis}} metros</span>
-              </div>
-              <div flex="100" id="messageBody" layout="row" layout-align="start center" layout-wrap>
-                  {{message.text}}
-              </div>
-              <div id="messageFooter" flex="5" layout-align="end center">
-                  Distancia mensaje: {{message.dis}} metros <span class="md-body-1">Ubicacion mensaje: {{message.location[0]}} {{message.location[1]}}</span>
-              </div>
-            </md-card-content>
-          </md-card>
+      <div id="messageFooter" flex="5" layout-align="end center">
+          Distancia mensaje: {{message.dis}} metros <span class="md-body-1">Ubicacion mensaje: {{message.location[0]}} {{message.location[1]}}</span>
+      </div>
+    </md-card-content>
+    <div flex id="mapLocation">
+      <ui-gmap-google-map ng-if="toggle.yelling" center='mapOptions.center' zoom='mapOptions.zoom' control="mapControl" style="height: 400px;"></ui-gmap-google-map>
+    </div>
+  </md-card>
+  <md-content>
+    <md-list>
+      <md-subheader class="md-no-sticky">3 line item</md-subheader>
+      <md-list-item class="md-3-line" ng-repeat="message in messages">
+        <img ng-src="dist/img/avatar.jpg" class="md-avatar" alt="avatar" />
+        <div class="md-list-item-text" layout="column">
+          <h3>Carlos</h3>
+          <h4>{{message.text}}</h4>
+          <p>{{message.location[0]}} {{message.location[0]}}</p>
         </div>
-      </div>
-    </md-content>
-  </md-whiteframe>
+      </md-list-item>
+    </md-list>
+  </md-content>
   <form ng-show="toggle.yelling" ng-submit="$event.preventDefault()" name="formNewMessage" layout="row" style="width:80%" id="inputMessageBox">
     <md-input-container flex>
       <input ng-model="messages.newMessage" type="text" id="chatInput" md-maxlength="200" aria-label="New Message"/>
@@ -48,3 +41,8 @@
     </md-button>
   </form>
 </div>
+<style media="screen">
+  .angular-google-map-container{
+    height: 200px;
+  }
+</style>
