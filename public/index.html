@@ -18,76 +18,30 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="dist/css/app.css">
 </head>
-<body ng-controller="mainCtrl" ng-cloak>
-  <md-toolbar layout="row" class="primaryBgColor">
-    <div class="md-toolbar-tools">
-      <md-button ng-click="mainCtrl.togglePerfil()" class="md-icon-button" aria-label="Menu">
-        <md-icon md-svg-src="dist/icons/ic_menu_24px.svg"></md-icon>
-      </md-button>
-      <h2>Menu</h2>
-      <span flex></span>
-      <md-menu>
-        <md-button aria-label="Perfil Menu" ng-mouseenter="mainCtrl.openMenu($mdOpenMenu, $event)">
-          <!-- <img src="dist/img/avatar.jpg" class="md-avatar" id="menuAvatar"> -->
-        </md-button>
-        <md-menu-content width="4">
-          <md-menu-item>
-            <md-button ng-click="">
-              <md-icon md-svg-icon="dist/icons/ic_person_outline_24px.svg" md-menu-align-target></md-icon>
-              Cerrar Sesión
-            </md-button>
-          </md-menu-item>
-        </md-menu-content>
-      </md-menu>
-    </div>
-  </md-toolbar>
-  <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left">
-    <md-toolbar class="primaryBgColor">
-      <h1 class="md-toolbar-tools">Perfil</h1>
-    </md-toolbar>
-    <div layout="column" layout-align="center center">
-      <h3 class="md-headline" flex>Username</h3>
-      <img src="dist/img/avatar.jpg" flex class="md-avatar" id="avatarSidenav" flex>
-    </div>
-      <md-divider></md-divider>
-    <div layout="column" layout-align="center">
-      <md-button href="#perfil">
-        <md-icon md-svg-icon="dist/icons/ic_person_outline_24px.svg"></md-icon>
-        Perfil
-      </md-button>
-      <md-button ng-click="">
-        <md-icon md-svg-icon="dist/icons/ic_person_outline_24px.svg"></md-icon>
-        Configurar Cuenta
-      </md-button>
-      <md-button ng-click="">
-        <md-icon md-svg-icon="dist/icons/ic_person_outline_24px.svg"></md-icon>
-        Cerrar Sesión
-      </md-button>
-      <md-button ng-click="mainCtrl.closeSidenav()" class="md-primary">
-        Cerrar
-      </md-button>
-    </div>
-  </md-sidenav>
-  <!--[if lt IE 7]>
-      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-  <![endif]-->
-  <div class="ng-view"></div>
+<body>
+    <div class="ng-view"></div>
+  <!-- Scripts files  -->
   <script src="bower_components/angular/angular.js"></script>
   <script src="bower_components/angular-route/angular-route.js"></script>
   <script src="bower_components/angular-animate/angular-animate.js"></script>
   <script src="bower_components/angular-aria/angular-aria.js"></script>
   <script src="bower_components/angular-messages/angular-messages.js"></script>
+  <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+  <script src="bower_components/angular-resource/angular-resource.js"></script>
+  <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
   <script src="bower_components/angular-material/angular-material.min.js"></script>
   <script src="bower_components/angular-apimock/dist/angular-apimock.min.js"></script>
-  <!-- // <script src="bower_components/socket.io/lib/client.js"></script> -->
-  <!-- // <script src="bower_components/angular-socket-io/socket.min.js"></script> -->
   <script src='bower_components/lodash/lodash.min.js'></script>
   <script src='bower_components/angular-simple-logger/dist/angular-simple-logger.min.js'></script>
   <script src='bower_components/angular-google-maps/dist/angular-google-maps.min.js'></script>
+
+  <!-- App controllers -->
   <script src="app.js"></script>
   <script src="home/home.js"></script>
   <script src="messages/messages.js"></script>
   <script src="perfil/perfil.js"></script>
-  <!-- <div id="fb-root"></div> -->
+  <script src="components/auth/auth.service.js"></script>
+  <script src="components/auth/user.service.js"></script>
+  <script src="components/navbar/navbar.js"></script>
 </body>
 </html>

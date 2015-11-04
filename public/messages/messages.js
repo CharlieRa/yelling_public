@@ -5,7 +5,8 @@
     {
       $routeProvider.when('/messages', {
         templateUrl: 'messages/messages.html',
-        controller: 'messagesCtrl'
+        controller: 'messagesCtrl',
+        authenticate: true
       })
     })
 
@@ -45,7 +46,7 @@
     /**
     * Funcion controller de Messages
     **/
-    function messageCtrl($scope, $http, uiGmapGoogleMapApi, $timeout)
+    function messageCtrl($scope, $http, uiGmapGoogleMapApi, $timeout, Auth)
     {
       $scope.mapOptions = { center: { latitude: -33.447487 , longitude: -70.673676  }, zoom: 8 };
       var positionActual = {};
@@ -55,7 +56,11 @@
         error: 'false',
         progress: 'false'
       }];
-      // $scope.error=[];
+      $scope.isCollapsed = true;
+      $scope.isLoggedIn = Auth.isLoggedIn;
+      $scope.isAdmin = Auth.isAdmin;
+      $scope.getCurrentUser = Auth.getCurrentUser;
+      console.log('Current user: ',Auth.getCurrentUser());
 
       $scope.clock = "loading clock..."; // initialise the time variable
       $scope.tickInterval = 1000 //ms
@@ -64,7 +69,6 @@
           $scope.clock = Date.now() // get the current time
           $timeout(tick, $scope.tickInterval); // reset the timer
       }
-
       // Start the timer
       $timeout(tick, $scope.tickInterval);
 
@@ -94,20 +98,20 @@
               longitude: position.coords.longitude
             }
           };
-          $scope.circle = {
-            id: 1,
-            center: $scope.mapOptions.center,
-            radius: 1000, /* Radio definido en ... */
-            stroke: {
-                color: '#08B21F',
-                weight: 2,
-                opacity: 1
-            },
-            fill: {
-                color: '#08B21F',
-                opacity: 0.5
-            }
-          };
+          // $scope.circle = {
+          //   id: 1,
+          //   center: $scope.mapOptions.center,
+          //   radius: 1000, /* Radio definido en ... */
+          //   stroke: {
+          //       color: '#08B21F',
+          //       weight: 2,
+          //       opacity: 1
+          //   },
+          //   fill: {
+          //       color: '#08B21F',
+          //       opacity: 0.5
+          //   }
+          // };
           $scope.$apply();
           /**
           * Si te obtiene ubicacion se traen los mensajes cercanos del servidor
@@ -222,19 +226,6 @@
         /* Se comprueba que el mensaje no este vacío*/
         if(!$scope.messages.newMessage == "")
         {
-          // var currentDatetime = new Date();
-          // var loc = [];
-          // loc[0] = positionActual.longitude;
-          // loc[1] = positionActual.latitude;
-          // $scope.messages.push(
-          // {
-          //   text: $scope.messages.newMessage,
-          //   location: loc,
-          //   dateTime: currentDatetime
-            // votes: value.obj.votes
-            // dis: Math.floor(value.dis)
-          // });
-
           $http.post('http://54.207.86.25/api/posts',{
           // $http.post('/api/posts/nearest',{
             content: $scope.messages.newMessage,

@@ -7,19 +7,14 @@ angular
     $routeProvider.when('/home',{
       templateUrl: 'home/home.html',
       controller: 'homeCtrl'
-          });
+    });
   })
 
   .controller('homeCtrl', homeCtrl)
 
-  function homeCtrl ($scope)
+  function homeCtrl ($scope, $location, $window)
   {
-    // $scope.logout = function()
-    // {
-    //   srvAuth.logout();
-    // }
-    // $scope.fblogin = function()
-    // {
-    //   srvAuth.fblogin();
-    // }
+    $scope.loginOauth = function(provider) {
+      $window.open('/auth/' + provider);
+    };
   }

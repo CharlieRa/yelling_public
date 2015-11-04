@@ -1,47 +1,46 @@
 'use strict';
 
 angular
-.module('yelling',['ngRoute','yelling.home','yelling.messages','yelling.perfil','apiMock'])
-.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider)
+  .module('yelling',['ngRoute','yelling.home','yelling.messages','yelling.perfil', 'yelling.navbar', 'apiMock', 'ngCookies', 'ngResource'])
+  .config(function($routeProvider, $locationProvider, $httpProvider)
   {
-    $routeProvider
-    .otherwise({redirectTo: '/home'});
-    // $locationProvider.html5Mode({
-    //   enabled: false,
-    //   requireBase: false
-    // });
-  }])
-.controller('mainCtrl', function($scope,  $mdSidenav, $mdDialog, $mdUtil, $timeout, $log)
-{
-  var originatorEv;
-   this.openMenu = function($mdOpenMenu, ev)
-   {
-     originatorEv = ev;
-     $mdOpenMenu(ev);
-   };
+    $routeProvider.otherwise({redirectTo: '/home'});
+    // $locationProvider.html5Mode(true); /* Activado quita el #de la URL */
+    $httpProvider.interceptors.push('authInterceptor');
+  })
+  .factory('authInterceptor', function ($rootScope, $q, $cookieStore, $location) {
+    return {
+      // Add authorization token to headers
+      request: function (config) {
+        config.headers = config.headers || {};
+        if ($cookieStore.get('token')) {
+          config.headers.Authorization = 'Bearer ' + $cookieStore.get('token');
+        }
+        return config;
+      },
 
-  this.togglePerfil = function()
-  {
-    $mdSidenav('left')
-      .toggle()
-      .then(function ()
-      {
-        $log.debug("toggle " + 'left' + " is done");
+      // Intercept 401s and redirect you to login
+      responseError: function(response) {
+        if(response.status === 401) {
+          $location.path('/home');
+          // remove any stale tokens
+          $cookieStore.remove('token');
+          return $q.reject(response);
+        }
+        else {
+          return $q.reject(response);
+        }
+      }
+    };
+  })
+  .run(function ($rootScope, $location, Auth) {
+    // Redirect to login if route requires auth and you're not logged in
+    $rootScope.$on('$stateChangeStart', function (event, next) {
+      Auth.isLoggedInAsync(function(loggedIn) {
+        if (next.authenticate && !loggedIn) {
+          event.preventDefault();
+          $location.path('/home');
+        }
       });
-  };
-
-  this.closeSidenav = function ()
-  {
-    $mdSidenav('left')
-      .toggle()
-      .then(function ()
-      {
-        $log.debug("close LEFT is done");
-      });
-  };
-})
-/*factory('mySocket', function (socketFactory) {
-  var mySocket = socketFactory();
-  mySocket.forward('error');
-  return mySocket;
-});*/
+    });
+  });
