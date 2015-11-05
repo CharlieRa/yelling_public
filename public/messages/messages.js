@@ -47,7 +47,7 @@
     /**
     * Funcion controller de Messages
     **/
-    function messageCtrl($scope, $http, uiGmapGoogleMapApi, $timeout, User, $location, Auth)
+    function messageCtrl($scope, $http, uiGmapGoogleMapApi, $timeout, User, $location)
     {
 
       $scope.mapOptions = { center: { latitude: -33.447487 , longitude: -70.673676  }, zoom: 8 };
@@ -60,9 +60,8 @@
       }];
       $scope.isCollapsed = true;
 
-      $scope.isLoggedIn = Auth.isLoggedIn;
-      $scope.isAdmin = Auth.isAdmin;
-      $scope.getCurrentUser = Auth.getCurrentUser;
+      $scope.currentUser = User.get();
+      console.log($scope.currentUser);
 
       $scope.clock = "loading clock..."; // initialise the time variable
       $scope.tickInterval = 1000 //ms

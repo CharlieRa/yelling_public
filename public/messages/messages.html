@@ -19,9 +19,9 @@
     <md-content class="" ng-if="toggle.yelling" flex style="width:70%;" scroll-bottom="messages">
       <md-list>
         <md-list-item class="md-3-line fadeInUp lista md-whiteframe-z3" ng-repeat="message in messages">
-          <img ng-src="http://graph.facebook.com/{{getCurrentUser().facebook.id}}/picture" class="md-avatar" alt="avatar" />
+          <img ng-src="http://graph.facebook.com/{{currentUser().facebook.id}}/picture" class="md-avatar" alt="avatar" />
           <div class="md-list-item-text" layout="column" layout-align="space-around start">
-            <h4>{{ getCurrentUser().facebook.first_name }} Distancia: {{message.distance}} metros  Fecha mensaje: {{message.dateTime | date:'d MMM, y' }} Hora mensaje: {{message.dateTime | date:' HH:mm:ss' }}</h4>
+            <h4>{{ currentUser().facebook.first_name }} Distancia: {{message.distance}} metros  Fecha mensaje: {{message.dateTime | date:'d MMM, y' }} Hora mensaje: {{message.dateTime | date:' HH:mm:ss' }}</h4>
             <h3>{{message.text}}</h3>
             <div layout="row">
               <!-- <h4>Votes: </h4> -->
