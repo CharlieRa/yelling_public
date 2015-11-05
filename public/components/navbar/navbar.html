@@ -1,0 +1,10 @@
+<div ng-if="isLoggedIn()" layout="row" class="navbar md-whiteframe-z4" ng-controller="NavbarCtrl as ctrl">
+  <md-toolbar md-scroll-shrink layout="row" class="primaryBgColor">
+    <div class="md-toolbar-tools">
+      <span flex></span>
+      <md-button ng-click="ctrl.logout()" class="md-icon-button" aria-label="Menu">
+        <md-icon md-svg-src="dist/icons/ic_menu_24px.svg"></md-icon>
+      </md-button>
+    </div>
+  </md-toolbar>
+</div>

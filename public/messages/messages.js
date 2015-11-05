@@ -1,20 +1,30 @@
   'use strict';
 
-  angular.module('yelling.messages', ['ngMaterial', 'ngMessages', 'ngRoute', 'apiMock'])
-    .config(function($routeProvider)
-    {
-      $routeProvider.when('/messages', {
+  angular.module('yelling.messages', ['ui.router', 'ngMaterial', 'ngMessages', 'apiMock', 'uiGmapgoogle-maps', 'ngAnimate'])
+  .config(function($stateProvider)
+  {
+    $stateProvider
+      .state('messages', {
+        url: '/messages',
         templateUrl: 'messages/messages.html',
-        controller: 'messagesCtrl'
+        controller: 'messagesCtrl',
+        authenticate: true
       })
-    })
-
+  })
     .config(function (apiMockProvider) {
         apiMockProvider.config({
           mockDataPath: '/mock_data',
           apiPath: '/api'
         });
       })
+
+    .config(function(uiGmapGoogleMapApiProvider) {
+      uiGmapGoogleMapApiProvider.configure({
+          key: 'AIzaSyASPPeOiF-w1w--6G4ZjS3jIO5l2jbydQ0',
+          v: '3.20',
+          libraries: 'weather,geometry,visualization'
+      });
+    })
 
     .directive('scrollBottom', function ()
     {
@@ -37,8 +47,10 @@
     /**
     * Funcion controller de Messages
     **/
-    function messageCtrl($scope, $http)
+    function messageCtrl($scope, $http, uiGmapGoogleMapApi, $timeout, Auth, $location)
     {
+
+      $scope.mapOptions = { center: { latitude: -33.447487 , longitude: -70.673676  }, zoom: 8 };
       var positionActual = {};
       $scope.messages = [];
       $scope.toggle = [{
@@ -46,10 +58,27 @@
         error: 'false',
         progress: 'false'
       }];
-      $scope.error=[];
+      $scope.isCollapsed = true;
+      $scope.isLoggedIn = Auth.isLoggedIn();
+      $scope.isAdmin = Auth.isAdmin();
+      $scope.currentUser = Auth.getCurrentUser();
+      console.log($scope.currentUser);
 
+      $scope.clock = "loading clock..."; // initialise the time variable
+      $scope.tickInterval = 1000 //ms
+
+      var tick = function () {
+          $scope.clock = Date.now() // get the current time
+          $timeout(tick, $scope.tickInterval); // reset the timer
+      }
+      // Start the timer
+      $timeout(tick, $scope.tickInterval);
+
+      uiGmapGoogleMapApi.then(function(maps) {
+        $scope.map = maps;
+      });
       /**
-      * Obtener Posicion por navegador cuando aplicación inicia
+      * Obtener Posicion de usuario por navegador cuando aplicación inicia
       */
       if (navigator.geolocation)
       {
@@ -58,19 +87,35 @@
           positionActual.longitude = position.coords.longitude;
           positionActual.latitude = position.coords.latitude;
 
+          $scope.mapOptions.center = {
+              latitude: position.coords.latitude,
+              longitude: position.coords.longitude
+          };
+
+          $scope.mapOptions.zoom = 14;
+          $scope.marker = {
+            id: 0,
+            coords: {
+              latitude: position.coords.latitude,
+              longitude: position.coords.longitude
+            }
+          };
+
+          $scope.$apply();
           /**
           * Si te obtiene ubicacion se traen los mensajes cercanos del servidor
           */
-          $http.post('http://54.207.86.25/api/posts/nearest',{
-          // $http.post('/api/posts/nearest',{
+          // $http.post('http://54.207.86.25/api/posts/nearest',{
+          $http.post('/api/posts/nearest',{
             longitude : position.coords.longitude,
             latitude : position.coords.latitude
           })
           .success(function(data, status, headers, config)
           {
             /**
-            * Se desactiva progress y activa input para enviar mensajes
+            * Se desactiva progress y activa aplicación para enviar mensajes
             */
+            console.log(data);
             $scope.toggle.yelling = 'true';
             $scope.toggle.progress = 'true';
             /**
@@ -89,12 +134,14 @@
             }
             angular.forEach(data, function(value, key)
             {
+              value.obj.location[0] = value.obj.location[0].toFixed(7);
+              value.obj.location[1] = value.obj.location[1].toFixed(7);
               $scope.messages.push({
                 text: value.obj.content,
                 location: value.obj.location,
                 dateTime: value.obj.dateTime,
                 votes: value.obj.votes,
-                dis: Math.floor(value.dis)
+                distance: value.dis.toFixed(2)
               });
             });
           })
@@ -127,20 +174,20 @@
       /**
       * Dinamyc background: Fondo dinamico para la vista messages
       */
-      $http.get('/dist/img/backgrounds/bgsDin/backgrounds.json')
-      .success(function(data)
-      {
-        var rndBg = Math.floor(Math.random() * data.length-1) + 1;
-        var bg = data[rndBg]['bgUrl'];
-        var path = '/dist/img/backgrounds/bgsDin/'
-        var url = path+bg;
-        if(angular.isDefined(bg)){
-          $scope.bgUrl = url;
-        }else
-        {
-          $scope.bgUrl = path+'bg1.png';
-        }
-      });
+      // $http.get('/dist/img/backgrounds/bgsDin/backgrounds.json')
+      // .success(function(data)
+      // {
+      //   var rndBg = Math.floor(Math.random() * data.length-1) + 1;
+      //   var bg = data[rndBg]['bgUrl'];
+      //   var path = '/dist/img/backgrounds/bgsDin/'
+      //   var url = path+bg;
+      //   if(angular.isDefined(bg)){
+      //     $scope.bgUrl = url;
+      //   }else
+      //   {
+      //     $scope.bgUrl = path+'bg1.png';
+      //   }
+      // });
       /**
       * Funcion encargada en enviar nuevos mensajes escritos por el usuario al servidor
       */
@@ -170,21 +217,22 @@
         /* Se comprueba que el mensaje no este vacío*/
         if(!$scope.messages.newMessage == "")
         {
-          // var currentDatetime = new Date();
-          // var loc = [];
-          // loc[0] = positionActual.longitude;
-          // loc[1] = positionActual.latitude;
-          // $scope.messages.push(
-          // {
-          //   text: $scope.messages.newMessage,
-          //   location: loc,
-          //   dateTime: currentDatetime
-            // votes: value.obj.votes
-            // dis: Math.floor(value.dis)
-          // });
 
-          $http.post('http://54.207.86.25/api/posts',{
-          // $http.post('/api/posts/nearest',{
+          var currentDatetime = new Date();
+          var loc = [];
+          loc[0] = positionActual.longitude;
+          loc[1] = positionActual.latitude;
+          $scope.messages.push(
+          {
+            text: $scope.messages.newMessage,
+            location: loc,
+            dateTime: currentDatetime
+           //  votes: value.obj.votes,
+           //  dis: Math.floor(value.dis)
+          });
+
+          // $http.post('http://54.207.86.25/api/posts',{
+          $http.post('/api/posts',{
             content: $scope.messages.newMessage,
             location: positionActual
           })
@@ -245,10 +293,5 @@
           $scope.toggle.error = 'true';
           $scope.toggle.progress = 'true';
         });
-      }
-
-      $scope.user = {
-        username : 'Carlos',
-        avatar   : 'img/avatar.jpg'
       }
     }
