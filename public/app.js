@@ -43,7 +43,7 @@ angular
       //   $location.path('/home');
       // }
       Auth.isLoggedInAsync(function(loggedIn) {
-        if (next.authenticate && loggedIn) {
+        if (next.authenticate && !loggedIn) {
           event.preventDefault();
           $location.path('/home');
         }
