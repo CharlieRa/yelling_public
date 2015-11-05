@@ -4,9 +4,10 @@ angular
   .module('yelling.sidenav', ['ngMaterial', 'ngMessages', 'ui.router', 'uiGmapgoogle-maps'])
   .controller('sideNavCtrl', function ($scope, $location, Auth, $mdSidenav, uiGmapGoogleMapApi) {
     $scope.settings = [
-    { name: 'Yelling', path: '/messages', icon: 'dist/icons/send.svg', enabled: true },
+    { name: 'Perfil', path: '/', icon: 'dist/icons/send.svg', enabled: false },
+    { name: 'Mensajes', path: '/', icon: 'dist/icons/send.svg', enabled: true },
     // { name: 'Perfil', path: '/perfil', icon: 'dist/icons/send.svg', enabled: true },
-    { name: 'Cerra Sesión', path: '/logout', icon: 'dist/icons/send.svg', enabled: true }];
+    ];
   $scope.admin = [
     {
       link : '',
@@ -49,7 +50,7 @@ angular
 
     $scope.logout = function() {
       Auth.logout();
-      $location.path('/home');
+      $location.path('/login');
     };
 
     $scope.isActive = function(route) {
