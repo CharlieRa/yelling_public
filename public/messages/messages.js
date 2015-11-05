@@ -60,8 +60,9 @@
       }];
       $scope.isCollapsed = true;
 
-      $scope.currentUser = User.get();
-      console.log($scope.currentUser);
+      $scope.isLoggedIn = Auth.isLoggedIn;
+      $scope.isAdmin = Auth.isAdmin;
+      $scope.getCurrentUser = Auth.getCurrentUser;
 
       $scope.clock = "loading clock..."; // initialise the time variable
       $scope.tickInterval = 1000 //ms
