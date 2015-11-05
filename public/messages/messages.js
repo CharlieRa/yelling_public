@@ -47,7 +47,7 @@
     /**
     * Funcion controller de Messages
     **/
-    function messageCtrl($scope, $http, uiGmapGoogleMapApi, $timeout, User, $location)
+    function messageCtrl($scope, $http, uiGmapGoogleMapApi, $timeout, User, $location, Auth)
     {
 
       $scope.mapOptions = { center: { latitude: -33.447487 , longitude: -70.673676  }, zoom: 8 };
