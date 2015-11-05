@@ -105,8 +105,8 @@
           /**
           * Si te obtiene ubicacion se traen los mensajes cercanos del servidor
           */
-          $http.post('http://54.207.86.25/api/posts/nearest',{
-          // $http.post('/api/posts/nearest',{
+          // $http.post('http://54.207.86.25/api/posts/nearest',{
+          $http.post('/api/posts/nearest',{
             longitude : position.coords.longitude,
             latitude : position.coords.latitude
           })
@@ -231,8 +231,8 @@
            //  dis: Math.floor(value.dis)
           });
 
-          $http.post('http://54.207.86.25/api/posts',{
-          // $http.post('/api/posts/nearest',{
+          // $http.post('http://54.207.86.25/api/posts',{
+          $http.post('/api/posts',{
             content: $scope.messages.newMessage,
             location: positionActual
           })
