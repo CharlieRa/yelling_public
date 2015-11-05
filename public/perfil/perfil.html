@@ -1,6 +1,7 @@
-<div ng-include="'components/navbar/navbar.html'"></div>
+<div class="perfil" layout="row" ng-controller="perfilCtrl">
+  <div ng-include="'components/sidenav/sidenav.html'" style="height:100%;"></div>
 
-<div class="perfil" ng-controller="perfilCtrl">
+  <div class="perfil" layout="row" ng-controller="perfilCtrl">
   <md-whiteframe class="md-whiteframe-z5" layout="column" layout-sm="column" layout-align="center center" layout-wrap>
     <h1 flex>Configuración de Perfil</h1>
     <div ng-click="changeAvatar()" class="image-container">
@@ -95,3 +96,4 @@
       <md-button class="md-raised md-primary">Guardar Cambios</md-button>
     </div>
   </md-whiteframe>
+  </div>

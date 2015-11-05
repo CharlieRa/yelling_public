@@ -1,14 +1,16 @@
 'use strict';
 
-angular.module('yelling.perfil', ['ngRoute'])
-
-.config(['$routeProvider', function($routeProvider) {
-  $routeProvider.when('/perfil', {
-    templateUrl: 'perfil/perfil.html',
-    controller: 'perfilCtrl'
-  });
-}])
-
+angular.module('yelling.perfil', ['ui.router'])
+.config(function($stateProvider)
+{
+  $stateProvider
+    .state('perfil', {
+      url: '/perfil',
+      templateUrl: 'perfil/perfil.html',
+      controller: 'perfilCtrl',
+      authenticate: true
+    })
+})
 .controller('perfilCtrl', ['$scope',function($scope) {
   $scope.toggle = {
     username: 'true',

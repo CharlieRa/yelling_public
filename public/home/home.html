@@ -1,13 +1,13 @@
 <div class="home" ng-controller="homeCtrl" style="height:100%">
-  <div layout="row" layout-align="center center" layout-wrap layout-padding>
-    <md-whiteframe class="md-whiteframe-z5" flex="40" layout="column" layout-sm="column" layout-align="center center" >
-      <h1 flex>Bienvenido A <span id="titleApp">Yelling</span></h1>
-      <div flex><img id="mainLogo" src="dist/img/logos/mainLogo2.png" alt=""></div>
-      <h4 flex>Web application for public messaging by zone.</h4>
-      <md-button ng-click="loginOauth('facebook')" class="md-raised md-primary fbBtn" layout="row" layout-align="center center" flex>
+  <div layout="column" layout-align="center center" layout-wrap layout-padding>
+      <h1 class="md-display-3" flex>Bienvenido A Yelling</h1>
+      <div  flex>
+        <img class="md-raised md-whiteframe-z5 zoomIn" id="mainLogo" src="dist/img/logos/mainLogo2.png" alt="">
+      </div>
+      <h4 class="md-display-1" flex>Web application for public messaging by zone.</h4>
+      <md-button ng-click="loginOauth('facebook')" class="md-raised md-primary fbBtn md-whiteframe-z4" layout="row" layout-align="center center" flex>
         <md-icon class="md-12" md-svg-icon="dist/icons/fb.svg"></md-icon>
         <span id="fbText">Facebook Login!</span>
       </md-button>
-    </md-whiteframe>
   </div>
 </div>

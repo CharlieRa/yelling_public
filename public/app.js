@@ -1,10 +1,10 @@
 'use strict';
 
 angular
-  .module('yelling',['ngRoute','yelling.home','yelling.messages','yelling.perfil', 'yelling.navbar', 'apiMock', 'ngCookies', 'ngResource'])
-  .config(function($routeProvider, $locationProvider, $httpProvider)
+  .module('yelling',['ui.router','yelling.home','yelling.messages','yelling.perfil', 'yelling.navbar', 'yelling.sidenav', 'apiMock', 'ngCookies', 'ngResource', 'ngAnimate'])
+  .config(function($urlRouterProvider, $locationProvider, $httpProvider)
   {
-    $routeProvider.otherwise({redirectTo: '/home'});
+    $urlRouterProvider.otherwise('/home');
     // $locationProvider.html5Mode(true); /* Activado quita el #de la URL */
     $httpProvider.interceptors.push('authInterceptor');
   })
@@ -35,12 +35,19 @@ angular
   })
   .run(function ($rootScope, $location, Auth) {
     // Redirect to login if route requires auth and you're not logged in
-    $rootScope.$on('$stateChangeStart', function (event, next) {
-      Auth.isLoggedInAsync(function(loggedIn) {
-        if (next.authenticate && !loggedIn) {
-          event.preventDefault();
-          $location.path('/home');
-        }
-      });
+    $rootScope.$on('$stateChangeStart', function (event, next, current) {
+      console.log("entre");
+      console.log(next);
+      console.log(Auth.isLoggedIn());
+      if (next.authenticate && !Auth.isLoggedIn()) {
+        event.preventDefault();
+        $location.path('/home');
+      }
+      // Auth.isLoggedInAsync(function(loggedIn) {
+      //   if (next.authenticate && !loggedIn) {
+      //     event.preventDefault();
+      //     $location.path('/home');
+      //   }
+      // });
     });
   });

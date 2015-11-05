@@ -1,80 +1,10 @@
-<div class="navbar" ng-controller="NavbarCtrl as ctrl" ng-cloak>
+<div ng-if="isLoggedIn()" layout="row" class="navbar md-whiteframe-z4" ng-controller="NavbarCtrl as ctrl">
   <md-toolbar md-scroll-shrink layout="row" class="primaryBgColor">
     <div class="md-toolbar-tools">
-      <md-button ng-click="ctrl.toggleMenu()" class="md-icon-button" aria-label="Menu">
+      <span flex></span>
+      <md-button ng-click="ctrl.logout()" class="md-icon-button" aria-label="Menu">
         <md-icon md-svg-src="dist/icons/ic_menu_24px.svg"></md-icon>
       </md-button>
-      <h2>Menu</h2>
-      <span flex></span>
     </div>
   </md-toolbar>
-
-  <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left">
-    <md-toolbar class="md-tall md-hue-2 primaryBgColor">
-      <span flex></span>
-      <div layout="column" class="md-toolbar-tools-bottom inset">
-        <img src="dist/img/avatar.jpg" flex class="md-avatar" id="avatarSidenav" flex="24">
-        <span></span>
-        <div>Firstname Lastname</div>
-        <div>email@domainname.com</div>
-      </div>
-    </md-toolbar>
-    <md-list>
-      <md-subheader>Navegar</md-subheader>
-      <md-item ng-repeat="item in menu">
-        <a>
-          <md-item-content md-ink-ripple layout="row" layout-align="start center">
-            <div class="inset">
-              <ng-md-icon icon="{{item.icon}}"></ng-md-icon>
-            </div>
-            <div class="inset">{{item.title}}
-            </div>
-          </md-item-content>
-        </a>
-      </md-item>
-      <md-divider></md-divider>
-      <!-- <md-subheader>Management</md-subheader> -->
-      <!-- <md-item ng-repeat="item in admin">
-        <a>
-          <md-item-content md-ink-ripple layout="row" layout-align="start center">
-            <div class="inset">
-              <ng-md-icon icon="{{item.icon}}"></ng-md-icon>
-            </div>
-            <div class="inset">{{item.title}}
-            </div>
-          </md-item-content>
-        </a>
-      </md-item> -->
-    </md-list>
-    <!-- <div layout="column" layout-align="center center">
-      <h3 class="md-headline" flex>Username</h3>
-      <img src="dist/img/avatar.jpg" flex class="md-avatar" id="avatarSidenav" flex>
-    </div>
-      <md-divider></md-divider>
-    <div layout="column" layout-align="center">
-      <md-button ng-href="#/perfil">
-        <md-icon md-svg-icon="dist/icons/ic_person_outline_24px.svg"></md-icon>
-        Perfil
-      </md-button>
-      <md-button ng-link="messages">
-        <md-icon md-svg-icon="dist/icons/ic_person_outline_24px.svg"></md-icon>
-        Yelling!
-      </md-button>
-      <md-button ng-click="">
-        <md-icon md-svg-icon="dist/icons/ic_person_outline_24px.svg"></md-icon>
-        Cerrar Sesión
-      </md-button>
-      <md-button ng-click="ctrl.closeMenu()" class="md-primary">
-        Cerrar
-      </md-button>
-    </div> -->
-  </md-sidenav>
 </div>
-
-<!-- <li ng-show="isAdmin()" ng-class="{active: isActive('/admin')}"><a href="/admin">Admin</a></li> -->
-<!-- <li ng-hide="isLoggedIn()" ng-class="{active: isActive('/signup')}"><a href="/signup">Sign up</a></li> -->
-<!-- <li ng-hide="isLoggedIn()" ng-class="{active: isActive('/login')}"><a href="/login">Login</a></li> -->
-<!-- <li ng-show="isLoggedIn()"><p class="navbar-text">Hello {{ getCurrentUser().facebook.first_name }}</p> </li> -->
-<!-- <li ng-show="isLoggedIn()"><img ng-src="http://graph.facebook.com/{{getCurrentUser().facebook.id}}/picture" alt="profile picture" /></li> -->
-<!-- <li ng-show="isLoggedIn()" ng-class="{active: isActive('/settings')}"><a href="/settings"><span class="glyphicon glyphicon-cog"></span></a></li> -->
-<!-- <li ng-show="isLoggedIn()" ng-class="{active: isActive('/logout')}"><a href="" ng-click="logout()">Logout</a></li> -->

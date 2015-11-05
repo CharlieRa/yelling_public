@@ -17,9 +17,11 @@
     "ngGeolocation": "~0.0.8",
     "angular-cookies": "~1.4.7",
     "angular-sanitize": "~1.4.7",
-    "angular-resource": "~1.4.7"
+    "angular-resource": "~1.4.7",
+    "angular-ui-router": "~0.2.15"
   },
   "devDependencies": {
-    "angular-apimock": "~0.3.1"
+    "angular-apimock": "~0.3.1",
+    "angular-ui-router": "~0.2.15"
   }
 }

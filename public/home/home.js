@@ -1,13 +1,15 @@
 'use strict';
 
 angular
-  .module('yelling.home', ['ngMaterial', 'ngMessages', 'ngRoute'])
-  .config(function($routeProvider)
+  .module('yelling.home', ['ngMaterial', 'ngMessages', 'ui.router', 'ngAnimate'])
+  .config(function($stateProvider)
   {
-    $routeProvider.when('/home',{
-      templateUrl: 'home/home.html',
-      controller: 'homeCtrl'
-    });
+    $stateProvider
+      .state('home', {
+        url: '/home',
+        templateUrl: 'home/home.html',
+        controller: 'homeCtrl'
+      })
   })
 
   .controller('homeCtrl', homeCtrl)
