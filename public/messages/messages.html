@@ -1,8 +1,7 @@
 <div class="messages" layout="row">
   <div ng-include="'components/sidenav/sidenav.html'" style="height:100%;"></div>
 
-  <!-- <div flex layout="column" layout-padding layout-align="center center" ng-style="{'background': 'url(' + bgUrl + ')'}"> -->
-    <div flex layout="column" layout-padding layout-align="center center" ng-style="{'background': 'url(dist/img/bgsDin/bg18.png)'}">
+    <div flex layout="column" layout-padding layout-align="center center" ng-style="{'background': '#eee'}">
     <!-- Progress mientras se cargan los mensajes y se comprueba la geolocalizacion del usuario -->
     <md-progress-circular ng-if="!toggle.progress" md-mode="indeterminate"></md-progress-circular>
 
@@ -20,7 +19,7 @@
     <md-content class="" ng-if="toggle.yelling" flex style="width:70%;" scroll-bottom="messages">
       <md-list>
         <md-list-item class="md-3-line fadeInUp lista md-whiteframe-z3" ng-repeat="message in messages">
-          <img ng-src="dist/img/avatar.jpg" class="md-avatar" alt="avatar" />
+          <img ng-src="http://graph.facebook.com/{{getCurrentUser().facebook.id}}/picture" class="md-avatar" alt="avatar" />
           <div class="md-list-item-text" layout="column" layout-align="space-around start">
             <h4>Charlie Distancia: {{message.distance}} metros  Fecha mensaje: {{message.dateTime | date:'d MMM, y' }} Hora mensaje: {{message.dateTime | date:' HH:mm:ss' }}</h4>
             <h3>{{message.text}}</h3>

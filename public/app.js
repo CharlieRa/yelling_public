@@ -36,18 +36,17 @@ angular
   .run(function ($rootScope, $location, Auth) {
     // Redirect to login if route requires auth and you're not logged in
     $rootScope.$on('$stateChangeStart', function (event, next, current) {
-      console.log("entre");
       console.log(next);
       console.log(Auth.isLoggedIn());
-      if (next.authenticate && !Auth.isLoggedIn()) {
-        event.preventDefault();
-        $location.path('/home');
-      }
-      // Auth.isLoggedInAsync(function(loggedIn) {
-      //   if (next.authenticate && !loggedIn) {
-      //     event.preventDefault();
-      //     $location.path('/home');
-      //   }
-      // });
+      // if (next.authenticate && !Auth.isLoggedIn()) {
+      //   event.preventDefault();
+      //   $location.path('/home');
+      // }
+      Auth.isLoggedInAsync(function(loggedIn) {
+        if (next.authenticate && loggedIn) {
+          event.preventDefault();
+          $location.path('/home');
+        }
+      });
     });
   });

@@ -1,0 +1,374 @@
+//colors
+$color_bon_jour_approx: #e1e1e1;
+$white: #ffffff;
+$black: #000000;
+$color_storm_dust_approx: #666666;
+$color_mine_shaft_approx: #333333;
+$color_azure_approx: rgb(59, 89, 152);
+$orange_peel: #ffa000;
+$color_indigo_approx: #5c6bc0;
+$white_95: rgba(255, 255, 255, 0.95);
+$color_chicago_approx: #575858;
+$black_45: rgba(0,0,0,0.45);
+$green: #00ff00;
+$white_97: rgba(255, 255, 255, 0.97);
+$black_15: rgba(0,0,0,0.15);
+$color_pine_green_approx: #00796b;
+$black_54: rgba(0,0,0,0.54);
+$black_60: rgba(0, 0, 0, .6);
+$color_peter_river: #3498db;
+$color_nephritis: #27ae60;
+$color_clouds: #ecf0f1;
+$color_asbestos: #7f8c8d;
+$color_belize_hole: #2980b9;
+$midnight_blue: #2c3e50;
+//urls
+$url_0: url('/dist/img/backgrounds/bgsDin/bg20.gif');
+$url_1: url('/dist/img/backgrounds/bgchat.png');
+
+//@extend-elements
+//original selectors
+//.avatar, .avatar img
+%extend_1 {
+	width: 45px;
+	height: 45px;
+	border-radius: 30px;
+}
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}
+
+.slidedown.ng-enter,
+.slidedown.ng-leave {
+    -webkit-transition: all 1s ease;
+    transition: all 1s ease;
+
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+}
+
+.fade.ng-enter{
+	-webkit-animation: fadeIn 0.5s;
+  -moz-animation: fadeIn 0.5s;
+  -ms-animation: fadeIn 0.5s;
+  animation: fadeIn 0.5s;
+}
+.fade.ng-leave{
+	-webkit-animation: fadeOut 0.5s;
+  -moz-animation: fadeOut 0.5s;
+  -ms-animation: fadeOut 0.5s;
+  animation: fadeOut 0.5s;
+}
+
+.zoomIn.ng-enter{
+	-webkit-animation: zoomIn 2s;
+  -moz-animation: zoomIn 2s;
+  -ms-animation: zoomIn 2s;
+  animation: zoomIn 2s;
+}
+.zoom.ng-leave{
+	-webkit-animation: zoomOut 0.5s;
+  -moz-animation: zoomOut 0.5s;
+  -ms-animation: zoomOut 0.5s;
+  animation: zoomOut 0.5s;
+}
+
+.fadeInUp.ng-enter{
+	-webkit-animation: fadeInUp 1s;
+  -moz-animation: fadeInUp 1s;
+  -ms-animation: fadeInUp 1s;
+  animation: fadeInUp 1s;
+}
+
+.slideInUp.ng-enter{
+	-webkit-animation: slideInUp  1s;
+  -moz-animation: slideInUp  1s;
+  -ms-animation: slideInUp  1s;
+  animation: slideInUp  1s;
+}
+
+md-content {
+	height: 100%;
+}
+
+::-webkit-scrollbar {
+	width: 8px;
+	height: 8px;
+}
+::-webkit-scrollbar-button {
+	width: 5px;
+	height: 5px;
+}
+::-webkit-scrollbar-thumb {
+	background: $color_bon_jour_approx;
+	border: 0 none $white;
+	//Instead of the line below you could use @include border-radius($radius, $vertical-radius)
+	border-radius: 50px;
+	&:hover {
+		background: $white;
+	}
+	&:active {
+		background: $black;
+	}
+}
+::-webkit-scrollbar-track {
+	background: $color_storm_dust_approx;
+	border: 0 none $white;
+	//Instead of the line below you could use @include border-radius($radius, $vertical-radius)
+	border-radius: 50px;
+	&:hover {
+		background: $color_storm_dust_approx;
+	}
+	&:active {
+		background: $color_mine_shaft_approx;
+	}
+}
+::-webkit-scrollbar-corner {
+	background: transparent;
+}
+.menu {
+	list-style: none;
+	border-bottom: 0.1em solid $black;
+	margin-bottom: 2em;
+	padding: 0 0 0.5em;
+	&:before {
+		content: "[";
+	}
+	&:after {
+		content: "]";
+	}
+	> li {
+		display: inline;
+		&:before {
+			content: " ";
+			padding-right: 0.3em;
+		}
+		&:nth-child(1):before {
+			content: "";
+			padding: 0;
+		}
+	}
+}
+.fbBtn {
+	width: 30%;
+	background-color: $color_azure_approx !important;
+}
+#fbText {
+	vertical-align: sub;
+}
+#titleApp {
+	color: $orange_peel;
+}
+#titleY {
+	color: $color_indigo_approx;
+}
+.home {
+	md-icon {
+		margin: 0;
+	}
+	md-whiteframe {
+		margin: 30px;
+		background-color: $white;
+	}
+}
+
+#menuAvatar {
+	margin: 0;
+}
+.primaryBgColor {
+	background-color: $midnight_blue !important;
+}
+.avatar {
+	border: 2px solid $white;
+	//Instead of the line below you could use @include box-sizing($bs)
+	box-sizing: initial;
+	//Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+	box-shadow: 0 1px 3px $black_15;
+	@extend %extend_1;
+	img {
+		@extend %extend_1;
+	}
+}
+:before {
+	//Instead of the line below you could use @include box-sizing($bs)
+	box-sizing: border-box;
+}
+:after {
+	//Instead of the line below you could use @include box-sizing($bs)
+	box-sizing: border-box;
+}
+.ui-view{
+	height: inherit;
+}
+.navbar{
+	.md-toolbar-tools-bottom {
+	  font-size: small;
+	  & :last-child {
+	    opacity: 0.8;
+	  }
+	}
+}
+.sidenav{
+	.angular-google-map-container{
+    height: 200px;
+		widows: 300px;
+  }
+	#avatarSidenav {
+		width: 24%;
+		// margin: 16px;
+		//Instead of the line below you could use @include border-radius($radius, $vertical-radius)
+		border-radius: 50%;
+	}
+}
+.messages {
+	background: $url_0 repeat;
+	// background-color: #eee;
+	width: 100%;
+	height: inherit;
+
+	md-list-item.md-3-line{
+		margin: 14px;
+		background-color: white;
+		// border-radius: 8px;
+	}
+	#messageAvatar{
+		width: 10%;
+		border-radius: 50%;
+	}
+	.md-subheader{
+		background-color: $color_belize_hole;
+		margin: 0px;
+		color: $color_clouds;
+		font-weight: bold;
+	}
+	md-list{
+		padding: 0;
+	}
+	md-card{
+		margin-bottom: 0;
+		margin-top: 8px;
+	}
+	md-content{
+		overflow: hidden;
+		background-color: transparent;
+	}
+	md-content:hover{
+		overflow-y:scroll;
+	}
+
+	#moodBadIcon{
+		width: 90px;
+		height: 90px;
+		svg{
+			fill: $color_asbestos;
+		}
+	}
+
+	#messagesBox {
+		min-height: 200px;
+		max-height: 800px;
+		height: 60%;
+		// position: relative;
+		overflow: auto;
+	}
+	#messageBody{
+		word-wrap: break-word;
+	}
+	.chatBox{
+		background: $url_1 repeat;
+	}
+	#chatInput {
+		padding: 13px;
+		border-radius: 3px;
+		background: $white_97;
+		color: $color_chicago_approx;
+		box-shadow: 0 1px 3px $black_15;
+		margin-top: 7px;
+		order: 0;
+		line-height: 21px;
+	}
+	.places{
+		.md-subheader{
+			background-color: $color_nephritis;
+			margin: 0px;
+			color: $color_clouds;
+			font-weight: bold;
+		}
+		md-list{
+			padding: 0px;
+		}
+		.placeIcon{
+			width: 48px;
+		  height: 48px;
+			svg{
+			  fill: $color_peter_river;
+			}
+		}
+	}
+	// md-whiteframe {
+	// 	background-color: $white;
+	// 	word-wrap: break-word;
+	// 	#messageFooter {
+	// 		padding: 0;
+	// 		color: $black_54;
+	// 	}
+	// 	#messageHead {
+	// 		padding: 0;
+	// 	}
+	// 	#messageBox {
+	// 		margin: 3px;
+	// 		width: 50%;
+	// 		word-wrap: break-word;
+	// 	}
+	// 	#messageBody {
+	// 		margin: 3px;
+	// 		word-wrap: break-word;
+	// 	}
+	// 	#messageText {
+	// 		word-wrap: break-word;
+	// 	}
+	// }
+	// .message-container {
+	// 	width: 100%;
+	// }
+}
+.perfil {
+	md-input-container {
+		padding: 0;
+	}
+	.image-container {
+		position: relative;
+		.after {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			//Instead of the line below you could use @include border-radius($radius, $vertical-radius)
+			border-radius: 50%;
+			display: none;
+			color: $white;
+		}
+		&:hover .after {
+			display: block;
+			background: $black_60;
+			cursor: pointer;
+		}
+	}
+	#searchAvatar {
+		top: 50%;
+	}
+}
+.form md-whiteframe {
+	background: $white;
+	margin: 20px;
+	padding: 20px;
+	width: 50%;
+}
+img#mainLogo {
+	//Instead of the line below you could use @include border-radius($radius, $vertical-radius)
+	border-radius: 20%;
+}
