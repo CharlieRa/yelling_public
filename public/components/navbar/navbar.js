@@ -14,7 +14,7 @@ angular
     console.log('Current user: ', Auth.getCurrentUser());
     console.log(Auth.isLoggedIn());
     $scope.logout = function() {
-      console.log("click");
+
       Auth.logout();
       $location.path('/home');
     };

@@ -5,7 +5,7 @@
   {
     $stateProvider
       .state('messages', {
-        url: '/messages',
+        url: '/',
         templateUrl: 'messages/messages.html',
         controller: 'messagesCtrl',
         authenticate: true
@@ -47,7 +47,7 @@
     /**
     * Funcion controller de Messages
     **/
-    function messageCtrl($scope, $http, uiGmapGoogleMapApi, $timeout, Auth, $location)
+    function messageCtrl($scope, $http, uiGmapGoogleMapApi, $timeout, User, $location)
     {
 
       $scope.mapOptions = { center: { latitude: -33.447487 , longitude: -70.673676  }, zoom: 8 };
@@ -59,9 +59,8 @@
         progress: 'false'
       }];
       $scope.isCollapsed = true;
-      $scope.isLoggedIn = Auth.isLoggedIn();
-      $scope.isAdmin = Auth.isAdmin();
-      $scope.currentUser = Auth.getCurrentUser();
+
+      $scope.currentUser = User.get();
       console.log($scope.currentUser);
 
       $scope.clock = "loading clock..."; // initialise the time variable
@@ -164,7 +163,7 @@
     {
       $scope.$apply(function()
       {
-        $scope.error.message = 'Tu navegador no soporta geolocalizacion, no puedes usar el sericio, te pedimos dislcupas :(';
+        $scope.error.message = 'Tu navegador no soporta geolocalizacion, no puedes usar el servicio, te pedimos dislcupas :(';
         $scope.toggle.error = 'true';
         $scope.toggle.progress = 'true';
       });
@@ -222,28 +221,31 @@
           var loc = [];
           loc[0] = positionActual.longitude;
           loc[1] = positionActual.latitude;
-          $scope.messages.push(
-          {
-            text: $scope.messages.newMessage,
-            location: loc,
-            dateTime: currentDatetime
-           //  votes: value.obj.votes,
-           //  dis: Math.floor(value.dis)
-          });
-
-          // $http.post('http://54.207.86.25/api/posts',{
-          $http.post('/api/posts',{
-            content: $scope.messages.newMessage,
-            location: positionActual
-          })
+          var newPost = {};
+          newPost.content = $scope.messages.newMessage;
+          newPost.location =  positionActual;
+          var user = {}
+          user.id = $scope.currentUser._id;
+          newPost.author =  user;
+          console.log('Enviando a server', newPost);
+          $http.post('/api/posts',newPost)
           .success(function(data, status, headers, config)
           {
-            /*ToDo Manejo de la data que llega para agregarla como  mensaje*/
+            // al confirmarse pusheo el mensaje que envie
+            $scope.messages.push(
+            {
+              text: $scope.messages.newMessage,
+              location: loc,
+              dateTime: currentDatetime
+             //  votes: value.obj.votes,
+             //  dis: Math.floor(value.dis)
+            });
             console.log(data);
           })
             /*ToDo Manejo de errores que se pueden producir */
           .error(function(data, status, headers, config)
           {
+            alert('No hemos podido publicar tu mensaje')
             console.log(data);
           });
 

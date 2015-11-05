@@ -1,10 +1,21 @@
 'use strict';
 
 angular
-  .module('yelling',['ui.router','yelling.home','yelling.messages','yelling.perfil', 'yelling.navbar', 'yelling.sidenav', 'apiMock', 'ngCookies', 'ngResource', 'ngAnimate'])
+  .module('yelling',[
+    'ui.router',
+    'yelling.login',
+    'yelling.messages',
+    'yelling.perfil', 
+    'yelling.navbar', 
+    'yelling.sidenav', 
+    'apiMock', 
+    'ngCookies', 
+    '$feedback.directives',
+    'ngResource', 'ngAnimate'])
   .config(function($urlRouterProvider, $locationProvider, $httpProvider)
   {
-    $urlRouterProvider.otherwise('/home');
+    $urlRouterProvider
+      .otherwise('/');
     // $locationProvider.html5Mode(true); /* Activado quita el #de la URL */
     $httpProvider.interceptors.push('authInterceptor');
   })
@@ -22,8 +33,9 @@ angular
       // Intercept 401s and redirect you to login
       responseError: function(response) {
         if(response.status === 401) {
-          $location.path('/home');
+          $location.path('/login');
           // remove any stale tokens
+
           $cookieStore.remove('token');
           return $q.reject(response);
         }
@@ -35,17 +47,11 @@ angular
   })
   .run(function ($rootScope, $location, Auth) {
     // Redirect to login if route requires auth and you're not logged in
-    $rootScope.$on('$stateChangeStart', function (event, next, current) {
-      console.log(next);
-      console.log(Auth.isLoggedIn());
-      // if (next.authenticate && !Auth.isLoggedIn()) {
-      //   event.preventDefault();
-      //   $location.path('/home');
-      // }
+    $rootScope.$on('$stateChangeStart', function (event, next) {
       Auth.isLoggedInAsync(function(loggedIn) {
         if (next.authenticate && !loggedIn) {
           event.preventDefault();
-          $location.path('/home');
+          $location.path('/login');
         }
       });
     });

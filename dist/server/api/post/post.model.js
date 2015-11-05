@@ -5,30 +5,26 @@ var mongoose = require('mongoose'),
 
 var PostSchema = new Schema({
   content: String,
-  author: {
+	author: {
     id: {
       type: Schema.Types.ObjectId,
-      ref: 'User',
-      // required: true se relaja la condicion
+      ref: 'User'
+      // required: true -> se relaja condicion de modelo post
     }
   },
-  comments: [{
-    type: Schema.Types.ObjectId,
-    ref: 'Comment'
-  }],
   location: {
     type: [Number],  // [<longitude>, <latitude>]
     index: '2dsphere',      // create the geospatial index
     required: true
   },
   votes: {
-    type: Number, 
-    default: 0
+  	type: Number, 
+  	default: 0
   },
   dateTime: { 
-    type: Date, 
-    default: Date.now 
-  }
+  	type: Date, 
+  	default: Date.now 
+  },
 });
 
 // id: type.string(),
