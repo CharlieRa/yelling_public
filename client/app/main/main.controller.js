@@ -1,9 +1,9 @@
 'use strict';
 
 angular.module('testApp')
-  .controller('MainCtrl', function ($scope, $http, socket) {
+  .controller('MainCtrl', function ($scope, $http, socket,User) {
     $scope.awesomeThings = [];
-
+    $scope.currentUser = User.get();
     $http.post('/api/posts/nearest',{
       longitude : -70.5807622,
       latitude : -33.5065764
@@ -22,9 +22,9 @@ angular.module('testApp')
 
       $http.post('/api/posts', { 
         content: $scope.newThing,
-        // author: {
-        //   id: '5623195c1d5696d514eab562'
-        // },
+        user: {
+          id: $scope.currentUser._id
+        },
         location: {
           longitude: -70.5807622,
           latitude : -33.5065764

@@ -23,6 +23,8 @@ exports.show = function(req, res) {
 
 // Creates a new comment in the DB.
 exports.create = function(req, res) {
+  console.log('Creando comentario con ', req.body);
+  req.body.author = req.body.user.id;
 	if(req.body){
 	  Comment.create(req.body, function(err, comment) {
 	    if(err) { return handleError(res, err); }

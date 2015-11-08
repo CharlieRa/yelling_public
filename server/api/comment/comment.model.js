@@ -6,11 +6,9 @@ var mongoose = require('mongoose'),
 var CommentSchema = new Schema({
   content: String,
 	author: {
-    id: {
       type: Schema.Types.ObjectId,
       ref: 'User',
       // required: true se relaja la condicion
-    }
   },
   post: {
     id: {

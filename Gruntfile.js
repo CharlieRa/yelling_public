@@ -34,7 +34,7 @@ module.exports = function (grunt) {
     },
     express: {
       options: {
-        port: process.env.PORT || 3500
+        port: process.env.PORT || 3000
       },
       dev: {
         options: {
@@ -201,7 +201,7 @@ module.exports = function (grunt) {
             // opens browser on initial server start
             nodemon.on('config:update', function () {
               setTimeout(function () {
-                require('open')('http://127.0.0.2:3500/debug?port=5858');
+                require('open')('http://127.0.0.1:3000/debug?port=5858');
               }, 500);
             });
           }

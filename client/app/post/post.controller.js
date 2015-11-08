@@ -1,9 +1,9 @@
 'use strict';
 
 angular.module('testApp')
-  .controller('PostCtrl', function ($scope, $http, socket, $stateParams, Auth) {
+  .controller('PostCtrl', function ($scope, $http, socket, $stateParams, User) {
   	console.log('Entrando a PostCtrl con stateParam:', $stateParams);
-  	$scope.currentUser = Auth.getCurrentUser;
+  	$scope.currentUser = User.get();
   	$scope.comments = [];
     $http.get('/api/posts/'+$stateParams.id,{
     }).success(function(post) {
@@ -28,7 +28,7 @@ angular.module('testApp')
         	id: $scope.currentUser._id
         }
       }).success(function(comment) {
-      	$scope.comments.push(comment)
+      	$scope.comments.push(comment);
     	});
       $scope.newComment = '';
 

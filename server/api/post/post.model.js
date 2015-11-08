@@ -6,11 +6,9 @@ var mongoose = require('mongoose'),
 var PostSchema = new Schema({
   content: String,
 	author: {
-    id: {
-      type: Schema.Types.ObjectId,
-      ref: 'User',
+    type: Schema.Types.ObjectId,
+    ref: 'User',
       // required: true se relaja la condicion
-    }
   },
   comments: [{
     type: Schema.Types.ObjectId,
@@ -28,7 +26,7 @@ var PostSchema = new Schema({
   dateTime: { 
   	type: Date, 
   	default: Date.now 
-  },
+  }
 });
 
 // id: type.string(),

@@ -9,7 +9,7 @@ module.exports = function(config) {
     // testing framework to use (jasmine/mocha/qunit/...)
     frameworks: ['jasmine'],
 
-    hostname: ['127.0.0.2'],
+    hostname: ['127.0.0.1'],
     // list of files / patterns to load in the browser
     files: [
       'client/bower_components/jquery/dist/jquery.js',
@@ -55,7 +55,7 @@ module.exports = function(config) {
     exclude: [],
 
     // web server port
-    port: 3500,
+    port: 3000,
 
     // level of logging
     // possible values: LOG_DISABLE || LOG_ERROR || LOG_WARN || LOG_INFO || LOG_DEBUG
