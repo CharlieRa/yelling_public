@@ -11,6 +11,9 @@
 
 var _ = require('lodash');
 var Post = require('./post.model');
+var Comment = require('../comment/comment.model');
+var async = require('async');
+// var User = require('../user/user.model');
 
 // Get list of posts
 exports.index = function(req, res) {
@@ -35,42 +38,25 @@ exports.nearest = function (req, res){
   coords[0] = req.body.longitude;
   coords[1] = req.body.latitude;
 
-  Post.geoNear({
-    type: "Point",
-    coordinates : coords
-    },{
-      spherical: true, 
-      maxDistance: 800
-    }
-  ).then(function(posts) {
-    return res.status(200).json(posts);
-  })
-  /*
-  * Falta popular usuario en cada post
-  */
-  // console.log('Buscando Post cercanos segun localizacion');
-  // Post
-  //   .geoNear({
-  //   type: "Point",
-  //   coordinates : coords
-  //   },{
-  //       spherical: true, 
-  //       maxDistance: 800
-  //     }
-  //   )
-  //   .then(function(posts) {
-  //     console.log('populando posts', posts);
-  //     posts.forEach(function(item) { 
-  //       console.log('buscnado con ', item.obj._id);
-  //       Post
-  //         .findById(item.obj._id)
-  //         .populate('author.id', '-_id')
-  //         .exec(function (err, item) {
-  //           console.log('item populado', item);
-  //       })
-      
-  //     });
-  //   });
+  Post
+    .geoNear({
+      type: "Point",
+      coordinates : coords
+      },
+      {
+        spherical: true, 
+        maxDistance: 800
+      })
+    .then(function(posts) {
+      Post
+        .populate(posts,{
+          path: 'obj.author',
+          model: 'User'
+        },function(err,items){
+          return res.status(200).json(items);
+        });
+    });
+
 };
 
 // Get a single post
@@ -79,24 +65,39 @@ exports.show = function(req, res) {
   Post
     .findById(req.params.id)
     .populate('comments', '-post')
+    .populate('author')
     .exec(function (err, post) {
     if(err) { return handleError(res, err); }
     if(!post) { return res.status(404).send('Not Found'); }
-    return res.json(post);
+      async.map(post.comments, function popular(comment,callback){
+        console.log('Buscando comentario con id', comment._id);
+        Comment
+          .findById(comment._id)
+          .populate('author')
+          .exec(function(err,commentPopulated){
+            console.log('Retornando', commentPopulated);
+            callback(null,commentPopulated);
+          });
+        
+      }, function(err, results){
+        post.comments = results;
+        return res.status(200).json(post);
+      });
   });
 };
 
 // Creates a new post in the DB.
 exports.create = function(req, res) {
 
+  console.log('[POST] Creando post', req.body);
   var post = {};
   post.content = req.body.content;
   var location = [];
   location[0] = req.body.location.longitude;
   location[1] = req.body.location.latitude;
   post.location = location;
-  post.author = req.body.author;
-  console.log('[POST] Creando post', post);
+  post.author = req.body.user.id;
+  
   Post.create(post, function(err, post) {
     if(err) { return handleError(res, err); }
     return res.status(201).json(post);

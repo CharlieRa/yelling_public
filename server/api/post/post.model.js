@@ -5,12 +5,10 @@ var mongoose = require('mongoose'),
 
 var PostSchema = new Schema({
   content: String,
-  author: {
-    id: {
-      type: Schema.Types.ObjectId,
-      ref: 'User',
+	author: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
       // required: true se relaja la condicion
-    }
   },
   comments: [{
     type: Schema.Types.ObjectId,
@@ -22,12 +20,12 @@ var PostSchema = new Schema({
     required: true
   },
   votes: {
-    type: Number, 
-    default: 0
+  	type: Number, 
+  	default: 0
   },
   dateTime: { 
-    type: Date, 
-    default: Date.now 
+  	type: Date, 
+  	default: Date.now 
   }
 });
 
