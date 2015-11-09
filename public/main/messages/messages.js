@@ -59,9 +59,11 @@
               $scope.messages.push({
                 text: 'Bienvenido, aún no hay mensajes en esta zona, Se el primero!. Escribe algo divertido para empezar.',
                 location: positionActual,
-                dateTime: currentDatetime
-                // votes: value.obj.votes,
-                // dis: Math.floor(value.dis)
+                dateTime: currentDatetime,
+                votes: 0,
+                dis: 0,
+                avatar: 'dist/img/logos/mainLogo1.png',
+                qtyComments: 0
               });
             }
             angular.forEach(data, function(value, key)
@@ -75,6 +77,8 @@
                 votes: value.obj.votes,
                 distance: value.dis.toFixed(2),
                 qtyComments: value.obj.comments.length,
+                author: value.obj.author,
+                avatar: 'http://graph.facebook.com/'+value.obj.author.facebook.id+'/picture',
                 id: value.obj._id
               });
             });
@@ -202,12 +206,15 @@
               console.log(data);
               $scope.messages.push(
               {
-                text: $scope.newMessage
-                // location: loc,
-                // dateTime: currentDatetime
-               //  votes: value.obj.votes,
-               //  dis: Math.floor(value.dis),
-              //  author:
+                text: $scope.newMessage,
+                location: data.location,
+                dateTime: data.dateTime,
+                votes: data.votes,
+                // distance: value.dis.toFixed(2),
+                qtyComments: data.comments.length,
+                author: data.author,
+                avatar: 'http://graph.facebook.com/'+data.author.facebook.id+'/picture',
+                id: data._id
               });
               $mdToast.show(
                  $mdToast.simple()

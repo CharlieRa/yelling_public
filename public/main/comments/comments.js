@@ -31,8 +31,10 @@ angular.module('yelling.comments', ['ui.router', 'ngMaterial', 'ngMessages', 'ap
         datetime: post.dateTime,
         votes: post.votes,
         qtyComments: post.comments.length,
+        author: post.author,
         location: post.location
       }
+
 
       /* Se setea el mapa donde se escribio el mensaje */
       $scope.mapOptions.center = {
@@ -54,7 +56,8 @@ angular.module('yelling.comments', ['ui.router', 'ngMaterial', 'ngMessages', 'ap
         $scope.comments.push({
           content: 'Aún no existen comentarios, tu puedes ser el primero!. Escribe un comentario presionando el boton con el ícono + del fondo.',
           datetime: new Date(),
-          author: 'Yelling'
+          author: 'Yelling',
+          avatar: 'dist/img/logos/mainLogo1.png'
         });
       }else{
         angular.forEach(post.comments, function(value, key)
@@ -62,7 +65,8 @@ angular.module('yelling.comments', ['ui.router', 'ngMaterial', 'ngMessages', 'ap
           $scope.comments.push({
               content: value.content,
               datetime: value.dateTime,
-              author: value.author
+              author: value.author,
+              avatar: "http://graph.facebook.com/"+value.author.facebook.id+"/picture?type=large"
             });
           });
       }
