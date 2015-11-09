@@ -29,6 +29,8 @@ angular.module('testApp')
           longitude: -70.5807622,
           latitude : -33.5065764
         }
+      }).then(function successCallback(response) {
+        console.log('Server me entrego', response);
       });
       $scope.newThing = '';
 

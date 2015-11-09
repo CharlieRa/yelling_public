@@ -38,7 +38,13 @@ exports.create = function(req, res) {
 	  	},function(err, obj) {
 	    	if (err) next(err);
 	  	});
-	 		return res.status(201).json(comment);
+      Comment
+        .populate(comment,{
+          path: 'author',
+          model: 'User'
+        },function(err,commentPopulate){
+          return res.status(200).json(commentPopulate);
+        });
 		});
 	}
 }
