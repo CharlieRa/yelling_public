@@ -5,18 +5,18 @@ angular
     'ui.router',
     'yelling.login',
     'yelling.messages',
-    'yelling.perfil', 
-    'yelling.navbar', 
-    'yelling.sidenav', 
-    'apiMock', 
-    'ngCookies', 
+    // 'yelling.perfil',
+    'yelling.main',
+    'yelling.comments',
+    'apiMock',
+    'ngCookies',
     '$feedback.directives',
     'ngResource', 'ngAnimate'])
   .config(function($urlRouterProvider, $locationProvider, $httpProvider)
   {
     $urlRouterProvider
       .otherwise('/');
-    // $locationProvider.html5Mode(true); /* Activado quita el #de la URL */
+    // $locationProvider.html5Mode(true); /* Activado quita el # de la URL */
     $httpProvider.interceptors.push('authInterceptor');
   })
   .factory('authInterceptor', function ($rootScope, $q, $cookieStore, $location) {

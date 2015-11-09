@@ -1,0 +1,42 @@
+<div class="main" layout="row" layout-fill class="navbar md-whiteframe-z4" ng-controller="mainCtrl as ctrl" ng-style="{'background': '#eee'}">
+  <md-sidenav flex class="md-sidenav-left md-whiteframe-z4" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
+    <md-toolbar class="primaryBgColor md-whiteframe-z3">
+      <span flex></span>
+      <div layout="column" class="md-toolbar-tools-bottom inset">
+        <img ng-src="http://graph.facebook.com/{{currentUser.facebook.id}}/picture" alt="profile picture" style="width: 50px;border-radius:50%;"/>
+        <span></span>
+        <div class="md-body-2">{{ currentUser.facebook.first_name }} </div>
+        <div class="md-body-1">{{ currentUser.facebook.email }}</div>
+      </div>
+    </md-toolbar>
+    <md-list ng-cloak>
+      <md-list-item ng-click="go(setting.path)" ng-repeat="setting in settings">
+        <md-icon md-svg-src="{{setting.icon}}"></md-icon>
+        <p> {{ setting.name }} </p>
+      </md-list-item>
+      <md-list-item ng-click="logout()">
+        <md-icon class="" md-svg-src="dist/icons/ic_power_settings_new_black_24px.svg"></md-icon>
+        <p> Logout </p>
+      </md-list-item>
+      <md-divider></md-divider>
+      <md-subheader class="md-no-sticky">Tu Ubicación</md-subheader>
+      <md-list-item style="padding:0;">
+        <div flex id="mapLocation">
+        <ui-gmap-google-map center='mapOptions.center' zoom='mapOptions.zoom' control="mapControl" style="height: 400px;">
+          <ui-gmap-marker coords="marker.coords" idkey="marker.id"></ui-gmap-marker>
+        </ui-gmap-google-map>
+        </div>
+      </md-list-item>
+  </md-sidenav>
+  <div layout="column" layout-fill role="main">
+    <md-toolbar class="primaryBgColor">
+      <div class="md-toolbar-tools">
+        <md-button class="md-icon-button" ng-click="showSideNav()" hide-gt-md aria-label="Menu">
+          <md-icon md-svg-src="dist/icons/ic_menu_24px.svg"></md-icon>
+        </md-button>
+        <h3>Yelling!</h3>
+      </div>
+    </md-toolbar>
+    <div class="ui-view fade"></div>
+  </div>
+</div>
