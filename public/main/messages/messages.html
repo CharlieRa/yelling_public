@@ -16,8 +16,9 @@
     <md-card ui-sref="main.comments({id: '{{message.id}}'})" ng-if="toggle.yelling" ng-repeat="message in messages" scroll-bottom="messages" style="cursor:pointer">
       <md-card-content  layout="row" layout-padding>
         <div layout="column" flex="7" layout-align="center center">
-          <img ng-src="http://graph.facebook.com/{{currentUser.facebook.id}}/picture" alt="avatar" style="height:60px;border-radius:10px;"/>
-          <h4 class="md-body-2" style="margin:0;" >{{ currentUser.facebook.first_name }}</h4>
+          <!-- <img ng-src="http://graph.facebook.com/{{message.author.facebook.id}}/picture" alt="avatar" style="height:60px;border-radius:10px;"/> -->
+          <img ng-src="{{message.avatar}}" alt="avatar" style="height:60px;border-radius:10px;"/>
+          <h4 class="md-body-2" style="margin:0;" >{{ message.author.facebook.first_name }}</h4>
         </div>
         <div layout="column" layout-align="space-around start" flex>
           <div layout="row" layout-align="space-around start">
@@ -25,7 +26,7 @@
             <p class="md-caption" style="margin:0;" ><span hide-sm>Fecha mensaje:</span> {{message.dateTime | date:'d MMM, y' }}</p>
             <p class="md-caption" style="margin:0;" ><span hide-sm>Hora mensaje:</span> {{message.dateTime | date:' HH:mm:ss' }}</p>
           </div>
-          <h3 class="md-body-2">{{message.text}}</h3>
+          <h3 class="md-body-2" style="margin:0;" >{{message.text}}</h3>
           <div layout="row">
             <p class="md-caption" style="margin:0;">Votos: {{message.votes}}</p>
             <span flex="3"></span>

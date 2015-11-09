@@ -10,3 +10,4 @@ npm-debug.log
 logs/*
 client/
 dist/
+!public/dist/
