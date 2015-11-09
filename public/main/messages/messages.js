@@ -37,8 +37,8 @@
           /**
           * Si te obtiene ubicacion se traen los mensajes cercanos del servidor
           */
-          $http.post('http://54.207.86.25/api/posts/nearest',{
-          // $http.post('/api/posts/nearest',{
+          // $http.post('http://54.207.86.25/api/posts/nearest',{
+          $http.post('/api/posts/nearest',{
             longitude : position.coords.longitude,
             latitude : position.coords.latitude
           })
@@ -194,7 +194,8 @@
               user: { id:  $scope.currentUser._id }
             };
             console.log('Enviando a server', newPost);
-            $http.post('http://54.207.86.25/api/posts',newPost)
+            // $http.post('http://54.207.86.25/api/posts',newPost)
+            $http.post('/api/posts',newPost)
             .success(function(data, status, headers, config)
             {
               // al confirmarse, pusheo el mensaje que envie

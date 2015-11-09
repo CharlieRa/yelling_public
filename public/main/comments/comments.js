@@ -21,7 +21,8 @@ angular.module('yelling.comments', ['ui.router', 'ngMaterial', 'ngMessages', 'ap
     $scope.comments = [];
     $scope.params = $stateParams;
 
-    $http.get('http://54.207.86.25/api/posts/'+$stateParams.id)
+    // $http.get('http://54.207.86.25/api/posts/'+$stateParams.id)
+    $http.get('/api/posts/'+$stateParams.id)
     .success(function(post, status, headers, config)
     {
       console.log('[POST/Show] Result:', post);
@@ -138,8 +139,8 @@ angular.module('yelling.comments', ['ui.router', 'ngMaterial', 'ngMessages', 'ap
               user: { id: $scope.currentUser._id }
             };
             console.log('Enviando a server comentario: ', newComment);
-            $http.post('http://54.207.86.25/api/comments', newComment)
-            // $http.post('/api/comments', newComment)
+            // $http.post('http://54.207.86.25/api/comments', newComment)
+            $http.post('/api/comments', newComment)
             .success(function(comment) {
               var newComment = {
                 content: comment.content,
