@@ -100,7 +100,13 @@ exports.create = function(req, res) {
   
   Post.create(post, function(err, post) {
     if(err) { return handleError(res, err); }
-    return res.status(201).json(post);
+    Post
+        .populate(post,{
+          path: 'author',
+          model: 'User'
+        },function(err,postPopulate){
+          return res.status(200).json(postPopulate);
+        });
   });
 };
 
