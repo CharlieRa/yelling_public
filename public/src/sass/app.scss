@@ -1,4 +1,6 @@
-//colors
+/**
+ * Colors
+*/
 $color_bon_jour_approx: #e1e1e1;
 $white: #ffffff;
 $black: #000000;
@@ -24,7 +26,8 @@ $color_belize_hole: #2980b9;
 $midnight_blue: #2c3e50;
 $color_chatbg: #eee;
 $color_green_sea: #16a085;
-//urls
+
+/* Urls*/
 $url_0: url('/dist/img/backgrounds/bgsDin/bg20.gif');
 $url_1: url('/dist/img/backgrounds/bgchat.png');
 
@@ -34,20 +37,26 @@ $url_1: url('/dist/img/backgrounds/bgchat.png');
 	height: 45px;
 	border-radius: 30px;
 }
+
+/**
+ * Estilos ng-cloak
+*/
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
   display: none !important;
 }
 
+/**
+ * Animaciones
+*/
 .slidedown.ng-enter,
 .slidedown.ng-leave {
-    -webkit-transition: all 1s ease;
-    transition: all 1s ease;
-
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
+  -webkit-transition: all 1s ease;
+  transition: all 1s ease;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
 }
 
 .fade.ng-enter{
@@ -83,19 +92,35 @@ $url_1: url('/dist/img/backgrounds/bgchat.png');
   animation: fadeInUp 1s;
 }
 
+.fadeInUpBig.ng-enter{
+	-webkit-animation: fadeInUpBig 1s;
+  -moz-animation: fadeInUpBig 1s;
+  -ms-animation: fadeInUpBig 1s;
+  animation: fadeInUpBig 1s;
+}
+
+.bounceInUp.ng-enter{
+	-webkit-animation: bounceInUp 1s;
+  -moz-animation: bounceInUp 1s;
+  -ms-animation: bounceInUp 1s;
+  animation: bounceInUp 1s;
+}
 .slideInUp.ng-enter{
 	-webkit-animation: slideInUp  1s;
   -moz-animation: slideInUp  1s;
   -ms-animation: slideInUp  1s;
   animation: slideInUp  1s;
 }
-.md-button.md-fab.md-fab-bottom-right {
-	position: fixed!important;
-}
-md-content {
-	height: 100%;
+.bounceIn.ng-enter{
+	-webkit-animation: bounceIn 1s;
+  -moz-animation: bounceIn 1s;
+  -ms-animation: bounceIn 1s;
+  animation: bounceIn 1s;
 }
 
+/**
+ * Estilos del scrollbar
+*/
 ::-webkit-scrollbar {
 	width: 8px;
 	height: 8px;
@@ -107,7 +132,6 @@ md-content {
 ::-webkit-scrollbar-thumb {
 	background: $color_bon_jour_approx;
 	border: 0 none $white;
-	//Instead of the line below you could use @include border-radius($radius, $vertical-radius)
 	border-radius: 50px;
 	&:hover {
 		background: $white;
@@ -119,7 +143,6 @@ md-content {
 ::-webkit-scrollbar-track {
 	background: $color_storm_dust_approx;
 	border: 0 none $white;
-	//Instead of the line below you could use @include border-radius($radius, $vertical-radius)
 	border-radius: 50px;
 	&:hover {
 		background: $color_storm_dust_approx;
@@ -131,28 +154,24 @@ md-content {
 ::-webkit-scrollbar-corner {
 	background: transparent;
 }
-.menu {
-	list-style: none;
-	border-bottom: 0.1em solid $black;
-	margin-bottom: 2em;
-	padding: 0 0 0.5em;
-	&:before {
-		content: "[";
-	}
-	&:after {
-		content: "]";
-	}
-	> li {
-		display: inline;
-		&:before {
-			content: " ";
-			padding-right: 0.3em;
-		}
-		&:nth-child(1):before {
-			content: "";
-			padding: 0;
-		}
-	}
+
+/**
+ * Estilos aplicados a toda la app
+*/
+.no-margin{
+	margin: 0;
+}
+img#mainLogo {
+	border-radius: 20%;
+}
+.md-button.md-fab.md-fab-bottom-right {
+	position: fixed!important;
+}
+md-content {
+	height: 100%;
+}
+md-dialog{
+	background-color: $color_chatbg;
 }
 .fbBtn {
 	width: 30%;
@@ -160,25 +179,6 @@ md-content {
 }
 #fbText {
 	vertical-align: sub;
-}
-#titleApp {
-	color: $orange_peel;
-}
-#titleY {
-	color: $color_indigo_approx;
-}
-.home {
-	md-icon {
-		margin: 0;
-	}
-	md-whiteframe {
-		margin: 30px;
-		background-color: $white;
-	}
-}
-
-#menuAvatar {
-	margin: 0;
 }
 .primaryBgColor {
 	background-color: $midnight_blue !important;
@@ -193,24 +193,34 @@ md-content {
 	}
 }
 :before {
-	//Instead of the line below you could use @include box-sizing($bs)
 	box-sizing: border-box;
 }
 :after {
-	//Instead of the line below you could use @include box-sizing($bs)
 	box-sizing: border-box;
 }
 .ui-view{
 	height: inherit;
 }
-.navbar{
-	.md-toolbar-tools-bottom {
-	  font-size: small;
-	  & :last-child {
-	    opacity: 0.8;
-	  }
+.cardAvatar{
+	height:60px;
+	border-radius:10px;
+}
+/**
+ * Estilos de vista home
+*/
+.home {
+	md-icon {
+		margin: 0;
+	}
+	md-whiteframe {
+		margin: 30px;
+		background-color: $white;
 	}
 }
+
+/**
+ * Estilos de la vista main (navbar y toolbar)
+*/
 .main{
 	#mapLocation{
 		.angular-google-map-container{
@@ -222,55 +232,29 @@ md-content {
 		width: 24%;
 		border-radius: 50%;
 	}
-	// svg{
-	// 	fill: $color_green_sea;
-	// }
 }
 
-md-dialog{
-	background-color: $color_chatbg;
-}
+/**
+ * Estilos de la vista comments
+*/
 .comments{
 	background-color: $color_chatbg;
 	.angular-google-map-container{
 		height: 150px;
 		width: 400px;
-		// position: absolute;
   }
 }
+
+/**
+ * Estilos de la vista messages
+*/
 .messages {
-	background: $url_0 repeat;
 	background-color: $color_chatbg;
 
-	md-list-item.md-3-line{
-		margin: 14px;
-		background-color: white;
-	}
-	#messageAvatar{
-		width: 10%;
-		border-radius: 50%;
-	}
-	.md-subheader{
-		background-color: $color_belize_hole;
-		margin: 0px;
-		color: $color_clouds;
-		font-weight: bold;
-	}
-	md-list{
-		padding: 0;
-	}
-	md-card{
-		margin-bottom: 0;
-		margin-top: 8px;
-	}
-	md-content{
-		overflow: hidden;
+	md-content.messagesContent{
+		width:90%;
 		background-color: transparent;
 	}
-	md-content:hover{
-		overflow-y:scroll;
-	}
-
 	#moodBadIcon{
 		width: 90px;
 		height: 90px;
@@ -278,25 +262,21 @@ md-dialog{
 			fill: $color_asbestos;
 		}
 	}
-	.places{
-		.md-subheader{
-			background-color: $color_nephritis;
-			margin: 0px;
-			color: $color_clouds;
-			font-weight: bold;
-		}
-		md-list{
-			padding: 0px;
-		}
-		.placeIcon{
-			width: 48px;
-		  height: 48px;
-			svg{
-			  fill: $color_peter_river;
-			}
-		}
+}
+
+/**
+ * Estilos de la vista feedbacks
+*/
+.feedbacks{
+	md-content.feedbacksContent{
+		width:90%;
+		background-color: transparent;
 	}
 }
+
+/**
+ * Estilos vista perfil
+*/
 .perfil {
 	md-input-container {
 		padding: 0;
@@ -309,7 +289,6 @@ md-dialog{
 			left: 0;
 			width: 100%;
 			height: 100%;
-			//Instead of the line below you could use @include border-radius($radius, $vertical-radius)
 			border-radius: 50%;
 			display: none;
 			color: $white;
@@ -323,8 +302,4 @@ md-dialog{
 	#searchAvatar {
 		top: 50%;
 	}
-}
-
-img#mainLogo {
-	border-radius: 20%;
 }

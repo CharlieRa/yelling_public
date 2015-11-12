@@ -8,6 +8,7 @@ angular
     // 'yelling.perfil',
     'yelling.main',
     'yelling.comments',
+    'yelling.feedbacks',
     'apiMock',
     'ngCookies',
     '$feedback.directives',

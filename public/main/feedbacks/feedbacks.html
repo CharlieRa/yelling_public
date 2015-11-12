@@ -1,0 +1,29 @@
+<md-content class="feedbacks" flex layout="column" layout-padding layout-align="start center" ng-style="{'background': '#eee'}">
+
+  <md-progress-circular ng-if="!toggle.progress" md-mode="indeterminate"></md-progress-circular>
+
+  <md-content flex class="feedbacksContent" ng-if="toggle.feedbacks" scroll-bottom="messages">
+    <md-card class="md-whiteframe-3dp" ng-class="{'animated bounceIn':toggle.feedbacks}" ng-repeat="feedback in feedbacks" scroll-bottom="messages">
+      <md-card-content  layout="row" layout-padding>
+        <div layout="column" flex="7" layout-align="center center">
+          <img class="cardAvatar md-whiteframe-2dp" ng-src="dist/img/logos/mainLogo1.png" alt="avatar"/>
+        </div>
+        <div layout="column" layout-align="space-around start" flex>
+          <div layout="row" layout-align="space-around start">
+            <p class="md-caption no-margin"><span hide-sm>Fecha mensaje:</span> {{feedback.dateTime | date:'d MMM, y' }}</p>
+            <p class="md-caption no-margin"><span hide-sm>Hora mensaje:</span> {{feedback.dateTime | date:' HH:mm:ss' }}</p>
+          </div>
+          <h3 class="md-body-2 no-margin">{{feedback.content}}</h3>
+          <div layout="row">
+            <p class="md-caption no-margin">Votos: {{feedback.votes}}</p>
+          </div>
+        </div>
+      </md-card-content>
+    </md-card>
+  </md-content>
+
+  <!-- Boton para enviar nuevos mensajes -->
+  <md-button ng-if="toggle.feedbacks" class="md-fab md-primary md-fab-bottom-right md-whiteframe-z3" aria-label="Add" ng-click="showNewFeedback($event)">
+    <md-icon md-svg-src="dist/icons/ic_add_white_24px.svg"></md-icon>
+  </md-button>
+</md-content>

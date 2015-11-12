@@ -6,22 +6,22 @@
   </div>
   <!-- Tarjeta con la info del mensaje que se esta leyendo -->
   <div layout="row" ng-if="toggle.comments">
-    <md-card flex>
+    <md-card flex class="md-whiteframe-3dp">
       <md-card-content layout="row" layout-fill layout-align="space-between center">
         <div layout="row">
-          <div layout="column">
-            <img ng-src="http://graph.facebook.com/{{message.author.facebook.id}}/picture" alt="avatar" style="width: 100px;border-radius:10px; height: 100px"/>
-            <h3 class="md-body-2" style="margin:0;">{{message.author.facebook.first_name}}</h3>
+          <div layout="column" layout-align="center center">
+            <img class="md-whiteframe-2dp" ng-src="http://graph.facebook.com/{{message.author.facebook.id}}/picture" alt="avatar" style="width: 100px;border-radius:10px; height: 100px"/>
+            <h3 class="md-body-2 no-margin">{{message.author.facebook.first_name}}</h3>
           </div>
           <div layout="column">
             <div layout="row">
-              <h4 class="md-body-1" style="margin:0;"><span hide-sm>Fecha mensaje:</span> {{message.datetime | date:'d MMM, y' }}-</h4>
-              <h4 class="md-body-1" style="margin:0;"><span hide-sm>Hora mensaje:</span>  {{message.datetime | date:' HH:mm:ss' }}-</h4>
-              <h4 class="md-body-1" style="margin:0;"><span hide-sm>Votes:</span>        {{message.votes}}-</h4>
-              <h4 class="md-body-1" style="margin:0;"><span hide-sm>Comentarios:</span> {{message.qtyComments}}</h4>
+              <h4 class="md-body-1 no-margin"><span hide-sm>Fecha mensaje:</span> {{message.datetime | date:'d MMM, y' }}-</h4>
+              <h4 class="md-body-1 no-margin"><span hide-sm>Hora mensaje:</span>  {{message.datetime | date:' HH:mm:ss' }}-</h4>
+              <h4 class="md-body-1 no-margin"><span hide-sm>Votes:</span>        {{message.votes}}-</h4>
+              <h4 class="md-body-1 no-margin"><span hide-sm>Comentarios:</span> {{message.qtyComments}}</h4>
             </div>
-            <h3 class="md-body-2" style="margin:0;">Mensaje: </h3>
-            <p>{{message.content}}</p>
+            <h3 class="md-body-2 no-margin">Mensaje: </h3>
+            <p class="no-margin">{{message.content}}</p>
           </div>
         </div>
         <ui-gmap-google-map class="hide-sm" center='mapOptions.center' zoom='mapOptions.zoom' control="mapControl">
@@ -33,22 +33,23 @@
 
   <!-- Tarjetas con comentarios -->
   <div layout="row" ng-if="toggle.comments" ng-repeat="comment in comments">
-    <md-card flex>
+    <md-card class="md-whiteframe-1dp" flex>
       <md-card-content  layout="row" layout-padding>
         <div layout="column" flex="7" layout-align="center center">
-          <img ng-src="{{comment.avatar}}" alt="avatar" style="height:60px;border-radius:10px;"/>
-          <h4 class="md-body-2" style="margin:0;" >{{comment.author.facebook.first_name }}</h4>
+          <img class="md-whiteframe-2dp" ng-src="{{comment.avatar}}" alt="avatar" style="height:60px;border-radius:10px;"/>
+          <h4 class="md-body-2 no-margin">{{comment.author.facebook.first_name }}</h4>
         </div>
         <div layout="column" layout-align="space-around start" flex>
           <div layout="row" layout-align="space-around start">
-            <p class="md-caption" style="margin:0;" ><span hide-sm>Fecha mensaje:</span>{{comment.datetime | date:'d MMM, y' }}</p>
-            <p class="md-caption" style="margin:0;" ><span hide-sm> - Hora mensaje:</span>{{comment.datetime | date:' HH:mm:ss' }}</p>
+            <p class="md-caption no-margin"><span hide-sm>Fecha mensaje:</span>{{comment.datetime | date:'d MMM, y' }}</p>
+            <p class="md-caption no-margin"><span hide-sm> - Hora mensaje:</span>{{comment.datetime | date:' HH:mm:ss' }}</p>
           </div>
-          <h3 class="md-body-2" style="margin:0;">{{comment.content}}</h3>
+          <h3 class="md-body-2 no-margin">{{comment.content}}</h3>
         </div>
       </md-card-content>
     </md-card>
   </div>
+  
   <!-- Boton para enviar nuevos mensajes -->
   <md-button ng-if="toggle.comments" class="md-fab md-primary md-fab-bottom-right md-whiteframe-z3" aria-label="Add" ng-click="showNewComment($event)">
     <md-icon md-svg-src="dist/icons/ic_add_white_24px.svg"></md-icon>

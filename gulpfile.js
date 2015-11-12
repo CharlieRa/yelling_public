@@ -10,7 +10,7 @@ var pngquant = require('imagemin-pngquant');
 gulp.task('webserver', function() {
   gulp.src('public')
     .pipe(webserver({
-      livereload: true,
+      livereload: false,
       // directoryListing: true,
       open: true,
       host: 'localhost',

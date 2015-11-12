@@ -1,4 +1,4 @@
-<md-content flex layout="column" layout-padding layout-align="center center" ng-style="{'background': '#eee'}">
+<md-content class="messages" flex layout="column" layout-padding layout-align="center center" ng-style="{'background': '#eee'}">
   <!-- Progress mientras se cargan los mensajes y se comprueba la geolocalizacion del usuario -->
   <md-progress-circular ng-if="!toggle.progress" md-mode="indeterminate"></md-progress-circular>
 
@@ -12,25 +12,24 @@
   </md-card>
 
   <!-- Div con los mensajes cercano al usuario -->
-  <md-content class="" ng-if="toggle.yelling" flex style="width:90%;background-color:#eee;" scroll-bottom="messages">
-    <md-card ui-sref="main.comments({id: '{{message.id}}'})" ng-if="toggle.yelling" ng-repeat="message in messages" scroll-bottom="messages" style="cursor:pointer">
+  <md-content flex class="messagesContent" ng-if="toggle.yelling" scroll-bottom="messages">
+    <md-card class="md-whiteframe-3dp" ng-class="{'animated fadeInUp':toggle.yelling}" ui-sref="main.comments({id: '{{message.id}}'})" ng-if="toggle.yelling" ng-repeat="message in messages" scroll-bottom="messages" style="cursor:pointer">
       <md-card-content  layout="row" layout-padding>
         <div layout="column" flex="7" layout-align="center center">
-          <!-- <img ng-src="http://graph.facebook.com/{{message.author.facebook.id}}/picture" alt="avatar" style="height:60px;border-radius:10px;"/> -->
-          <img ng-src="{{message.avatar}}" alt="avatar" style="height:60px;border-radius:10px;"/>
-          <h4 class="md-body-2" style="margin:0;" >{{ message.author.facebook.first_name }}</h4>
+          <img class="cardAvatar md-whiteframe-2dp" ng-src="{{message.avatar}}" alt="avatar"/>
+          <h4 class="md-body-2 no-margin">{{ message.author.facebook.first_name }}</h4>
         </div>
         <div layout="column" layout-align="space-around start" flex>
           <div layout="row" layout-align="space-around start">
-            <p class="md-caption" style="margin:0;" ><span hide-sm>Distancia:</span> {{message.distance}} metros</p>
-            <p class="md-caption" style="margin:0;" ><span hide-sm>Fecha mensaje:</span> {{message.dateTime | date:'d MMM, y' }}</p>
-            <p class="md-caption" style="margin:0;" ><span hide-sm>Hora mensaje:</span> {{message.dateTime | date:' HH:mm:ss' }}</p>
+            <p class="md-caption no-margin"><span hide-sm>Distancia:</span> {{message.distance}} metros</p>
+            <p class="md-caption no-margin"><span hide-sm>Fecha mensaje:</span> {{message.dateTime | date:'d MMM, y' }}</p>
+            <p class="md-caption no-margin"><span hide-sm>Hora mensaje:</span> {{message.dateTime | date:' HH:mm:ss' }}</p>
           </div>
-          <h3 class="md-body-2" style="margin:0;" >{{message.text}}</h3>
+          <h3 class="md-body-2 no-margin">{{message.text}}</h3>
           <div layout="row">
-            <p class="md-caption" style="margin:0;">Votos: {{message.votes}}</p>
+            <p class="md-caption no-margin">Votos: {{message.votes}}</p>
             <span flex="3"></span>
-            <p class="md-caption" style="margin:0;">Comentarios: {{message.qtyComments}}</p>
+            <p class="md-caption no-margin">Comentarios: {{message.qtyComments}}</p>
           </div>
         </div>
       </md-card-content>
@@ -38,7 +37,7 @@
   </md-content>
 
   <!-- Boton para enviar nuevos mensajes -->
-  <md-button ng-if="toggle.yelling" class="md-fab md-primary md-fab-bottom-right md-whiteframe-z3" aria-label="Add" ng-click="showNewMessage($event)">
+  <md-button ng-if="toggle.yelling" class="md-fab md-primary md-fab-bottom-right md-whiteframe-5dp" aria-label="Add" ng-click="showNewMessage($event)">
     <md-icon md-svg-src="dist/icons/ic_add_white_24px.svg"></md-icon>
   </md-button>
 </md-content>

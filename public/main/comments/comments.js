@@ -9,8 +9,9 @@ angular.module('yelling.comments', ['ui.router', 'ngMaterial', 'ngMessages', 'ap
     });
   })
   .controller('commentsCtrl',
-  function ($scope, uiGmapGoogleMapApi, User, $location, $state, $stateParams, $http, $mdDialog)
+  function ($scope, uiGmapGoogleMapApi, User, $location, $state, $stateParams, $http, $mdDialog, $timeout)
   {
+    var lastServerData;
     $scope.mapOptions = { center: { latitude: -33.447487 , longitude: -70.673676  }, zoom: 8 };
     $scope.toggle = [{
       comments: 'false',
@@ -25,6 +26,7 @@ angular.module('yelling.comments', ['ui.router', 'ngMaterial', 'ngMessages', 'ap
     $http.get('/api/posts/'+$stateParams.id)
     .success(function(post, status, headers, config)
     {
+      lastServerData = post;
       console.log('[POST/Show] Result:', post);
       $scope.message = {
         content: post.content,
@@ -34,7 +36,6 @@ angular.module('yelling.comments', ['ui.router', 'ngMaterial', 'ngMessages', 'ap
         author: post.author,
         location: post.location
       }
-
 
       /* Se setea el mapa donde se escribio el mensaje */
       $scope.mapOptions.center = {
@@ -122,8 +123,11 @@ angular.module('yelling.comments', ['ui.router', 'ngMaterial', 'ngMessages', 'ap
           targetEvent: ev,
         });
       }
-      /* Controller del Dialog New Comment */
-      function newCommentController($scope, $mdDialog, comments, currentUser, $mdToast) {
+      /**
+       * Controller del Dialog New Comment
+       */
+      function newCommentController($scope, $mdDialog, comments, currentUser, $mdToast)
+      {
         $scope.toggleProgress = false;
         $scope.comments = comments;
         $scope.currentUser = currentUser;
@@ -179,4 +183,65 @@ angular.module('yelling.comments', ['ui.router', 'ngMaterial', 'ngMessages', 'ap
           }
         }
       };
+
+      /**
+       * Funcion que se ejecutara cada x segundos buscando nuevos comentarios
+      */
+      var timer;
+      function getNewComments()
+      {
+        timer = $timeout(function()
+        {
+          console.log( "Timeout executed", Date.now() );
+        },5000);
+
+
+        timer.then(function()
+        {
+          // $http.get('http://54.207.86.25/api/posts/'+$stateParams.id)
+          $http.get('/api/posts/'+$stateParams.id)
+          .success(function(post, status, headers, config)
+          {
+            var result = post.filter(function(item1) {
+              for (var i in lastServerData) {
+                if (item1.obj._id === data[i].obj._id) { return false; }
+              };
+              return true;
+            });
+            console.log('diff:', result);
+            console.log('[POST/Show] Result:', post);
+            /* Se verifica si tiene comentarios, si no tiene se coloca mensaje por defecto */
+              angular.forEach(post.comments, function(value, key)
+              {
+                $scope.comments.push({
+                  content: value.content,
+                  datetime: value.dateTime,
+                  author: value.author,
+                  avatar: "http://graph.facebook.com/"+value.author.facebook.id+"/picture?type=large"
+                });
+              });
+            lastServerData = post;
+            /* Se esconde progress y se muestran comentarios */
+            $scope.toggle.comments = 'true';
+            $scope.toggle.progress = 'true';
+          })
+          .error(function(data, status, headers, config)
+          {
+            /* Se econde progress y se muestra mensaje de error*/
+            $scope.toggle.error = 'true';
+            $scope.toggle.progress = 'true';
+            console.log("error");
+          });
+          getNewComments();
+        },
+        function()
+        {
+          console.log( "Timer apagado!" );
+        });
+      }
+      // getNewComments();
+      /* Destruyo $timeout cuando se cambia de vista */
+      $scope.$on("$destroy", function(e) {
+        $timeout.cancel(timer);
+      });
   });

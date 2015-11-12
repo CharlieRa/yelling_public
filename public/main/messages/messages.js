@@ -16,13 +16,14 @@
     function messageCtrl($scope, $http, uiGmapGoogleMapApi, $timeout, User, $location, $mdDialog, $mdToast)
     {
       var positionActual = {};
+      var lastServerData;
       $scope.messages = [];
       $scope.toggle = [{
         yelling: 'false',
         error: 'false',
         progress: 'false'
       }];
-      $scope.currentUser = User.get();
+      // $scope.currentUser = User.get();
 
       /**
       * Obtener Posicion de usuario por navegador cuando aplicación inicia
@@ -37,8 +38,8 @@
           /**
           * Si te obtiene ubicacion se traen los mensajes cercanos del servidor
           */
-          // $http.post('http://54.207.86.25/api/posts/nearest',{
-          $http.post('/api/posts/nearest',{
+          $http.post('http://54.207.86.25/api/posts/nearest',{
+          // $http.post('/api/posts/nearest',{
             longitude : position.coords.longitude,
             latitude : position.coords.latitude
           })
@@ -48,6 +49,7 @@
             * Se desactiva progress y activa aplicación para enviar mensajes
             */
             console.log(data);
+            lastServerData = data;
             $scope.toggle.yelling = 'true';
             $scope.toggle.progress = 'true';
             /**
@@ -156,31 +158,16 @@
           $mdDialog.cancel();
         };
         $scope.sendMessage2 = function() {
-          /* Se comprueba que el mensaje no este vacío*/
           if(!$scope.newMessage == "")
           {
             $scope.toggleProgress = true;
-             var currentDatetime = new Date();
-             var loc = [];
-             loc[0] = positionActual.longitude;
-             loc[1] = positionActual.latitude;
              $scope.messages.push(
              {
-               text: $scope.newMessage,
-               location: loc,
-               dateTime: currentDatetime
-              //  votes: value.obj.votes,
-              //  dis: Math.floor(value.dis)
+               text: $scope.newMessage
              });
              $scope.formNewMessage.$setPristine();
              $scope.newMessage = "";
           }
-          $mdToast.show(
-             $mdToast.simple()
-               .content('Mensaje enviado!')
-               .hideDelay(3000)
-           );
-          $mdDialog.hide();
         };
 
         $scope.sendMessage = function()
@@ -237,6 +224,67 @@
         }
       };
       /**
+       * Funcion que se ejecutara cada x segundos buscando nuevos datos
+      */
+      var timer;
+      function getNewMessages()
+      {
+        timer = $timeout(function()
+        {
+          console.log( "Timeout executed", Date.now() );
+        },5000);
+
+        timer.then(function()
+        {
+          // $http.post('http://54.207.86.25/api/posts/nearest',{
+          $http.post('/api/posts/nearest',{
+            longitude : positionActual.longitude,
+            latitude : positionActual.latitude
+          })
+          .success(function(data, status, headers, config)
+          {
+            var result = data.filter(function(item1) {
+              for (var i in lastServerData) {
+                if (item1.obj._id === data[i].obj._id) { return false; }
+              };
+              return true;
+            });
+            console.log('diff:', result);
+            angular.forEach(result, function(value, key)
+            {
+              value.obj.location[0] = value.obj.location[0].toFixed(7);
+              value.obj.location[1] = value.obj.location[1].toFixed(7);
+              $scope.messages.push({
+                text: value.obj.content,
+                location: value.obj.location,
+                dateTime: value.obj.dateTime,
+                votes: value.obj.votes,
+                distance: value.dis.toFixed(2),
+                qtyComments: value.obj.comments.length,
+                author: value.obj.author,
+                avatar: 'http://graph.facebook.com/'+value.obj.author.facebook.id+'/picture',
+                id: value.obj._id
+              });
+            });
+            lastServerData = data;
+          })
+          .error(function(data, status, headers, config)
+          {
+            console.log("error");
+          });
+          getNewMessages();
+        },
+        function()
+        {
+          console.log( "Timer apagado!" );
+        });
+      }
+      getNewMessages();
+      /* Destruyo $timeout cuando se cambia de vista */
+      $scope.$on("$destroy", function(e) {
+        $timeout.cancel(timer);
+      });
+      /**
       * Watcher si la posicion del dispositivo cambia, actualiza la variable global positionActual
       */
       var id;
@@ -249,7 +297,6 @@
       function error(err) {
         console.warn('ERROR(' + err.code + '): ' + err.message);
       };
-
       /**
       * Funcion para manejar todos los errores de geolocalizacion
       */
