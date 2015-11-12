@@ -8,8 +8,7 @@ angular.module('testApp')
     $http.get('/api/posts/'+$stateParams.id,{
     }).success(function(post) {
       console.log('[POST/Show] Result:', post);
-      $scope.title = post.content;
-      $scope.comments = post.comments;
+      $scope.post = post;
 
     });
 
