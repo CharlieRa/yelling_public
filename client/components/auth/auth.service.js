@@ -1,10 +1,12 @@
 'use strict';
 
 angular.module('testApp')
-  .factory('Auth', function Auth($location, $rootScope, $http, User, $cookieStore, $q) {
+  .factory('Auth', function Auth($location, $rootScope, $http, User, $cookieStore, $q, socket) {
     var currentUser = {};
     if($cookieStore.get('token')) {
+      console.log('Enviando usuario por socket');
       currentUser = User.get();
+      socket.socket.emit('login',currentUser)
     }
 
     return {

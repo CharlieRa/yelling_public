@@ -15,6 +15,8 @@ angular.module('testApp')
       ioSocket: ioSocket
     });
 
+
+
     return {
       socket: socket,
 
@@ -28,12 +30,23 @@ angular.module('testApp')
        * @param {Array} array
        * @param {Function} cb
        */
+      notifications: function (){
+        socket.on('notification', function (notification) {
+          console.log('Llego notification', notification);
+        });
+      },
+
       syncUpdates: function (modelName, array, cb) {
         cb = cb || angular.noop;
 
         /**
-         * Syncs item creation/updates on 'model:save'
+         * Alertara de las notificaciones que llegen al cliente
          */
+        
+
+        /**
+         */
+
         socket.on(modelName + ':save', function (item) {
           console.log('[Socket] entrando a sync save con ', item);
           var oldItem = _.find(array, {_id: item.id});
