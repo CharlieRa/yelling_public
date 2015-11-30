@@ -17,7 +17,10 @@ angular
   {
     $urlRouterProvider
       .otherwise('/');
-    // $locationProvider.html5Mode(true); /* Activado quita el # de la URL */
+    $locationProvider.html5Mode({
+      enabled: true,
+      requireBase: false
+  });
     $httpProvider.interceptors.push('authInterceptor');
   })
   .factory('authInterceptor', function ($rootScope, $q, $cookieStore, $location) {

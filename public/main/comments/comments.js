@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('yelling.comments', ['ui.router', 'ngMaterial', 'ngMessages', 'apiMock', 'uiGmapgoogle-maps', 'ngAnimate'])
+angular.module('yelling.comments', ['ui.router', 'ngMaterial', 'ngMessages', 'uiGmapgoogle-maps', 'ngAnimate'])
   .config(function(uiGmapGoogleMapApiProvider) {
     uiGmapGoogleMapApiProvider.configure({
         key: 'AIzaSyASPPeOiF-w1w--6G4ZjS3jIO5l2jbydQ0',
@@ -22,46 +22,46 @@ angular.module('yelling.comments', ['ui.router', 'ngMaterial', 'ngMessages', 'ap
     $scope.comments = [];
     $scope.params = $stateParams;
 
-    // $http.get('http://54.207.86.25/api/posts/'+$stateParams.id)
     $http.get('/api/posts/'+$stateParams.id)
-    .success(function(post, status, headers, config)
+    // $http.get('http://54.207.86.25/api/posts/'+$stateParams.id)
+    .success(function(data, status, headers, config)
     {
-      lastServerData = post;
-      console.log('[POST/Show] Result:', post);
+      lastServerData = data;
+      console.log('[POST/Show] Result:', data);
       $scope.message = {
-        content: post.content,
-        datetime: post.dateTime,
-        votes: post.votes,
-        qtyComments: post.comments.length,
-        author: post.author,
-        location: post.location
+        content: data.content,
+        datetime: data.dateTime,
+        votes: data.votes,
+        qtyComments: data.comments.length,
+        author: data.author,
+        location: data.location
       }
 
       /* Se setea el mapa donde se escribio el mensaje */
       $scope.mapOptions.center = {
-          latitude: post.location[1],
-          longitude: post.location[0]
+          latitude: data.location[1],
+          longitude: data.location[0]
       };
       $scope.mapOptions.zoom = 14;
       $scope.marker = {
         id: 0,
         coords: {
-          latitude: post.location[1],
-          longitude: post.location[0]
+          latitude: data.location[1],
+          longitude: data.location[0]
         }
       };
 
       /* Se verifica si tiene comentarios, si no tiene se coloca mensaje por defecto*/
-      if(post.comments.length == 0){
+      if(data.comments.length == 0){
 
         $scope.comments.push({
           content: 'Aún no existen comentarios, tu puedes ser el primero!. Escribe un comentario presionando el boton con el ícono + del fondo.',
           datetime: new Date(),
           author: 'Yelling',
-          avatar: 'dist/img/logos/mainLogo1.png'
+          avatar: '/dist/img/logos/mainLogo1.png'
         });
       }else{
-        angular.forEach(post.comments, function(value, key)
+        angular.forEach(data.comments, function(value, key)
         {
           $scope.comments.push({
               content: value.content,
@@ -198,20 +198,22 @@ angular.module('yelling.comments', ['ui.router', 'ngMaterial', 'ngMessages', 'ap
 
         timer.then(function()
         {
-          // $http.get('http://54.207.86.25/api/posts/'+$stateParams.id)
           $http.get('/api/posts/'+$stateParams.id)
-          .success(function(post, status, headers, config)
+          // $http.get('http://54.207.86.25/api/posts/'+$stateParams.id)
+          .success(function(data, status, headers, config)
           {
-            var result = post.filter(function(item1) {
-              for (var i in lastServerData) {
-                if (item1.obj._id === data[i].obj._id) { return false; }
+            var result = data.comments.filter(function(item1) {
+              console.log(item1._id);
+              console.log(lastServerData.comments);
+              for (var i in lastServerData.comments) {
+                if (item1._id === lastServerData.comments[i]._id) { return false; }
               };
               return true;
             });
             console.log('diff:', result);
-            console.log('[POST/Show] Result:', post);
+            // console.log('[POST/Show] Result:', data);
             /* Se verifica si tiene comentarios, si no tiene se coloca mensaje por defecto */
-              angular.forEach(post.comments, function(value, key)
+              angular.forEach(result, function(value, key)
               {
                 $scope.comments.push({
                   content: value.content,
@@ -220,7 +222,7 @@ angular.module('yelling.comments', ['ui.router', 'ngMaterial', 'ngMessages', 'ap
                   avatar: "http://graph.facebook.com/"+value.author.facebook.id+"/picture?type=large"
                 });
               });
-            lastServerData = post;
+            lastServerData = data;
             /* Se esconde progress y se muestran comentarios */
             $scope.toggle.comments = 'true';
             $scope.toggle.progress = 'true';
@@ -239,7 +241,7 @@ angular.module('yelling.comments', ['ui.router', 'ngMaterial', 'ngMessages', 'ap
           console.log( "Timer apagado!" );
         });
       }
-      // getNewComments();
+      getNewComments();
       /* Destruyo $timeout cuando se cambia de vista */
       $scope.$on("$destroy", function(e) {
         $timeout.cancel(timer);

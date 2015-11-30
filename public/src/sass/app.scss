@@ -23,7 +23,7 @@ $color_nephritis: #27ae60;
 $color_clouds: #ecf0f1;
 $color_asbestos: #7f8c8d;
 $color_belize_hole: #2980b9;
-$midnight_blue: #2c3e50;
+$midnight_blue: rgb(2,119,189);
 $color_chatbg: #eee;
 $color_green_sea: #16a085;
 
@@ -116,6 +116,13 @@ $url_1: url('/dist/img/backgrounds/bgchat.png');
   -moz-animation: bounceIn 1s;
   -ms-animation: bounceIn 1s;
   animation: bounceIn 1s;
+}
+
+.swing{
+	-webkit-animation: swing 2s;
+  -moz-animation: swing 2s;
+  -ms-animation: swing 2s;
+  animation: swing 2s;
 }
 
 /**
@@ -222,6 +229,17 @@ md-dialog{
  * Estilos de la vista main (navbar y toolbar)
 */
 .main{
+	.png-icon{
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+    background-repeat: no-repeat no-repeat;
+    pointer-events: none;
+	}
+	#appLogo{
+		border-radius: 20%;
+		width: 10%;
+	}
 	#mapLocation{
 		.angular-google-map-container{
 	    height: 200px;
@@ -231,6 +249,16 @@ md-dialog{
 	#avatarSidenav {
 		width: 24%;
 		border-radius: 50%;
+	}
+	#avatarNotification{
+		margin-top: 16px;
+    width: 40px;
+    height: 40px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    margin-right: 16px;
+    border-radius: 50%;
+    box-sizing: content-box;
 	}
 }
 

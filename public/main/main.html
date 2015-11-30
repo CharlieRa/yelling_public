@@ -10,12 +10,16 @@
       </div>
     </md-toolbar>
     <md-list ng-cloak>
-      <md-list-item ng-click="go(setting.path)" ng-repeat="setting in settings">
+      <!-- <md-list-item ng-click="go(setting.path)" ng-repeat="setting in settings">
         <md-icon md-svg-src="{{setting.icon}}"></md-icon>
         <p> {{ setting.name }} </p>
+      </md-list-item> -->
+      <md-list-item ng-click="logout()">
+        <img class="png-icon" src="/dist/img/logos/mainLogo1.png" style="width: 24px; height: 24px;border-radius:50%;margin: 16px 32px 12px 0;">
+        <p>Yelling!</p>
       </md-list-item>
       <md-list-item ng-click="logout()">
-        <md-icon class="" md-svg-src="dist/icons/ic_power_settings_new_black_24px.svg"></md-icon>
+        <md-icon class="" md-svg-src="/dist/icons/ic_power_settings_new_black_24px.svg"></md-icon>
         <p> Logout </p>
       </md-list-item>
       <md-divider></md-divider>
@@ -32,15 +36,49 @@
     <md-toolbar class="primaryBgColor">
       <div class="md-toolbar-tools">
         <md-button class="md-icon-button" ng-click="showSideNav()" hide-gt-md aria-label="Menu">
-          <md-icon md-svg-src="dist/icons/ic_menu_24px.svg"></md-icon>
+          <md-icon md-svg-src="/dist/icons/ic_menu_24px.svg"></md-icon>
         </md-button>
-        <h3>Yelling!</h3>
+        <md-button class="hide-sm hide-md" ui-sref="main.messages" aria-label="Yelling">
+           <img class="png-icon" src="/dist/img/logos/mainLogo1.png" style="width: 40px; height: 40px;border-radius:50%;">
+           <span>Yelling!</span>
+        </md-button>
+        <md-button class="md-icon-button hide-gt-md" ui-sref="main.messages" aria-label="Yelling">
+           <img class="png-icon" src="/dist/img/logos/mainLogo1.png" style="width: 40px; height: 40px;border-radius:50%;">
+        </md-button>
         <span flex></span>
         <md-button ui-sref="main.feedbacks" aria-label="Menu">
           Feedback
+        </md-button>
+        <md-button class="md-icon-button" aria-label="Notification" ng-click="openNotifications($mdOpenMenu, $event)">
+          <md-icon md-menu-origin class="swing" md-svg-icon="/dist/icons/ic_notifications_active_white_24px.svg"></md-icon>
         </md-button>
       </div>
     </md-toolbar>
     <div class="ui-view fade"></div>
   </div>
+  <md-sidenav flex class="md-sidenav-right md-whiteframe-z4" md-component-id="right">
+    <md-toolbar class="primaryBgColor md-whiteframe-z3">
+      <span flex></span>
+      <div layout="row" layout-align="start center">
+        <md-button class="md-icon-button" aria-label="Notification" ng-click="openNotifications($mdOpenMenu, $event)">
+          <md-icon md-menu-origin class="swing" md-svg-icon="/dist/icons/ic_notifications_active_white_24px.svg"></md-icon>
+        </md-button>
+        <h4 class="md-title">Notificaciones</h4>
+      </div>
+    </md-toolbar>
+    <md-content>
+      <md-list>
+        <md-subheader class="md-no-sticky">Más Recientes</md-subheader>
+        <md-list-item class="md-3-line" ng-click="sayHello()" ng-repeat="notification in notifications">
+          <img ng-src="/dist/img/logos/mainLogo1.png" class="md-avatar" alt="profile picture"/>
+          <div class="md-list-item-text" layout="column">
+            <h3>{{ notification.user }}</h3>
+            <h4>{{ notification.message }}</h4>
+            <p>{{ notification.data }}</p>
+          </div>
+        </md-list-item>
+        <md-divider ></md-divider>
+      </md-list>
+    </md-content>
+  </md-sidenav>
 </div>

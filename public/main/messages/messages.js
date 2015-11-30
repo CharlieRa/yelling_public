@@ -1,6 +1,6 @@
   'use strict';
 
-  angular.module('yelling.messages', ['ui.router', 'ngMaterial', 'ngMessages', 'apiMock', 'uiGmapgoogle-maps', 'ngAnimate'])
+  angular.module('yelling.messages', ['ui.router', 'ngMaterial', 'ngMessages', 'uiGmapgoogle-maps', 'ngAnimate'])
     .config(function(uiGmapGoogleMapApiProvider) {
       uiGmapGoogleMapApiProvider.configure({
           key: 'AIzaSyASPPeOiF-w1w--6G4ZjS3jIO5l2jbydQ0',
@@ -13,102 +13,118 @@
     /**
     * Controller de Messages
     **/
-    function messageCtrl($scope, $http, uiGmapGoogleMapApi, $timeout, User, $location, $mdDialog, $mdToast)
+    function messageCtrl($scope, $http, uiGmapGoogleMapApi, $timeout, User, $location, $mdDialog, $mdToast, $rootScope)
     {
-      var positionActual = {};
       var lastServerData;
+      $scope.errorMessage = "";
       $scope.messages = [];
       $scope.toggle = [{
         yelling: 'false',
         error: 'false',
         progress: 'false'
       }];
-      // $scope.currentUser = User.get();
-
+      $scope.currentUser = User.get();
       /**
       * Obtener Posicion de usuario por navegador cuando aplicación inicia
+      * Se setea ubicacion en var global de angular $rootScope
+      * Si no existe se solicita por navegador, si existe se utiliza la actual
       */
-      if (navigator.geolocation)
+      if($rootScope.positionActual === undefined)
       {
-        navigator.geolocation.getCurrentPosition(function(position)
+        $rootScope.positionActual = {};
+        if (navigator.geolocation)
         {
-          positionActual.longitude = position.coords.longitude;
-          positionActual.latitude = position.coords.latitude;
-
-          /**
-          * Si te obtiene ubicacion se traen los mensajes cercanos del servidor
-          */
-          $http.post('http://54.207.86.25/api/posts/nearest',{
-          // $http.post('/api/posts/nearest',{
-            longitude : position.coords.longitude,
-            latitude : position.coords.latitude
-          })
-          .success(function(data, status, headers, config)
+          navigator.geolocation.getCurrentPosition(function(position)
           {
-            /**
-            * Se desactiva progress y activa aplicación para enviar mensajes
-            */
-            console.log(data);
-            lastServerData = data;
-            $scope.toggle.yelling = 'true';
-            $scope.toggle.progress = 'true';
-            /**
-            * Se comprueba cantidad de mensajes en la zona, si es cero se envia un mensaje por defecto(Pueder ser puesto en otra parte...)
-            */
-            if(data.length == 0)
-            {
-              var currentDatetime = new Date();
-              $scope.messages.push({
-                text: 'Bienvenido, aún no hay mensajes en esta zona, Se el primero!. Escribe algo divertido para empezar.',
-                location: positionActual,
-                dateTime: currentDatetime,
-                votes: 0,
-                dis: 0,
-                avatar: 'dist/img/logos/mainLogo1.png',
-                qtyComments: 0
-              });
-            }
-            angular.forEach(data, function(value, key)
-            {
-              value.obj.location[0] = value.obj.location[0].toFixed(7);
-              value.obj.location[1] = value.obj.location[1].toFixed(7);
-              $scope.messages.push({
-                text: value.obj.content,
-                location: value.obj.location,
-                dateTime: value.obj.dateTime,
-                votes: value.obj.votes,
-                distance: value.dis.toFixed(2),
-                qtyComments: value.obj.comments.length,
-                author: value.obj.author,
-                avatar: 'http://graph.facebook.com/'+value.obj.author.facebook.id+'/picture',
-                id: value.obj._id
-              });
-            });
-          })
-          .error(function(data, status, headers, config)
+            $rootScope.positionActual.longitude = position.coords.longitude;
+            $rootScope.positionActual.latitude = position.coords.latitude;
+            console.log("valor de pos actual: ", $rootScope.positionActual.latitude);
+            console.log("valor de pos actual: ", $rootScope.positionActual.longitude);
+            getMessages(position.coords);
+          },
+          function(positionError)
           {
-            /**
-            * ToDo: Mensaje con error al no poder conectar con servidor
-            */
-            console.log("error");
+            errorGeo(positionError);
           });
-        },
+        }else
+        {
+          $scope.$apply(function()
+          {
+            $scope.errorMessage = 'Tu navegador no soporta geolocalizacion, no puedes usar el servicio, te pedimos dislcupas :(';
+            $scope.toggle.error = 'true';
+            $scope.toggle.progress = 'true';
+          });
+          console.log("Navegador no soporta geolocalizacion.");
+        }
+      }else{
+        getMessages($rootScope.positionActual);
+      }
+    /**
+    * Obtiene mensajes segun localizacion.
+    */
+    function getMessages(positionActual){
+      if(positionActual === undefined)
+        return false;
+      else{
         /**
-        * Manejo de error al no poder obtener ubicacion de usuario
+        * Si te obtiene ubicacion se traen los mensajes cercanos del servidor
         */
-       function(positionError)
-       {
-         errorGeo(positionError);
-       });
-    }else
-    {
-      $scope.$apply(function()
-      {
-        $scope.error.message = 'Tu navegador no soporta geolocalizacion, no puedes usar el servicio, te pedimos dislcupas :(';
-        $scope.toggle.error = 'true';
-        $scope.toggle.progress = 'true';
-      });
-      console.log("Navegador no soporta geolocalizacion.");
+        $http.post('/api/posts/nearest',{
+        // $http.post('http://54.207.86.25/api/posts/nearest',{
+          longitude : positionActual.longitude,
+          latitude : positionActual.latitude
+        })
+        .success(function(data, status, headers, config)
+        {
+          /**
+          * Se desactiva progress y activa aplicación para enviar mensajes
+          */
+          console.log(data);
+          lastServerData = data;
+          $scope.toggle.yelling = 'true';
+          $scope.toggle.progress = 'true';
+          /**
+          * Se comprueba cantidad de mensajes en la zona, si es cero se envia un mensaje por defecto(Pueder ser puesto en otra parte...)
+          */
+          if(data.length == 0)
+          {
+            var currentDatetime = new Date();
+            $scope.messages.push({
+              text: 'Bienvenido, aún no hay mensajes en esta zona, Se el primero!. Escribe algo divertido para empezar.',
+              location: $rootScope.positionActual,
+              dateTime: currentDatetime,
+              votes: 0,
+              dis: 0,
+              avatar: '/dist/img/logos/mainLogo1.png',
+              qtyComments: 0
+            });
+          }
+          angular.forEach(data, function(value, key)
+          {
+            value.obj.location[0] = value.obj.location[0].toFixed(7);
+            value.obj.location[1] = value.obj.location[1].toFixed(7);
+            $scope.messages.push({
+              text: value.obj.content,
+              location: value.obj.location,
+              dateTime: value.obj.dateTime,
+              votes: value.obj.votes,
+              distance: value.dis.toFixed(2),
+              qtyComments: value.obj.comments.length,
+              author: value.obj.author,
+              avatar: 'http://graph.facebook.com/'+value.obj.author.facebook.id+'/picture',
+              id: value.obj._id
+            });
+          });
+        })
+        .error(function(data, status, headers, config)
+        {
+          console.log("error");
+          $scope.errorMessage = "Error con la comunicación con el servidor";
+          $scope.toggle.error = 'true';
+          $scope.toggle.progress = 'true';
+        });
+      }
+
     }
       /**
       * Funcion encargada en enviar nuevos mensajes escritos por el usuario al servidor
@@ -122,7 +138,7 @@
           locals: {
             currentUser: $scope.currentUser,
             messages: $scope.messages,
-            positionActual: positionActual
+            positionActual: $rootScope.positionActual
           },
           template:'<md-dialog flex="40" aria-label="New Message"> \
                       <form ng-submit="$event.preventDefault()" name="formNewMessage" id="formNewMessage">\
@@ -181,7 +197,7 @@
             $scope.toggleProgress = true;
             var newPost = {
               content: $scope.newMessage,
-              location: positionActual,
+              location: $rootScope.positionActual,
               user: { id:  $scope.currentUser._id }
             };
             console.log('Enviando a server', newPost);
@@ -238,14 +254,14 @@
         {
           // $http.post('http://54.207.86.25/api/posts/nearest',{
           $http.post('/api/posts/nearest',{
-            longitude : positionActual.longitude,
-            latitude : positionActual.latitude
+            longitude : $rootScope.positionActual.longitude,
+            latitude : $rootScope.positionActual.latitude
           })
           .success(function(data, status, headers, config)
           {
             var result = data.filter(function(item1) {
               for (var i in lastServerData) {
-                if (item1.obj._id === data[i].obj._id) { return false; }
+                if (item1.obj._id === lastServerData[i].obj._id) { return false; }
               };
               return true;
             });
@@ -291,8 +307,8 @@
       id = navigator.geolocation.watchPosition(success, error);
       function success(position)
       {
-        positionActual.longitude = position.coords.longitude;
-        positionActual.latitude = position.coords.latitude;
+        $rootScope.positionActual.longitude = position.coords.longitude;
+        $rootScope.positionActual.latitude = position.coords.latitude;
       };
       function error(err) {
         console.warn('ERROR(' + err.code + '): ' + err.message);
@@ -304,23 +320,23 @@
       {
         if(errCode.code == 1)
         {
-          $scope.error.message = "Has denegado el uso de geolocalización, Yelling necesita saber tu ubicación.\
+          $scope.errorMessage = "Has denegado el uso de geolocalización, Yelling necesita saber tu ubicación.\
             Si deseas utilizar Yelling por favor recarga la página y presiona en 'Permitir' cuando pregunten por tu ubicación. Gracias!";
           console.log("err code:" + errCode.code);
         }
         else if (errCode.code == 2)
         {
-          $scope.error.message = "No hemos podido obtener tu ubicación, por favor intenta recargando la página."
+          $scope.errorMessage = "No hemos podido obtener tu ubicación, por favor intenta recargando la página."
           console.log("err code:" + errCode.code);
         }
         else if (errCode.code == 3)
         {
-          $scope.error.message = "No hemos podido obtener tu ubicación, por favor intenta recargando la página."
+          $scope.errorMessage = "No hemos podido obtener tu ubicación, por favor intenta recargando la página."
           console.log("err code:" + errCode.code);
         }
         $scope.$apply(function()
         {
-          $scope.error.message;
+          $scope.errorMessage;
           $scope.toggle.error = 'true';
           $scope.toggle.progress = 'true';
         });

@@ -51,13 +51,20 @@ angular
     }
   })
   .controller('mainCtrl', function ($scope, $state,$location, Auth, $mdSidenav, uiGmapGoogleMapApi, User ,$mdDialog) {
-    $state.transitionTo('main.messages');
-    $scope.settings = [
-    { name: 'Yelling!', path: 'main.messages', icon: 'dist/icons/ic_message_black_24px.svg'},
-    // { name: 'Perfil', path: 'main.perfil', icon: 'dist/icons/ic_account_box_24px.svg'},
+    $scope.sayHello = function(){
+      console.log("hola");
+    };
+    $scope.notifications = [
+      {user: 'Charles', message: 'Sale Pilsen?', data:'Fecha: 12-12-2015' },
+      {user: 'Charles', message: 'Sale Pilsen?', data:'Fecha: 12-12-2015' },
+      {user: 'Charles', message: 'Sale Pilsen?', data:'Fecha: 12-12-2015' },
+      {user: 'Charles', message: 'Sale Pilsen?', data:'Fecha: 12-12-2015' },
+      {user: 'Charles', message: 'Sale Pilsen?', data:'Fecha: 12-12-2015' },
+      {user: 'Charles', message: 'Sale Pilsen?', data:'Fecha: 12-12-2015' },
     ];
-    $scope.mapOptions = { center: { latitude: -33.447487 , longitude: -70.673676  }, zoom: 8 };
+    $state.transitionTo('main.messages');
 
+    $scope.mapOptions = { center: { latitude: -33.447487 , longitude: -70.673676  }, zoom: 8 };
     $scope.currentUser = User.get();
 
     if (navigator.geolocation)
@@ -96,4 +103,7 @@ angular
     $scope.go = function(path){
       $state.transitionTo(path);
     }
+    $scope.openNotifications = function() {
+      $mdSidenav('right').open()
+   };
   });
