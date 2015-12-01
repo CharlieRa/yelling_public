@@ -15,12 +15,12 @@ angular
     'ngResource', 'ngAnimate'])
   .config(function($urlRouterProvider, $locationProvider, $httpProvider)
   {
-    $urlRouterProvider
-      .otherwise('/');
-    $locationProvider.html5Mode({
-      enabled: true,
-      requireBase: false
-  });
+    $urlRouterProvider.otherwise('/');
+  //   $locationProvider.html5Mode({
+  //     enabled: true,
+  //     requireBase: false
+  // });
+  //   $locationProvider.hashPrefix('!');
     $httpProvider.interceptors.push('authInterceptor');
   })
   .factory('authInterceptor', function ($rootScope, $q, $cookieStore, $location) {
