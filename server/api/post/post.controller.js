@@ -11,7 +11,7 @@
 
 var _ = require('lodash');
 var Post = require('./post.model');
-var User = require('./user.model');
+var User = require('../user/user.model');
 var Comment = require('../comment/comment.model');
 var async = require('async');
 // var User = require('../user/user.model');
