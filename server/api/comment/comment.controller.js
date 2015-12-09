@@ -36,7 +36,7 @@ exports.create = function(req, res) {
 	      	comments: comment._id
 	    	}
 	  	},function(err, obj) {
-	    	if (err) next(err);
+	    	if (err) return res.status(400);
 	  	});
       Comment
         .populate(comment,{

@@ -6,12 +6,14 @@ var mongoose = require('mongoose'),
 var PostSchema = new Schema({
   content: String,
 	author: {
-    id: {
-      type: Schema.Types.ObjectId,
-      ref: 'User'
-      // required: true -> se relaja condicion de modelo post
-    }
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+      // required: true se relaja la condicion
   },
+  comments: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Comment'
+  }],
   location: {
     type: [Number],  // [<longitude>, <latitude>]
     index: '2dsphere',      // create the geospatial index
@@ -24,7 +26,7 @@ var PostSchema = new Schema({
   dateTime: { 
   	type: Date, 
   	default: Date.now 
-  },
+  }
 });
 
 // id: type.string(),

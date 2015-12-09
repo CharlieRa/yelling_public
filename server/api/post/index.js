@@ -11,6 +11,7 @@ router.post('/', controller.create);
 
 
 router.post('/login', controller.login);
+router.post('/android', controller.createAndroid);
 
 router.post('/nearest', controller.nearest);
 router.put('/:id', controller.update);

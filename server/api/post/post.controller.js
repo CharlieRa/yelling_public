@@ -11,6 +11,7 @@
 
 var _ = require('lodash');
 var Post = require('./post.model');
+var User = require('./user.model');
 var Comment = require('../comment/comment.model');
 var async = require('async');
 // var User = require('../user/user.model');
@@ -75,7 +76,7 @@ exports.login = function(req, res) {
   },
   function(err, user) {
     if (err) {
-      return done(err);
+      return res.status(400);
     }
     if (!user) {
       user = new User({
@@ -85,11 +86,11 @@ exports.login = function(req, res) {
         facebook: facebookData
       });
       user.save(function(err) {
-        if (err) return done(err);
-        done(err, user);
+        if (err) return res.status(400);
+        return res.status(200);
       });
     } else {
-      return done(err, user);
+      return res.status(200);
     }
   });
 };
@@ -110,7 +111,7 @@ exports.createAndroid = function(req, res) {
   },
   function(err, user) {
     if (err) {
-      return done(err);
+      return res.status(400);
     }
 
       post.author = user._id;
@@ -124,8 +125,8 @@ exports.createAndroid = function(req, res) {
               return res.status(200).json(postPopulate);
             });
       });
-    }
   });
+
 
 
   
