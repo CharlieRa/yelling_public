@@ -8,7 +8,8 @@ var Comment = require('./comment.model');
 
 exports.register = function(socket) {
   Comment.schema.post('save', function (doc) {
-    onSave(socket, doc);
+  	console.log('Creando comentario pasando a socket la notificacion con comentario:', doc);
+    // onSave(socket, doc);
   });
   Comment.schema.post('remove', function (doc) {
     onRemove(socket, doc);

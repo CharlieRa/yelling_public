@@ -9,6 +9,7 @@ var socketUser = {};
 // When the user disconnects.. perform this
 function onDisconnect(socket) {
 
+  socket.leave();
   console.log('Se desconecta usuario', socket.id);
   console.log('socketUser array : ', socketUser);
 }

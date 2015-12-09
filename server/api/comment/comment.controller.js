@@ -23,14 +23,14 @@ exports.show = function(req, res) {
 
 // Creates a new comment in the DB.
 exports.create = function(req, res) {
-  console.log('Creando comentario con ', req.body);
+  // console.log('Creando comentario con ', req.body);
   req.body.author = req.body.user.id;
 	if(req.body){
 	  Comment.create(req.body, function(err, comment) {
 	    if(err) { return handleError(res, err); }
 	    // actualizo post
-	    console.log('[Comment/create] Comentario creado :', comment);
-	    console.log('[Comment/create] Actualizando Post con id:', comment.post.id);
+	    console.log('[Comment/create] Comentario creado :', comment._id);
+	    // console.log('[Comment/create] Actualizando Post con id:', comment.post.id);
 	 		Post.findByIdAndUpdate(comment.post.id, {
 	    	$push: {
 	      	comments: comment._id

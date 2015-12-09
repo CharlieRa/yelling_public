@@ -63,22 +63,24 @@ exports.nearest = function (req, res){
 exports.show = function(req, res) {
   console.log('[POST/Show] Buscando con:', req.params.id);
   Post
-    .findById(req.params.id)
+    .findById(req.params.id)  
     .populate('comments', '-post')
     .populate('author')
     .exec(function (err, post) {
     if(err) { return handleError(res, err); }
     if(!post) { return res.status(404).send('Not Found'); }
       async.map(post.comments, function popular(comment,callback){
-        console.log('Buscando comentario con id', comment._id);
+        // console.log('Buscando comentario con id', comment._id);
         Comment
           .findById(comment._id)
           .populate('author')
           .exec(function(err,commentPopulated){
-            console.log('Retornando', commentPopulated);
+            // console.log('Retornando', commentPopulated);
+
             callback(null,commentPopulated);
           });
-        
+        // Por cada vuelta commentPopulated es pucheado a un arreglo 'results'
+        // por lo que no es necesario hacer push en otro array
       }, function(err, results){
         post.comments = results;
         return res.status(200).json(post);
