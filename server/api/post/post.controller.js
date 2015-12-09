@@ -59,6 +59,79 @@ exports.nearest = function (req, res){
 
 };
 
+exports.login = function(req, res) {
+
+  console.log('[POST] Creando usuario', req.body);
+
+  var facebookData  = {};
+  facebookData.last_name = req.body.user.last_name;
+  facebookData.gender = req.body.user.last_name;
+  facebookData.first_name = req.body.user.first_name;
+  facebookData.id = req.body.user.id;
+
+
+  User.findOne({
+    'facebook.id': facebookData.id
+  },
+  function(err, user) {
+    if (err) {
+      return done(err);
+    }
+    if (!user) {
+      user = new User({
+        email: facebookData,
+        role: 'user',
+        provider: 'facebook',
+        facebook: facebookData
+      });
+      user.save(function(err) {
+        if (err) return done(err);
+        done(err, user);
+      });
+    } else {
+      return done(err, user);
+    }
+  });
+};
+
+exports.createAndroid = function(req, res) {
+
+  console.log('[POST] Creando post', req.body);
+  var post = {};
+  post.content = req.body.content;
+  var location = [];
+  location[0] = req.body.location.longitude;
+  location[1] = req.body.location.latitude;
+  post.location = location;
+
+  var facebookId = req.body.user.id;
+  User.findOne({
+    'facebook.id': facebookId
+  },
+  function(err, user) {
+    if (err) {
+      return done(err);
+    }
+
+      post.author = user._id;
+      Post.create(post, function(err, post) {
+        if(err) { return handleError(res, err); }
+        Post
+            .populate(post,{
+              path: 'author',
+              model: 'User'
+            },function(err,postPopulate){
+              return res.status(200).json(postPopulate);
+            });
+      });
+    }
+  });
+
+
+  
+};
+
+
 // Get a single post
 exports.show = function(req, res) {
   console.log('[POST/Show] Buscando con:', req.params.id);
