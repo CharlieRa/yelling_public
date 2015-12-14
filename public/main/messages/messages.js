@@ -46,8 +46,9 @@
             },
             function(positionError)
             {
+              console.log("Error geo", positionError);
               errorGeo(positionError);
-            }, {timeout:5000});
+            }, {timeout:10000, enableHighAccuracy: true, maximumAge: 10000});
           }else
           {
             $scope.$apply(function()
