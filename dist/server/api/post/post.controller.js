@@ -11,6 +11,10 @@
 
 var _ = require('lodash');
 var Post = require('./post.model');
+var User = require('./user.model');
+var Comment = require('../comment/comment.model');
+var async = require('async');
+// var User = require('../user/user.model');
 
 // Get list of posts
 exports.index = function(req, res) {
@@ -35,34 +39,148 @@ exports.nearest = function (req, res){
   coords[0] = req.body.longitude;
   coords[1] = req.body.latitude;
 
+  Post
+    .geoNear({
+      type: "Point",
+      coordinates : coords
+      },
+      {
+        spherical: true, 
+        maxDistance: 800
+      })
+    .then(function(posts) {
+      Post
+        .populate(posts,{
+          path: 'obj.author',
+          model: 'User'
+        },function(err,items){
+          return res.status(200).json(items);
+        });
+    });
 
-  console.log('Buscando Post cercanos segun localizacion');
-  Post.geoNear({
-    type: "Point",
-    coordinates : coords
-    },{
-      spherical: true, 
-      maxDistance: 800
-    }
-  ).then(function(posts) {
-    return res.status(200).json(posts);
-  })
 };
+
+exports.login = function(req, res) {
+
+  console.log('[POST] Creando usuario', req.body);
+
+  var facebookData  = {};
+  facebookData.last_name = req.body.user.last_name;
+  facebookData.gender = req.body.user.last_name;
+  facebookData.first_name = req.body.user.first_name;
+  facebookData.id = req.body.user.id;
+
+
+  User.findOne({
+    'facebook.id': facebookData.id
+  },
+  function(err, user) {
+    if (err) {
+      return res.status(400);
+    }
+    if (!user) {
+      user = new User({
+        email: facebookData,
+        role: 'user',
+        provider: 'facebook',
+        facebook: facebookData
+      });
+      user.save(function(err) {
+        if (err) return res.status(400);
+        return res.status(200);
+      });
+    } else {
+      return res.status(200);
+    }
+  });
+};
+
+exports.createAndroid = function(req, res) {
+
+  console.log('[POST] Creando post', req.body);
+  var post = {};
+  post.content = req.body.content;
+  var location = [];
+  location[0] = req.body.location.longitude;
+  location[1] = req.body.location.latitude;
+  post.location = location;
+
+  var facebookId = req.body.user.id;
+  User.findOne({
+    'facebook.id': facebookId
+  },
+  function(err, user) {
+    if (err) {
+      return res.status(400);
+    }
+
+      post.author = user._id;
+      Post.create(post, function(err, post) {
+        if(err) { return handleError(res, err); }
+        Post
+            .populate(post,{
+              path: 'author',
+              model: 'User'
+            },function(err,postPopulate){
+              return res.status(200).json(postPopulate);
+            });
+      });
+  });
+
+
+
+  
+};
+
 
 // Get a single post
 exports.show = function(req, res) {
-  Post.findById(req.params.id, function (err, post) {
+  console.log('[POST/Show] Buscando con:', req.params.id);
+  Post
+    .findById(req.params.id)
+    .populate('comments', '-post')
+    .populate('author')
+    .exec(function (err, post) {
     if(err) { return handleError(res, err); }
     if(!post) { return res.status(404).send('Not Found'); }
-    return res.json(post);
+      async.map(post.comments, function popular(comment,callback){
+        console.log('Buscando comentario con id', comment._id);
+        Comment
+          .findById(comment._id)
+          .populate('author')
+          .exec(function(err,commentPopulated){
+            console.log('Retornando', commentPopulated);
+            callback(null,commentPopulated);
+          });
+        
+      }, function(err, results){
+        post.comments = results;
+        return res.status(200).json(post);
+      });
   });
 };
 
 // Creates a new post in the DB.
 exports.create = function(req, res) {
-  Post.create(req.body, function(err, post) {
+
+  console.log('[POST] Creando post', req.body);
+  var post = {};
+  post.content = req.body.content;
+  var location = [];
+  location[0] = req.body.location.longitude;
+  location[1] = req.body.location.latitude;
+  post.location = location;
+  post.author = req.body.user.id;
+  
+  Post.create(post, function(err, post) {
     if(err) { return handleError(res, err); }
-    return res.status(201).json(post);
+    Post
+        .populate(post,{
+          path: 'author',
+          model: 'User'
+        },function(err,postPopulate){
+          return res.status(200).json(postPopulate);
+        });
   });
 };
 

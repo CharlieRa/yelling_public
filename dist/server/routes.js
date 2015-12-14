@@ -10,6 +10,8 @@ var path = require('path');
 module.exports = function(app) {
 
   // Insert routes below
+  app.use('/api/feedbacks', require('./api/feedback'));
+  app.use('/api/comments', require('./api/comment'));
   app.use('/api/posts', require('./api/post'));
   app.use('/api/users', require('./api/user'));
 
@@ -22,7 +24,6 @@ module.exports = function(app) {
   // All other routes should redirect to the index.html
   app.route('/*')
     .get(function(req, res) {
-      console.log('buscando index en ', app.get('appPath'));
       res.sendFile(path.resolve(app.get('appPath') + '/index.html'));
     });
 };

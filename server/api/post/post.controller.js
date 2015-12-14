@@ -11,6 +11,7 @@
 
 var _ = require('lodash');
 var Post = require('./post.model');
+var User = require('../user/user.model');
 var Comment = require('../comment/comment.model');
 var async = require('async');
 // var User = require('../user/user.model');
@@ -58,6 +59,79 @@ exports.nearest = function (req, res){
     });
 
 };
+
+exports.login = function(req, res) {
+
+  console.log('[POST] Creando usuario', req.body);
+
+  var facebookData  = {};
+  facebookData.last_name = req.body.user.last_name;
+  facebookData.gender = req.body.user.last_name;
+  facebookData.first_name = req.body.user.first_name;
+  facebookData.id = req.body.user.id;
+
+
+  User.findOne({
+    'facebook.id': facebookData.id
+  },
+  function(err, user) {
+    if (err) {
+      return res.status(400);
+    }
+    if (!user) {
+      user = new User({
+        email: facebookData,
+        role: 'user',
+        provider: 'facebook',
+        facebook: facebookData
+      });
+      user.save(function(err) {
+        if (err) return res.status(400);
+        return res.status(200);
+      });
+    } else {
+      return res.status(200);
+    }
+  });
+};
+
+exports.createAndroid = function(req, res) {
+
+  console.log('[POST] Creando post', req.body);
+  var post = {};
+  post.content = req.body.content;
+  var location = [];
+  location[0] = req.body.location.longitude;
+  location[1] = req.body.location.latitude;
+  post.location = location;
+
+  var facebookId = req.body.user.id;
+  User.findOne({
+    'facebook.id': facebookId
+  },
+  function(err, user) {
+    if (err) {
+      return res.status(400);
+    }
+
+      post.author = user._id;
+      Post.create(post, function(err, post) {
+        if(err) { return handleError(res, err); }
+        Post
+            .populate(post,{
+              path: 'author',
+              model: 'User'
+            },function(err,postPopulate){
+              return res.status(200).json(postPopulate);
+            });
+      });
+  });
+
+
+
+  
+};
+
 
 // Get a single post
 exports.show = function(req, res) {
