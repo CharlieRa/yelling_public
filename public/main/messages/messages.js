@@ -29,35 +29,38 @@
       * Se setea ubicacion en var global de angular $rootScope
       * Si no existe se solicita por navegador, si existe se utiliza la actual
       */
-      if($rootScope.positionActual === undefined)
-      {
-        $rootScope.positionActual = {};
-        if (navigator.geolocation)
+      $scope.load = function () {
+       console.log("Empezo la app");
+        if($rootScope.positionActual === undefined)
         {
-          navigator.geolocation.getCurrentPosition(function(position)
+          $rootScope.positionActual = {};
+          if (navigator.geolocation)
           {
-            $rootScope.positionActual.longitude = position.coords.longitude;
-            $rootScope.positionActual.latitude = position.coords.latitude;
-            console.log("valor de pos actual: ", $rootScope.positionActual.latitude);
-            console.log("valor de pos actual: ", $rootScope.positionActual.longitude);
-            getMessages(position.coords);
-          },
-          function(positionError)
+            navigator.geolocation.getCurrentPosition(function(position)
+            {
+              $rootScope.positionActual.longitude = position.coords.longitude;
+              $rootScope.positionActual.latitude = position.coords.latitude;
+              console.log("valor de pos actual: ", $rootScope.positionActual.latitude);
+              console.log("valor de pos actual: ", $rootScope.positionActual.longitude);
+              getMessages(position.coords);
+            },
+            function(positionError)
+            {
+              errorGeo(positionError);
+            });
+          }else
           {
-            errorGeo(positionError);
-          });
-        }else
-        {
-          $scope.$apply(function()
-          {
-            $scope.errorMessage = 'Tu navegador no soporta geolocalizacion, no puedes usar el servicio, te pedimos dislcupas :(';
-            $scope.toggle.error = 'true';
-            $scope.toggle.progress = 'true';
-          });
-          console.log("Navegador no soporta geolocalizacion.");
+            $scope.$apply(function()
+            {
+              $scope.errorMessage = 'Tu navegador no soporta geolocalizacion, no puedes usar el servicio, te pedimos dislcupas :(';
+              $scope.toggle.error = 'true';
+              $scope.toggle.progress = 'true';
+            });
+            console.log("Navegador no soporta geolocalizacion.");
+          }
+        }else{
+          getMessages($rootScope.positionActual);
         }
-      }else{
-        getMessages($rootScope.positionActual);
       }
     /**
     * Obtiene mensajes segun localizacion.

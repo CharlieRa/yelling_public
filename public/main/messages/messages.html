@@ -1,4 +1,4 @@
-<md-content class="messages" flex layout="column" layout-padding layout-align="center center" ng-style="{'background': '#eee'}">
+<md-content class="messages" flex layout="column" layout-padding layout-align="center center" ng-style="{'background': '#eee'}" ng-init='load()'>
   <!-- Progress mientras se cargan los mensajes y se comprueba la geolocalizacion del usuario -->
   <md-progress-circular ng-if="!toggle.progress" md-mode="indeterminate"></md-progress-circular>
 
