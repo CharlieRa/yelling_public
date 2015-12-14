@@ -54,14 +54,14 @@ angular
     $scope.sayHello = function(){
       console.log("hola");
     };
-    $scope.notifications = [
-      {user: 'Charles', message: 'Sale Pilsen?', data:'Fecha: 12-12-2015' },
-      {user: 'Charles', message: 'Sale Pilsen?', data:'Fecha: 12-12-2015' },
-      {user: 'Charles', message: 'Sale Pilsen?', data:'Fecha: 12-12-2015' },
-      {user: 'Charles', message: 'Sale Pilsen?', data:'Fecha: 12-12-2015' },
-      {user: 'Charles', message: 'Sale Pilsen?', data:'Fecha: 12-12-2015' },
-      {user: 'Charles', message: 'Sale Pilsen?', data:'Fecha: 12-12-2015' },
-    ];
+    // $scope.notifications = [
+    //   {user: 'Charles', message: 'Sale Pilsen?', data:'Fecha: 12-12-2015' },
+    //   {user: 'Charles', message: 'Sale Pilsen?', data:'Fecha: 12-12-2015' },
+    //   {user: 'Charles', message: 'Sale Pilsen?', data:'Fecha: 12-12-2015' },
+    //   {user: 'Charles', message: 'Sale Pilsen?', data:'Fecha: 12-12-2015' },
+    //   {user: 'Charles', message: 'Sale Pilsen?', data:'Fecha: 12-12-2015' },
+    //   {user: 'Charles', message: 'Sale Pilsen?', data:'Fecha: 12-12-2015' },
+    // ];
     $state.transitionTo('main.messages');
 
     $scope.mapOptions = { center: { latitude: -33.447487 , longitude: -70.673676  }, zoom: 8 };
@@ -100,10 +100,16 @@ angular
     $scope.showSideNav = function(){
       $mdSidenav('left').open()
     }
+    $scope.closeSideNav = function(){
+      $mdSidenav('left').close()
+    }
     $scope.go = function(path){
       $state.transitionTo(path);
     }
     $scope.openNotifications = function() {
       $mdSidenav('right').open()
-   };
+    };
+    $scope.closeNotifications = function() {
+      $mdSidenav('right').close()
+    };
   });

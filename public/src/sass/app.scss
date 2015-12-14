@@ -224,6 +224,28 @@ md-dialog{
 		background-color: $white;
 	}
 }
+/* Estilos de login */
+.login {
+	height:100%;
+	background-color: $color_chatbg;
+	md-icon {
+		margin: 0;
+	}
+	md-whiteframe {
+		margin: 30px;
+		background-color: $white;
+	}
+	#mainLogoLogin{
+		height: auto;
+		width: 130px;
+		border-radius: 10%;
+	}
+	.md-toolbar-tools {
+    height: 55px;
+    max-height: 55px;
+}
+
+}
 
 /**
  * Estilos de la vista main (navbar y toolbar)

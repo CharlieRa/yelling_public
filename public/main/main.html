@@ -1,5 +1,5 @@
-<div class="main" layout="row" layout-fill class="navbar md-whiteframe-z4" ng-controller="mainCtrl as ctrl" ng-style="{'background': '#eee'}">
-  <md-sidenav flex class="md-sidenav-left md-whiteframe-z4" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
+<div class="main" layout="row" layout-fill class="navbar md-whiteframe-z4" ng-style="{'background': '#eee'}" md-swipe-left="closeSideNav()" md-swipe-right="closeNotifications()">
+  <md-sidenav flex class="md-sidenav-left md-whiteframe-z4" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')" md-swipe-left="closeSideNav()">
     <md-toolbar class="primaryBgColor md-whiteframe-z3">
       <span flex></span>
       <div layout="column" class="md-toolbar-tools-bottom inset">
@@ -10,10 +10,6 @@
       </div>
     </md-toolbar>
     <md-list ng-cloak>
-      <!-- <md-list-item ng-click="go(setting.path)" ng-repeat="setting in settings">
-        <md-icon md-svg-src="{{setting.icon}}"></md-icon>
-        <p> {{ setting.name }} </p>
-      </md-list-item> -->
       <md-list-item ng-click="logout()">
         <img class="png-icon" src="/dist/img/logos/mainLogo1.png" style="width: 24px; height: 24px;border-radius:50%;margin: 16px 32px 12px 0;">
         <p>Yelling!</p>
@@ -54,13 +50,13 @@
         </md-button>
       </div>
     </md-toolbar>
-    <div class="ui-view fade"></div>
+    <div md-swipe-left="openNotifications()" md-swipe-right="showSideNav()" class="ui-view fade"></div>
   </div>
-  <md-sidenav flex class="md-sidenav-right md-whiteframe-z4" md-component-id="right">
+  <md-sidenav flex class="md-sidenav-right md-whiteframe-z4" md-component-id="right" md-swipe-right="closeNotifications()">
     <md-toolbar class="primaryBgColor md-whiteframe-z3">
       <span flex></span>
       <div layout="row" layout-align="start center">
-        <md-button class="md-icon-button" aria-label="Notification" ng-click="openNotifications($mdOpenMenu, $event)">
+        <md-button class="md-icon-button" aria-label="Notification" ng-click="openNotifications()">
           <md-icon md-menu-origin class="swing" md-svg-icon="/dist/icons/ic_notifications_active_white_24px.svg"></md-icon>
         </md-button>
         <h4 class="md-title">Notificaciones</h4>

@@ -207,22 +207,23 @@
             {
               // al confirmarse, pusheo el mensaje que envie
               console.log(data);
-              $scope.messages.push(
-              {
-                text: $scope.newMessage,
-                location: data.location,
-                dateTime: data.dateTime,
-                votes: data.votes,
-                // distance: value.dis.toFixed(2),
-                qtyComments: data.comments.length,
-                author: data.author,
-                avatar: 'http://graph.facebook.com/'+data.author.facebook.id+'/picture',
-                id: data._id
-              });
+              // $scope.messages.push(
+              // {
+              //   text: $scope.newMessage,
+              //   location: data.location,
+              //   dateTime: data.dateTime,
+              //   votes: data.votes,
+              //   // distance: value.dis.toFixed(2),
+              //   qtyComments: data.comments.length,
+              //   author: data.author,
+              //   avatar: 'http://graph.facebook.com/'+data.author.facebook.id+'/picture',
+              //   id: data._id
+              // });
+              // lastServerData.push();
               $mdToast.show(
                  $mdToast.simple()
                    .content('Mensaje enviado exitosamente!')
-                   .hideDelay(5000)
+                   .hideDelay(3000)
                );
               $mdDialog.hide();
             })

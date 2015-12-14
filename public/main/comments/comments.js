@@ -155,13 +155,13 @@ angular.module('yelling.comments', ['ui.router', 'ngMaterial', 'ngMessages', 'ui
                 datetime: comment.dateTime,
                 author: comment.author
               }
-              $scope.comments.push(newComment);
-                console.log(comment);
-                $mdToast.show(
-                   $mdToast.simple()
-                     .content('Comentario enviado exitosamente!')
-                     .hideDelay(5000)
-                 );
+              // $scope.comments.push(newComment);
+              //   console.log(comment);
+              //   $mdToast.show(
+              //      $mdToast.simple()
+              //        .content('Comentario enviado exitosamente!')
+              //        .hideDelay(5000)
+              //    );
                 $mdDialog.hide();
               })
 
@@ -193,7 +193,7 @@ angular.module('yelling.comments', ['ui.router', 'ngMaterial', 'ngMessages', 'ui
         timer = $timeout(function()
         {
           console.log( "Timeout executed", Date.now() );
-        },5000);
+        },3000);
 
 
         timer.then(function()

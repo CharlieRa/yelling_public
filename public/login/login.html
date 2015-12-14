@@ -1,13 +1,26 @@
-<div class="home" ng-controller="loginCtrl" style="height:100%">
-  <div layout="column" layout-align="center center" layout-wrap layout-padding>
-      <h1 class="md-display-3" flex>Bienvenido A Yelling</h1>
-      <div  flex>
-        <img class="md-raised md-whiteframe-z5 zoomIn" id="mainLogo" src="dist/img/logos/mainLogo1.png" alt="">
+<div layout="column" layout-align="center center" class="login">
+  <md-card style="min-width:200px;max-width:450px; width: 80%;">
+    <md-toolbar class="md-whiteframe-z3" style="min-height: 55px;">
+     <div class="md-toolbar-tools">
+       <h3>
+         <span>Login</span>
+       </h3>
+     </div>
+   </md-toolbar>
+    <div layout="column" layout-align="center center" layout-padding layout-margin>
+      <img class="md-raised md-whiteframe-z4" id="mainLogoLogin" src="dist/img/logos/mainLogo1.png" alt="">
+      <h3 class="md-headline">Yelling!</h3>
+      <div layout="column" layout-align="start center">
+        <span flex>
+          Haz click en el botón para empezar a utilizar Yelling!
+        </span>
       </div>
-      <h4 class="md-display-1" flex>Web application for public messaging by zone.</h4>
+      <div layout="row" layout-align="center center">
       <md-button ng-click="loginOauth('facebook')" class="md-raised md-primary fbBtn md-whiteframe-z4" layout="row" layout-align="center center" flex>
         <md-icon class="md-12" md-svg-icon="dist/icons/fb.svg"></md-icon>
-        <span id="fbText">Ingresar con Facebook</span>
+        <span hide-sm id="fbText" flex>Login con Facebook</span>
       </md-button>
-  </div>
+      </div>
+    </div>
+  </md-card>
 </div>

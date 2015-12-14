@@ -13,13 +13,22 @@ angular
     'ngCookies',
     '$feedback.directives',
     'ngResource', 'ngAnimate'])
-  .config(function($urlRouterProvider, $locationProvider, $httpProvider)
+  .config(function($urlRouterProvider, $locationProvider, $httpProvider, $stateProvider)
   {
     $urlRouterProvider.otherwise('/');
   //   $locationProvider.html5Mode({
   //     enabled: true,
-  //     requireBase: false
-  // });
+  //     requireBase: true
+  // })
+  // .config(function($stateProvider)
+  //   {
+  //     $stateProvider
+  //       .state('login', {
+  //         url: '/login',
+  //         templateUrl: 'login/login.html',
+  //         controller: 'loginCtrl'
+  //       })
+  //   });
   //   $locationProvider.hashPrefix('!');
     $httpProvider.interceptors.push('authInterceptor');
   })
@@ -36,6 +45,7 @@ angular
 
       // Intercept 401s and redirect you to login
       responseError: function(response) {
+        console.log("hola");
         if(response.status === 401) {
           $location.path('/login');
           // remove any stale tokens
@@ -49,13 +59,19 @@ angular
       }
     };
   })
-  .run(function ($rootScope, $location, Auth) {
+  .run(function ($rootScope, $location, Auth, $state) {
     // Redirect to login if route requires auth and you're not logged in
     $rootScope.$on('$stateChangeStart', function (event, next) {
+      // $rootScope.$on('$stateChangeSuccess', function (event, next) {
+      console.log("siguiente: ", next);
+      console.log("cambiando..");
       Auth.isLoggedInAsync(function(loggedIn) {
+        console.log(next.authenticate);
+        console.log(!loggedIn);
         if (next.authenticate && !loggedIn) {
-          event.preventDefault();
-          $location.path('/login');
+          console.log("lalalaallalaalla");
+            $state.go("login");
+            event.preventDefault();
         }
       });
     });
