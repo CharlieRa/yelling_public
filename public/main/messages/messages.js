@@ -47,7 +47,7 @@
             function(positionError)
             {
               errorGeo(positionError);
-            });
+            }, {timeout:5000});
           }else
           {
             $scope.$apply(function()
