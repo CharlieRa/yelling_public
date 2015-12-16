@@ -144,12 +144,12 @@ exports.show = function(req, res) {
     if(err) { return handleError(res, err); }
     if(!post) { return res.status(404).send('Not Found'); }
       async.map(post.comments, function popular(comment,callback){
-        console.log('Buscando comentario con id', comment._id);
+        // console.log('Buscando comentario con id', comment._id);
         Comment
           .findById(comment._id)
           .populate('author')
           .exec(function(err,commentPopulated){
-            console.log('Retornando', commentPopulated);
+            // console.log('Retornando', commentPopulated);
             callback(null,commentPopulated);
           });
         

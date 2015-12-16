@@ -14,6 +14,7 @@ module.exports = function(app) {
   app.use('/api/comments', require('./api/comment'));
   app.use('/api/posts', require('./api/post'));
   app.use('/api/users', require('./api/user'));
+  app.use('/api/notifications', require('./api/notification'));
 
   app.use('/auth', require('./auth'));
   
