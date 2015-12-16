@@ -2,6 +2,7 @@
 
 angular
   .module('yelling',[
+    'btford.socket-io',
     'ui.router',
     'yelling.login',
     'yelling.messages',

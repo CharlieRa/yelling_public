@@ -50,22 +50,42 @@ angular
       }
     }
   })
-  .controller('mainCtrl', function ($scope, $state,$location, Auth, $mdSidenav, uiGmapGoogleMapApi, User ,$mdDialog) {
-    $scope.sayHello = function(){
-      console.log("hola");
-    };
-    // $scope.notifications = [
-    //   {user: 'Charles', message: 'Sale Pilsen?', data:'Fecha: 12-12-2015' },
-    //   {user: 'Charles', message: 'Sale Pilsen?', data:'Fecha: 12-12-2015' },
-    //   {user: 'Charles', message: 'Sale Pilsen?', data:'Fecha: 12-12-2015' },
-    //   {user: 'Charles', message: 'Sale Pilsen?', data:'Fecha: 12-12-2015' },
-    //   {user: 'Charles', message: 'Sale Pilsen?', data:'Fecha: 12-12-2015' },
-    //   {user: 'Charles', message: 'Sale Pilsen?', data:'Fecha: 12-12-2015' },
-    // ];
+  .controller('mainCtrl', function ($scope, $state,$location, Auth, $mdSidenav, uiGmapGoogleMapApi, User ,$mdDialog, $mdToast, $rootScope, socket) {
+    socket.notifications();
+
+    $rootScope.notifications = [
+      {user: 'Charles', message: 'Sale Pilsen?', data:'Fecha: 12-12-2015' },
+      {user: 'Charles', message: 'Sale Pilsen?', data:'Fecha: 12-12-2015' },
+      {user: 'Charles', message: 'Sale Pilsen?', data:'Fecha: 12-12-2015' },
+      {user: 'Charles', message: 'Sale Pilsen?', data:'Fecha: 12-12-2015' },
+      {user: 'Charles', message: 'Sale Pilsen?', data:'Fecha: 12-12-2015' },
+      {user: 'Charles', message: 'Sale Pilsen?', data:'Fecha: 12-12-2015' },
+    ];
     $state.transitionTo('main.messages');
 
     $scope.mapOptions = { center: { latitude: -33.447487 , longitude: -70.673676  }, zoom: 8 };
     $scope.currentUser = User.get();
+
+    // $scope.$on('event', function(event, userId)
+    // {
+    //   console.log(userId);
+    // });
+
+    $scope.notificationToast = function() {
+      $mdToast.show({
+        controller: 'ToastCtrl',
+        template:'<md-toast class="pointer" style="background-color: #16a085;"> \
+                    <md-button ng-click="showActionToast()">\
+                      Nuevo comentario en uno de tus Post!\
+                    </md-button>\
+                    <md-button ng-click="closeToast()">\
+                      Cerrar\
+                    </md-button>\
+                  </md-toast>',
+        hideDelay: 2000,
+        position: 'top right'
+      });
+    };
 
     if (navigator.geolocation)
     {
@@ -94,6 +114,9 @@ angular
       Auth.logout();
       $location.path('/login');
     };
+    $scope.yelling = function() {
+      $state.transitionTo('main.messages');
+    };
     $scope.isActive = function(route) {
       return route === $location.path();
     };
@@ -111,5 +134,39 @@ angular
     };
     $scope.closeNotifications = function() {
       $mdSidenav('right').close()
+    };
+  })
+  .controller('ToastCtrl', function($scope, $mdToast, $state, $rootScope) {
+    $scope.closeToast = function() {
+      $mdToast.hide();
+    };
+
+    $scope.showActionToast = function() {
+      $state.go('main.comments', {id: '5670caffc36b80f54793c8f5'});
+      $mdToast.hide();
+      console.log($rootScope.notifications);
+    };
+
+    $scope.getNotifications = function(userId)
+    {
+      if(userId === undefined)
+        return false;
+      else{
+        $http.post('/api/notifications',{
+          content : userId
+        })
+        .success(function(data, status, headers, config)
+        {
+          console.log(data);
+          if(data.length == 0)
+          {
+            console.log("no hay notificaciones");
+          }
+        })
+        .error(function(data, status, headers, config)
+        {
+          console.log("error al obtener notificaiones");
+        });
+      }
     };
   });

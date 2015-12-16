@@ -10,7 +10,7 @@
       </div>
     </md-toolbar>
     <md-list ng-cloak>
-      <md-list-item ng-click="logout()">
+      <md-list-item ng-click="yelling()">
         <img class="png-icon" src="/dist/img/logos/mainLogo1.png" style="width: 24px; height: 24px;border-radius:50%;margin: 16px 32px 12px 0;">
         <p>Yelling!</p>
       </md-list-item>
@@ -45,6 +45,9 @@
         <md-button ui-sref="main.feedbacks" aria-label="Menu">
           Feedback
         </md-button>
+        <!-- <md-button ng-click="notificationToast()" aria-label="Menu">
+          showActionToast
+        </md-button> -->
         <md-button class="md-icon-button" aria-label="Notification" ng-click="openNotifications($mdOpenMenu, $event)">
           <md-icon md-menu-origin class="swing" md-svg-icon="/dist/icons/ic_notifications_active_white_24px.svg"></md-icon>
         </md-button>

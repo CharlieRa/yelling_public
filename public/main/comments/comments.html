@@ -5,20 +5,18 @@
     <md-progress-circular flex md-mode="indeterminate"></md-progress-circular>
   </div>
   <!-- Tarjeta con la info del mensaje que se esta leyendo -->
-  <div layout="row" ng-if="toggle.comments">
+  <div layout="row" ng-if="toggle.comments" ng-class="{'animated fadeInDown':toggle.comments}">
     <md-card flex class="md-whiteframe-3dp">
       <md-card-content layout="row" layout-fill layout-align="space-between center">
         <div layout="row">
-          <div layout="column" layout-align="center center">
+          <div layout="column" layout-align="center center" layout-padding>
             <img class="md-whiteframe-2dp" ng-src="http://graph.facebook.com/{{message.author.facebook.id}}/picture" alt="avatar" style="width: 100px;border-radius:10px; height: 100px"/>
             <h3 class="md-body-2 no-margin">{{message.author.facebook.first_name}}</h3>
           </div>
           <div layout="column">
             <div layout="row">
-              <h4 class="md-body-1 no-margin"><span hide-sm>Fecha mensaje:</span> {{message.datetime | date:'d MMM, y' }}-</h4>
-              <h4 class="md-body-1 no-margin"><span hide-sm>Hora mensaje:</span>  {{message.datetime | date:' HH:mm:ss' }}-</h4>
-              <h4 class="md-body-1 no-margin"><span hide-sm>Votes:</span>        {{message.votes}}-</h4>
-              <h4 class="md-body-1 no-margin"><span hide-sm>Comentarios:</span> {{message.qtyComments}}</h4>
+              <h4 class="md-body-1 no-margin">{{message.datetime | date:'d MMM, y' }} - </h4>
+              <h4 class="md-body-1 no-margin">{{message.datetime | date:' HH:mm:ss' }} </h4>
             </div>
             <h3 class="md-body-2 no-margin">Mensaje: </h3>
             <p class="no-margin">{{message.content}}</p>
@@ -32,15 +30,15 @@
   </div>
 
   <!-- Tarjetas con comentarios -->
-  <div layout="row" ng-if="toggle.comments" ng-repeat="comment in comments">
+  <div layout="row" ng-if="toggle.comments" ng-class="{'animated fadeInUp':toggle.comments}" ng-repeat="comment in comments">
     <md-card class="md-whiteframe-1dp" flex>
       <md-card-content  layout="row" layout-padding>
         <div layout="column" flex="7" layout-align="center center">
           <img class="md-whiteframe-2dp" ng-src="{{comment.avatar}}" alt="avatar" style="height:60px;border-radius:10px;"/>
           <h4 class="md-body-2 no-margin">{{comment.author.facebook.first_name }}</h4>
         </div>
-        <div layout="column" layout-align="space-around start" flex>
-          <div layout="row" layout-align="space-around start">
+        <div layout="column" flex>
+          <div layout="row" layout-align="start start">
             <p class="md-caption no-margin"><span hide-sm>Fecha mensaje:</span>{{comment.datetime | date:'d MMM, y' }}</p>
             <p class="md-caption no-margin"><span hide-sm> - Hora mensaje:</span>{{comment.datetime | date:' HH:mm:ss' }}</p>
           </div>

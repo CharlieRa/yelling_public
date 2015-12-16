@@ -92,6 +92,25 @@ $url_1: url('/dist/img/backgrounds/bgchat.png');
   animation: fadeInUp 1s;
 }
 
+.fadeInDown.ng-enter{
+	-webkit-animation: fadeInDown 1s;
+  -moz-animation: fadeInDown 1s;
+  -ms-animation: fadeInDown 1s;
+  animation: fadeInDown 1s;
+}
+.fadeInDown.ng-leave{
+	-webkit-animation: bounceOutRight 1s;
+  -moz-animation: bounceOutRight 1s;
+  -ms-animation: bounceOutRight 1s;
+  animation: bounceOutRight 1s;
+}
+.fadeInUp.ng-leave{
+	-webkit-animation: bounceOutRight 1s;
+  -moz-animation: bounceOutRight 1s;
+  -ms-animation: bounceOutRight 1s;
+  animation: bounceOutRight 1s;
+}
+
 .fadeInUpBig.ng-enter{
 	-webkit-animation: fadeInUpBig 1s;
   -moz-animation: fadeInUpBig 1s;
@@ -165,6 +184,9 @@ $url_1: url('/dist/img/backgrounds/bgchat.png');
 /**
  * Estilos aplicados a toda la app
 */
+.pointer {
+	cursor: pointer;
+}
 .no-margin{
 	margin: 0;
 }

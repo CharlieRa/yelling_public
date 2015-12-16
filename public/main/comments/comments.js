@@ -55,6 +55,7 @@ angular.module('yelling.comments', ['ui.router', 'ngMaterial', 'ngMessages', 'ui
       if(data.comments.length == 0){
 
         $scope.comments.push({
+          id: 'mensajeBienvenida',
           content: 'Aún no existen comentarios, tu puedes ser el primero!. Escribe un comentario presionando el boton con el ícono + del fondo.',
           datetime: new Date(),
           author: 'Yelling',
@@ -150,11 +151,14 @@ angular.module('yelling.comments', ['ui.router', 'ngMaterial', 'ngMessages', 'ui
             // $http.post('http://54.207.86.25/api/comments', newComment)
             $http.post('/api/comments', newComment)
             .success(function(comment) {
-              var newComment = {
-                content: comment.content,
-                datetime: comment.dateTime,
-                author: comment.author
+              if($scope.comments[0]['id'] == 'mensajeBienvenida'){
+                $scope.comments.splice(0, 1);
               }
+              // var newComment = {
+              //   content: comment.content,
+              //   datetime: comment.dateTime,
+              //   author: comment.author
+              // }
               // $scope.comments.push(newComment);
               //   console.log(comment);
               //   $mdToast.show(
@@ -215,7 +219,13 @@ angular.module('yelling.comments', ['ui.router', 'ngMaterial', 'ngMessages', 'ui
             /* Se verifica si tiene comentarios, si no tiene se coloca mensaje por defecto */
               angular.forEach(result, function(value, key)
               {
-                $scope.comments.push({
+                // $scope.comments.push({
+                //   content: value.content,
+                //   datetime: value.dateTime,
+                //   author: value.author,
+                //   avatar: "http://graph.facebook.com/"+value.author.facebook.id+"/picture?type=large"
+                // });
+                $scope.comments.unshift({
                   content: value.content,
                   datetime: value.dateTime,
                   author: value.author,

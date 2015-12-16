@@ -13,7 +13,7 @@
 
   <!-- Div con los mensajes cercano al usuario -->
   <md-content flex class="messagesContent" ng-if="toggle.yelling" scroll-bottom="messages">
-    <md-card class="md-whiteframe-3dp" ng-class="{'animated fadeInUp':toggle.yelling}" ui-sref="main.comments({id: '{{message.id}}'})" ng-if="toggle.yelling" ng-repeat="message in messages" scroll-bottom="messages" style="cursor:pointer">
+    <md-card class="md-whiteframe-3dp" ng-class="{'animated fadeInDown':toggle.yelling}" ui-sref="main.comments({id: '{{message.id}}'})" ng-if="toggle.yelling" ng-repeat="message in messages" scroll-bottom="messages" style="cursor:pointer">
       <md-card-content  layout="row" layout-padding>
         <div layout="column" flex="7" layout-align="center center">
           <img class="cardAvatar md-whiteframe-2dp" ng-src="{{message.avatar}}" alt="avatar"/>

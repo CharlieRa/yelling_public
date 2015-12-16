@@ -94,6 +94,7 @@
           {
             var currentDatetime = new Date();
             $scope.messages.push({
+              id: 'mensajeBienvenida',
               text: 'Bienvenido, aún no hay mensajes en esta zona, Se el primero!. Escribe algo divertido para empezar.',
               location: $rootScope.positionActual,
               dateTime: currentDatetime,
@@ -211,6 +212,9 @@
             {
               // al confirmarse, pusheo el mensaje que envie
               console.log(data);
+              if($scope.messages[0]['id'] == 'mensajeBienvenida'){
+                $scope.messages.splice(0, 1);
+              }
               // $scope.messages.push(
               // {
               //   text: $scope.newMessage,
@@ -253,7 +257,7 @@
         timer = $timeout(function()
         {
           console.log( "Timeout executed", Date.now() );
-        },5000);
+        },2500);
 
         timer.then(function()
         {
@@ -275,7 +279,7 @@
             {
               value.obj.location[0] = value.obj.location[0].toFixed(7);
               value.obj.location[1] = value.obj.location[1].toFixed(7);
-              $scope.messages.push({
+              $scope.messages.unshift({
                 text: value.obj.content,
                 location: value.obj.location,
                 dateTime: value.obj.dateTime,
