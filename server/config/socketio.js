@@ -5,19 +5,40 @@
 'use strict';
 
 var config = require('./environment');
-
+var socketUser = {};
 // When the user disconnects.. perform this
 function onDisconnect(socket) {
+
+  socket.leave();
+  console.log('Se desconecta usuario', socket.id);
+  console.log('socketUser array : ', socketUser);
 }
 
 // When the user connects.. perform this
-function onConnect(socket) {
+function onConnect(socket, io) {
+
+  
+
   // When the client emits 'info', this listens and executes
-  socket.on('info', function (data) {
-    console.info('[%s] %s', socket.address, JSON.stringify(data, null, 2));
+  socket.on('login', function (user) {
+    console.log('[Socket - Login] Llego usuario id:', user._id);
+    if (socketUser[user._id]) {
+      socketUser[user._id].push(socket.id);
+    }else{
+      socketUser[user._id] = [];
+      socketUser[user._id].push(socket.id);
+    }
+    
+    socket.join(user._id);
+    // io.in(user._id).emit('notification','wena');
+
   });
 
+
   // Insert sockets below
+  require('../api/notification/notification.socket').register(socket);
+  require('../api/feedback/feedback.socket').register(socket);
+  require('../api/comment/comment.socket').register(socket,io);
   require('../api/post/post.socket').register(socket);
 }
 
@@ -36,7 +57,7 @@ module.exports = function (socketio) {
   //   secret: config.secrets.session,
   //   handshake: true
   // }));
-
+  var io = socketio;
   socketio.on('connection', function (socket) {
     socket.address = socket.handshake.address !== null ?
             socket.handshake.address.address + ':' + socket.handshake.address.port :
@@ -47,11 +68,11 @@ module.exports = function (socketio) {
     // Call onDisconnect.
     socket.on('disconnect', function () {
       onDisconnect(socket);
-      console.info('[%s] DISCONNECTED', socket.address);
+      console.info('[%s] DISCONNECTED', socket.client.conn.id);
     });
 
     // Call onConnect.
-    onConnect(socket);
-    console.info('[%s] CONNECTED', socket.address);
+    onConnect(socket, io);
+    console.info('[%s] CONNECTED CLIENT', socket.client.conn.id);
   });
 };
